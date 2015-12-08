@@ -70,8 +70,16 @@ public class Camera_Movement : MonoBehaviour {
 
 
 
-        float RightStick_yAxis = state.ThumbSticks.Right.Y;
+        float RightStick_yAxis = 0f;
 
+        if(state.IsConnected)
+        {
+            RightStick_yAxis = state.ThumbSticks.Right.Y;
+        }
+        else
+        {
+            RightStick_yAxis = Input.GetAxis("Mouse Y");
+        }
 
         //transform.Rotate(m_rotationXAxis, RightStick_yAxis * LookSpeed_mulitplier);
         m_Angle += RightStick_yAxis * LookSpeed_mulitplier;
