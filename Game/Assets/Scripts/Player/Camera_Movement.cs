@@ -70,16 +70,16 @@ public class Camera_Movement : MonoBehaviour {
 
 
 
-        float RightStick_yAxis = 0f;
+        float RightStick_yAxis;
 
-        if(state.IsConnected)
-        {
-            RightStick_yAxis = state.ThumbSticks.Right.Y;
-        }
-        else
+        
+        RightStick_yAxis = state.ThumbSticks.Right.Y;
+
+        if (Mathf.Abs(RightStick_yAxis) < Mathf.Abs(Input.GetAxis("Mouse Y")))
         {
             RightStick_yAxis = Input.GetAxis("Mouse Y");
         }
+        
 
         //transform.Rotate(m_rotationXAxis, RightStick_yAxis * LookSpeed_mulitplier);
         m_Angle += RightStick_yAxis * LookSpeed_mulitplier;
@@ -98,7 +98,7 @@ public class Camera_Movement : MonoBehaviour {
         if (Camera_object != null)
         {
 
-            if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+            if ((prevState.Buttons.Y == ButtonState.Released && state.Buttons.Y == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.V))
             {
 
                 if (m_zoomedIn)

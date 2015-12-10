@@ -26,7 +26,7 @@ public class Mission : MonoBehaviour {
 		if(mission_active)
 		{
 			time_remaining -= Time.deltaTime;
-			if(time == 0)
+            if (time_remaining == 0)
 			{
 				EndMission();
 			}
@@ -41,7 +41,7 @@ public class Mission : MonoBehaviour {
 			//if restart pressed - restart
 			//else if back to base pressed - teleport back to base
 		}
-		else if(mission_win)
+        else if (mission_won)
 		{
 			//display victory screen
 			//teleport back to base ship after x seconds or if skip key pressed
@@ -81,6 +81,7 @@ public class Mission : MonoBehaviour {
 	//override this function in your mission type
 	public bool CheckWin()
 	{
+        return mission_won;
 	}
 
 	//override this function in your mission type

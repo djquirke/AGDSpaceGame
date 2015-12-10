@@ -418,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0681fa43ba27c6940b833e044e2fd764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed_mulitplier: 10
 --- !u!1 &1163070673
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +460,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e46160f4d2893d4db5cffb89cc51f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LookSpeed_mulitplier: 5
+  max_Vertical_Angle: 90
+  min_Vertical_Angle: 0
+  Close_Zoom_Dist: 5
+  Far_Zoom_Dist: 20
+  Camera_object: {fileID: 1853947032}
 --- !u!1 &1412040800
 GameObject:
   m_ObjectHideFlags: 0

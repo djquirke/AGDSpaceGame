@@ -40,8 +40,8 @@ public class MissionManager : MonoBehaviour {
 		switch (x)
 		{
 			case 0:
-				MissionEngineering new_mission = new MissionEngineering();
-				new_mission.Initialise();
+                //MissionEngineering new_mission = new MissionEngineering();
+                //new_mission.Initialise();
 				break;
 			case 1:
 				//illness
@@ -55,7 +55,7 @@ public class MissionManager : MonoBehaviour {
 				break;
 		}
 
-		avail_missions.Add(new_mission);
+		//avail_missions.Add(new_mission);
 	}
 
 	void StartMission()
