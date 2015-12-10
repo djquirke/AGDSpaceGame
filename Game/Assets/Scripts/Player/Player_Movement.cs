@@ -14,10 +14,10 @@ public class Player_Movement : MonoBehaviour {
 
     private Vector3 m_rotationAxis;
 
-    private GamePadState state;
-    private GamePadState prevState;
-    private PlayerIndex playerIndex;
-    private bool playerIndexSet = false;
+    private GamePadState m_gpState;
+    private GamePadState m_gpPrevState;
+    private PlayerIndex m_PlayerIndex;
+    private bool m_bPlayerIndexSet = false;
 
 
 	// Use this for initialization
@@ -33,7 +33,7 @@ public class Player_Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!playerIndexSet || !prevState.IsConnected)
+        if (!m_bPlayerIndexSet || !m_gpPrevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -42,17 +42,17 @@ public class Player_Movement : MonoBehaviour {
                 if (testState.IsConnected)
                 {
                     Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
-                    playerIndex = testPlayerIndex;
-                    playerIndexSet = true;
+                    m_PlayerIndex = testPlayerIndex;
+                    m_bPlayerIndexSet = true;
                 }
             }
         }
 
-        prevState = state;
-        state = GamePad.GetState(playerIndex);
+        m_gpPrevState = m_gpState;
+        m_gpState = GamePad.GetState(m_PlayerIndex);
 
-        float LeftStick_xAxis = state.ThumbSticks.Left.X;
-        float LeftStick_yAxis = state.ThumbSticks.Left.Y;  
+        float LeftStick_xAxis = m_gpState.ThumbSticks.Left.X;
+        float LeftStick_yAxis = m_gpState.ThumbSticks.Left.Y;  
     
         if(Input.GetKey(KeyCode.W))
         {
@@ -71,11 +71,11 @@ public class Player_Movement : MonoBehaviour {
             LeftStick_xAxis = -1;
         }
 
-        if ((prevState.Buttons.RightShoulder == ButtonState.Released && state.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.Q))
+        if ((m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.Q))
         {
             transform.Rotate(m_rotationAxis, 90);
         }
-        else if ((prevState.Buttons.LeftShoulder == ButtonState.Released && state.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.E))
+        else if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.E))
         {
             transform.Rotate(m_rotationAxis, -90);
         }
