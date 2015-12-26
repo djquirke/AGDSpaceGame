@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using XInputDotNetPure;
 
-public class QuickTimeEvent : MonoBehaviour {
+public class QuickTimeEvent : EventBase {
     public enum ControllerInput
     {
         Y,
@@ -12,15 +12,13 @@ public class QuickTimeEvent : MonoBehaviour {
         B,
         RB,
         LB,
-        RT,
-        LT,
         D_HatDown,
         D_HatUp,
         D_HatLeft,
         D_HatRight,
         LeftStick,
         Rightstick,
-		Num_of_Buttons
+        Num_of_Buttons
     };
 
     public List<KeyCode>  m_KeyList = new List<KeyCode>();
@@ -32,12 +30,16 @@ public class QuickTimeEvent : MonoBehaviour {
 	public bool m_IsRandomButtons = false;
     public int m_Number_of_events = 0;
 
+    public Vector2 m_UI_Pos = new Vector2(0.5f,0.5f);
+    public Vector2 m_UI_Size = new Vector2(256f, 50f);
+
 
 	private bool m_isActive = false;
 
     private List<KeyCode> m_ActiveKeyList = new List<KeyCode>();
     private List<ControllerInput> m_ActiveButtonList = new List<ControllerInput>();
 
+    
     private float m_fTimePassed = 0f;
 
 
@@ -123,25 +125,35 @@ public class QuickTimeEvent : MonoBehaviour {
 
 		if (m_isActive ) 
 		{
-           // if(m_gpState.isConnected && m_ButtonList.Count >0)
+            if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
             {
                 if (m_fTimePassed < TimeBetweenEvents)
                   {
-                     // m_gpState.
+                      if (CheckControllerButton(m_ActiveButtonList[0]))
+                    {
+                        m_ActiveButtonList.RemoveAt(0);
+                    }
                   }
                   else
                   {
-
+                    // missed do something
                   }
             }
-            //else if(m_KeyList.Count >0)
+            else if (m_ActiveKeyList.Count > 0)
             {
                 if (m_fTimePassed < TimeBetweenEvents)
                 {
-			        //if(Input.GetKeyDown(m_));
+                    if (Input.GetKeyDown(m_ActiveKeyList[0]))
+                    {
+                        m_ActiveKeyList.RemoveAt(0);
+                    }
+                }
+                else
+                {
+                    // missed do somthing
                 }
             }
-            //else
+            else
             {
                 m_isActive = false;
                 m_fTimePassed = 0f;
@@ -164,4 +176,131 @@ public class QuickTimeEvent : MonoBehaviour {
 	{
 		return  m_isActive;
 	}
+
+    private bool CheckControllerButton(ControllerInput CorrectInput)
+    {
+        if(!m_gpState.IsConnected)
+        {
+            return false;
+        }
+
+        bool bCorrect = false;
+        
+        switch(CorrectInput)
+        {
+            case(ControllerInput.Y):
+                if(m_gpPrevState.Buttons.Y == ButtonState.Released && m_gpState.Buttons.Y == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.X):
+                if (m_gpPrevState.Buttons.X == ButtonState.Released && m_gpState.Buttons.X == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.A):
+                if (m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.B):
+                if (m_gpPrevState.Buttons.B == ButtonState.Released && m_gpState.Buttons.B == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.RB):
+                if (m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.LB):
+                if (m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.D_HatDown):
+                if (m_gpPrevState.DPad.Down == ButtonState.Released && m_gpState.DPad.Down == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.D_HatLeft):
+                if (m_gpPrevState.DPad.Left == ButtonState.Released && m_gpState.DPad.Left == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.D_HatRight):
+                if (m_gpPrevState.DPad.Right == ButtonState.Released && m_gpState.DPad.Right == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.D_HatUp):
+                if (m_gpPrevState.DPad.Up == ButtonState.Released && m_gpState.DPad.Up == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.LeftStick):
+                if (m_gpPrevState.Buttons.LeftStick == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (ControllerInput.Rightstick):
+                if (m_gpPrevState.Buttons.RightStick == ButtonState.Released && m_gpState.Buttons.RightStick == ButtonState.Pressed)
+                {
+                    bCorrect = true;
+                }
+                break;
+
+        }
+
+        return bCorrect;
+
+    }
+
+    void OnGUI()
+    {
+        if (m_isActive)
+        {
+            if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
+            {
+               GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
+                                Camera.main.GetScreenHeight() * m_UI_Pos.y,
+                                m_UI_Size.x, m_UI_Size.y), "");
+            }
+            else if (m_KeyList.Count > 0)
+            {
+               GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
+                                Camera.main.GetScreenHeight() * m_UI_Pos.y,
+                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveKeyList[0]);
+            }
+            
+        }
+    }
+
+   virtual public void Activate(bool activate = true)
+    {
+       // if it is not active reset the lists
+        if (m_isActive)
+        {
+            m_ActiveButtonList = m_ButtonList;
+            m_ActiveKeyList = m_KeyList;
+        }
+
+        m_isActive = activate;
+    }
+    //private string GetButtonString(ControllerInput)
+    //{
+
+    //}
+
 }

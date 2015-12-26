@@ -20,10 +20,10 @@ public class Camera_Movement : MonoBehaviour {
     private float m_Angle;
     private bool m_zoomedIn = false;
 
-    private GamePadState state;
-    private GamePadState prevState;
-    private PlayerIndex playerIndex;
-    private bool playerIndexSet = false;
+    private GamePadState m_gpState;
+    private GamePadState m_gpPrevState;
+    private PlayerIndex m_PlayerIndex;
+    private bool m_PlayerIndexSet = false;
 
 	// Use this for initialization
 	void Start () {
@@ -49,7 +49,7 @@ public class Camera_Movement : MonoBehaviour {
     void Update()
     {
 
-        if (!playerIndexSet || !prevState.IsConnected)
+        if (!m_PlayerIndexSet || !m_gpPrevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -58,14 +58,14 @@ public class Camera_Movement : MonoBehaviour {
                 if (testState.IsConnected)
                 {
                     Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
-                    playerIndex = testPlayerIndex;
-                    playerIndexSet = true;
+                    m_PlayerIndex = testPlayerIndex;
+                    m_PlayerIndexSet = true;
                 }
             }
         }
 
-        prevState = state;
-        state = GamePad.GetState(playerIndex);
+        m_gpPrevState = m_gpState;
+        m_gpState = GamePad.GetState(m_PlayerIndex);
 
 
 
@@ -73,7 +73,7 @@ public class Camera_Movement : MonoBehaviour {
         float RightStick_yAxis;
 
         
-        RightStick_yAxis = state.ThumbSticks.Right.Y;
+        RightStick_yAxis = m_gpState.ThumbSticks.Right.Y;
 
         if (Mathf.Abs(RightStick_yAxis) < Mathf.Abs(Input.GetAxis("Mouse Y")))
         {
@@ -98,7 +98,7 @@ public class Camera_Movement : MonoBehaviour {
         if (Camera_object != null)
         {
 
-            if ((prevState.Buttons.Y == ButtonState.Released && state.Buttons.Y == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.V))
+            if ((m_gpPrevState.Buttons.Y == ButtonState.Released && m_gpState.Buttons.Y == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.V))
             {
 
                 if (m_zoomedIn)
