@@ -1,24 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum MissionType
+public enum MissionType
 {
 	OXYGEN,
 	ENGINEERING,
 	ILLNESS
 }
 
-public class Mission : MonoBehaviour {
+public enum Difficulty
+{
+	Easy, //1 minigame per level
+	Medium, //2 minigame per level
+	Hard, //3 minigame per level
+	Insane //4 minigame per level
+}
 
+public class Mission : MonoBehaviour {
+	private SubGameMap level_map;
 	private float time_remaining = 300;
 	private bool mission_lost = false;
 	private bool mission_won = false;
 	private bool mission_active = false;
-	private int array_idx, minigames, minigames_complete = 0;
+	private int array_idx, minigames, minigames_complete = 0, minigames_failed = 0;
+	private MissionType mission_type;
 
 	// Use this for initialization
 	void Start () {
-	
+		level_map = new SubGameMap();
 	}
 	
 	// Update is called once per frame
@@ -47,37 +56,40 @@ public class Mission : MonoBehaviour {
 			//teleport back to base ship after x seconds or if skip key pressed
 		}
 	}
-	
-	public void Initialise(int minigame_count)
-	{
-		minigames = minigame_count;
-		LocalInitialise();
-	}
 
-	//override this function with specific initialisation requirements for your mission type
-	public void LocalInitialise()
+	// TODO: change minigame count to difficulty
+	public void Initialise(MissionType type, int minigame_count)
 	{
+		mission_type = type;
+		minigames = minigame_count;
 	}
 
 	void StartMission(int idx)
 	{
 		//Peter - find out who to take on the mission
 		//display a loading screen
-		//Matt - teleport to location/load mission
+		level_map.GenerateLevel();
+		level_map.GenerateNPCs();
+		//Matt - teleport to location
 		mission_active = true;
 		array_idx = idx;
 
 	}
 
+	//CHECK THIS FOR ERRORS
 	void EndMission()
 	{
-		if(CheckWin())
+		if(AllObjectivesComplete() && time_remaining > 0)
 		{
+			//VICTORY SONG
+			//VICTORY ANIMATION
 			mission_won = true;
 			//modify global stats
 		}
 		else
 		{
+			//DEFEAT SONG
+			//DEFEAT ANIMATION
 			mission_lost = true;
 			//modify global stats
 		}
@@ -87,11 +99,18 @@ public class Mission : MonoBehaviour {
 	public void MinigameComplete()
 	{
 		minigames_complete ++;
-		CheckWin();
+		if(AllObjectivesComplete())
+		{
+			EndMission();
+		}
 	}
 
-	//override this function in your mission type
-	public bool CheckWin()
+	public void MinigameFailed()
+	{
+		minigames_failed ++;
+	}
+	
+	bool AllObjectivesComplete()
 	{
 		if(minigames_complete == minigames)
 		{
