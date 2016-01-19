@@ -26,12 +26,20 @@ public class Event : MonoBehaviour {
 	// Called when a minigame is complete to update the mission manager
 	public void Success()
 	{
-		GameObject.Find("MissionManager").GetComponent<MissionManager>().MinigameComplete();
+        GameObject Mission = GameObject.Find("MissionManager");
+        if (Mission)
+        {
+            Mission.GetComponent<MissionManager>().MinigameComplete();
+        }
 	}
 
 	// Called when a minigame is failed to update the mission manager
 	public void Failure()
 	{
-		GameObject.Find("MissionManager").GetComponent<MissionManager>().MinigameFailed();
+        GameObject Mission = GameObject.Find("MissionManager");
+        if (Mission)
+        {
+            Mission.GetComponent<MissionManager>().MinigameFailed();
+        }
 	}
 }
