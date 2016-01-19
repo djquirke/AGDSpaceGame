@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using XInputDotNetPure;
 
-public class QuickTimeEvent : EventBase {
+public class QuickTimeEvent : Event {
     public enum ControllerInput
     {
         Y,
