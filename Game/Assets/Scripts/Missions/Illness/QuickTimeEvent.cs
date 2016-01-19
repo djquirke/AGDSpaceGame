@@ -166,7 +166,7 @@ public class QuickTimeEvent : Event {
 	
 	}
 
-	public void Activate()
+	public override void Activate()
 	{
 		m_isActive = true;
         m_fTimePassed = 0f;

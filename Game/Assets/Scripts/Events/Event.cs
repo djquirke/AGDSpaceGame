@@ -14,12 +14,12 @@ public class Event : MonoBehaviour {
 	}
 
 	// Override with your event functionality
-	public void Activate()
+	public virtual void Activate()
 	{
 	}
 
 	// may or may not be needed
-	public void Initialise()
+	public virtual void Initialise()
 	{
 	}
 
