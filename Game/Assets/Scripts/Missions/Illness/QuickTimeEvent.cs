@@ -140,7 +140,7 @@ public class QuickTimeEvent : Event {
                     // missed do something
                   }
             }
-            else if (m_ActiveKeyList.Count > 0)
+            else if (!m_gpState.IsConnected && m_ActiveKeyList.Count > 0)
             {
                 if (m_fTimePassed < TimeBetweenEvents)
                 {
@@ -288,7 +288,7 @@ public class QuickTimeEvent : Event {
             {
                GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
                                 Camera.main.GetScreenHeight() * m_UI_Pos.y,
-                                m_UI_Size.x, m_UI_Size.y), "");
+                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveButtonList[0].ToString());
             }
             else if (m_KeyList.Count > 0)
             {

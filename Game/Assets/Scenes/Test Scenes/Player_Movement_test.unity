@@ -644,6 +644,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+      propertyPath: m_ButtonList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -9.46000004
