@@ -22,6 +22,9 @@ public class EngineerMission : Event {
 	//setup pipe minigame
 	public void Initialise()
 	{
+		//initialise board and populate with tiles
+		//jumble up pieces via rotation
+
 	}
 
 	void RunMG()
