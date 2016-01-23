@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using XInputDotNetPure;
 
-public class QuickTimeEvent : EventBase {
+public class QuickTimeEvent : Event {
     public enum ControllerInput
     {
         Y,
@@ -132,6 +132,7 @@ public class QuickTimeEvent : EventBase {
                       if (CheckControllerButton(m_ActiveButtonList[0]))
                     {
                         m_ActiveButtonList.RemoveAt(0);
+                        m_fTimePassed = 0f;
                     }
                   }
                   else
@@ -139,13 +140,14 @@ public class QuickTimeEvent : EventBase {
                     // missed do something
                   }
             }
-            else if (m_ActiveKeyList.Count > 0)
+            else if (!m_gpState.IsConnected && m_ActiveKeyList.Count > 0)
             {
                 if (m_fTimePassed < TimeBetweenEvents)
                 {
                     if (Input.GetKeyDown(m_ActiveKeyList[0]))
                     {
                         m_ActiveKeyList.RemoveAt(0);
+                        m_fTimePassed = 0f;
                     }
                 }
                 else
@@ -155,8 +157,25 @@ public class QuickTimeEvent : EventBase {
             }
             else
             {
+                if(m_ButtonList.Count > 0 && m_ActiveButtonList.Count == 0)
+                {
+                    //win
+                    Success();
+
+                }
+                else if(m_KeyList.Count > 0 && m_ActiveKeyList.Count == 0)
+                {
+                    //win
+                    Success();
+                }
+                else
+                {
+                    //fail
+                    Failure();
+                }
                 m_isActive = false;
                 m_fTimePassed = 0f;
+                FindObjectOfType<Player_Movement>().EnablePlayerMovement();
             }
 
             m_fTimePassed += Time.deltaTime;
@@ -164,12 +183,6 @@ public class QuickTimeEvent : EventBase {
 
 		}
 	
-	}
-
-	public void Activate()
-	{
-		m_isActive = true;
-        m_fTimePassed = 0f;
 	}
 
 	public bool GetisActive()
@@ -275,7 +288,7 @@ public class QuickTimeEvent : EventBase {
             {
                GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
                                 Camera.main.GetScreenHeight() * m_UI_Pos.y,
-                                m_UI_Size.x, m_UI_Size.y), "");
+                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveButtonList[0].ToString());
             }
             else if (m_KeyList.Count > 0)
             {
@@ -287,20 +300,18 @@ public class QuickTimeEvent : EventBase {
         }
     }
 
-   virtual public void Activate(bool activate = true)
+    public override void Activate()
     {
        // if it is not active reset the lists
-        if (m_isActive)
-        {
+       
             m_ActiveButtonList = m_ButtonList;
             m_ActiveKeyList = m_KeyList;
-        }
+        
 
-        m_isActive = activate;
-    }
-    //private string GetButtonString(ControllerInput)
-    //{
+        m_isActive = true;
 
-    //}
-
+        m_fTimePassed = 0f;
+	}
+    
+    
 }

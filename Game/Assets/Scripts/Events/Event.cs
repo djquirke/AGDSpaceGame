@@ -14,24 +14,32 @@ public class Event : MonoBehaviour {
 	}
 
 	// Override with your event functionality
-	public void Activate()
+	public virtual void Activate()
 	{
 	}
 
 	// may or may not be needed
-	public void Initialise()
+	public virtual void Initialise()
 	{
 	}
 
 	// Called when a minigame is complete to update the mission manager
 	public void Success()
 	{
-		GameObject.Find("MissionManager").GetComponent<MissionManager>().MinigameComplete();
+        GameObject Mission = GameObject.Find("MissionManager");
+        if (Mission)
+        {
+            Mission.GetComponent<MissionManager>().MinigameComplete();
+        }
 	}
 
 	// Called when a minigame is failed to update the mission manager
 	public void Failure()
 	{
-		GameObject.Find("MissionManager").GetComponent<MissionManager>().MinigameFailed();
+        GameObject Mission = GameObject.Find("MissionManager");
+        if (Mission)
+        {
+            Mission.GetComponent<MissionManager>().MinigameFailed();
+        }
 	}
 }
