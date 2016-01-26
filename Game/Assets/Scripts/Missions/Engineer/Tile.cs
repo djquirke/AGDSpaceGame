@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public struct Exits
 {
@@ -16,39 +17,23 @@ public struct Exits
 
 public class Tile : MonoBehaviour {
 
-	private Exits flow_exits;
+	protected Exits flow_exits;
 	public bool north, south, east, west;
-	//public Transform camera;
 
 	// Use this for initialization
 	void Start () {
-		//transform.position = new Vector3(camera.position.x, camera.position.y, camera.position.z + 10);
-		//transform.LookAt(camera);
-		//transform.Rotate(0, 180, 0);
-
 		flow_exits = new Exits(north, south, east, west);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		//Debug.Log("north " + flow_exits.north + ", south " + flow_exits.south + ", east " + flow_exits.east + ", west " + flow_exits.west);
-	}
 
-	public void Initialise(Transform transform)
+	public Exits Exit()
 	{
-		this.transform.position = transform.position;
+		return flow_exits;
 	}
 
-	public void MouseClick()
-	{
-		Debug.Log("north " + flow_exits.north + ", south " + flow_exits.south + ", east " + flow_exits.east + ", west " + flow_exits.west);
-		transform.Rotate(0, 0, -90);
-		AdjustExits();
-	}
-
-	void AdjustExits()
+	public void AdjustExits()
 	{
 		Exits temp = new Exits(false, false, false, false);
+
 		if(flow_exits.north)
 		{
 			temp.east = true;
@@ -67,5 +52,18 @@ public class Tile : MonoBehaviour {
 		}
 
 		flow_exits = temp;
+	}
+
+	public void setFlow(bool flow)
+	{
+		Image tile_col = gameObject.GetComponent<Image>();
+		if(flow)
+		{
+			tile_col.color = new Color(0, 0.5f, 0);
+		}
+		else
+		{
+			tile_col.color = new Color(1, 1, 1);
+		}
 	}
 }

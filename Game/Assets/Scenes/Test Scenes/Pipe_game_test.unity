@@ -152,7 +152,7 @@ GameObject:
   - 114: {fileID: 1164375436}
   m_Layer: 5
   m_Name: EMG Canvas
-  m_TagString: Untagged
+  m_TagString: EMG Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,6 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb82c7661bf76204f9b060ecfdbac540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  start_tile: {fileID: 163292, guid: 5dfd6c1a576a8594cb57a0ed376cc5aa, type: 2}
+  end_tile: {fileID: 113568, guid: cf89b10da849b4c469acf2ae867e7027, type: 2}
   TileNE: {fileID: 144048, guid: 8cc6e416ec8f756498cd76dfca7d43be, type: 2}
   TileNES: {fileID: 112576, guid: 9bbcdbd1277fe3f46b88044c37595589, type: 2}
   TileNESW: {fileID: 118086, guid: 73d3dd7d0f2cd79408c2e5c82cd66b0d, type: 2}
