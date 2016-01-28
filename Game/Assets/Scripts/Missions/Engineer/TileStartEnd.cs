@@ -5,16 +5,6 @@ public class TileStartEnd : Tile {
 
 	int height, width;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public void Initialise(int x_pos, int y_pos)
 	{
 		height = y_pos;
