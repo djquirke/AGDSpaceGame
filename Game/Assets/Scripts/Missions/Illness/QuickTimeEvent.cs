@@ -33,12 +33,12 @@ public class QuickTimeEvent : Event {
     public Vector2 m_UI_Pos = new Vector2(0.5f,0.5f);
     public Vector2 m_UI_Size = new Vector2(256f, 50f);
 
+    public List<Texture> m_xBoxButtons = new List<Texture>();
 
 	private bool m_isActive = false;
 
     private List<KeyCode> m_ActiveKeyList = new List<KeyCode>();
     private List<ControllerInput> m_ActiveButtonList = new List<ControllerInput>();
-
     
     private float m_fTimePassed = 0f;
 
@@ -286,9 +286,13 @@ public class QuickTimeEvent : Event {
         {
             if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
             {
-               GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
+              /* GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
                                 Camera.main.GetScreenHeight() * m_UI_Pos.y,
-                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveButtonList[0].ToString());
+                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveButtonList[0].ToString());*/
+
+               GUI.DrawTexture(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
+                               Camera.main.GetScreenHeight() * m_UI_Pos.y,
+                               m_UI_Size.x, m_UI_Size.y), m_xBoxButtons[(int)m_ActiveButtonList[0]]);
             }
             else if (m_KeyList.Count > 0)
             {
@@ -313,5 +317,5 @@ public class QuickTimeEvent : Event {
         m_fTimePassed = 0f;
 	}
     
-    
+ 
 }
