@@ -43,9 +43,10 @@ GameObject:
   - 114: {fileID: 11431050}
   - 136: {fileID: 13631052}
   - 54: {fileID: 5431052}
+  - 135: {fileID: 13533408}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -248,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0681fa43ba27c6940b833e044e2fd764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnSpeed_Mulitplier: 5
   MoveSpeed_mulitplier: 10
 --- !u!114 &11431052
 MonoBehaviour:
@@ -274,6 +274,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131050}
   m_Enabled: 1
+--- !u!135 &13533408
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &13631052
 CapsuleCollider:
   m_ObjectHideFlags: 1

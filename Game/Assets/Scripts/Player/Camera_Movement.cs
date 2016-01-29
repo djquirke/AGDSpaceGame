@@ -25,6 +25,8 @@ public class Camera_Movement : MonoBehaviour {
     private PlayerIndex m_PlayerIndex;
     private bool m_PlayerIndexSet = false;
 
+    private bool m_bEnable = true;
+
 	// Use this for initialization
 	void Start () {
 
@@ -68,51 +70,59 @@ public class Camera_Movement : MonoBehaviour {
         m_gpState = GamePad.GetState(m_PlayerIndex);
 
 
-
-
-        float RightStick_yAxis;
-
-        
-        RightStick_yAxis = m_gpState.ThumbSticks.Right.Y;
-
-        if (Mathf.Abs(RightStick_yAxis) < Mathf.Abs(Input.GetAxis("Mouse Y")))
-        {
-            RightStick_yAxis = Input.GetAxis("Mouse Y");
-        }
-        
-
-        //transform.Rotate(m_rotationXAxis, RightStick_yAxis * LookSpeed_mulitplier);
-        m_Angle += RightStick_yAxis * LookSpeed_mulitplier;
-
-        if (m_Angle < min_Vertical_Angle)
-        {
-            m_Angle = min_Vertical_Angle;
-        }
-        else if (m_Angle > max_Vertical_Angle)
-        {
-            m_Angle = max_Vertical_Angle;
-        }
-
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, m_Angle);
-
-        if (Camera_object != null)
+        if (m_bEnable)
         {
 
-            if ((m_gpPrevState.Buttons.Y == ButtonState.Released && m_gpState.Buttons.Y == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.V))
+            float RightStick_yAxis;
+
+
+            RightStick_yAxis = m_gpState.ThumbSticks.Right.Y;
+
+            if (Mathf.Abs(RightStick_yAxis) < Mathf.Abs(Input.GetAxis("Mouse Y")))
+            {
+                RightStick_yAxis = Input.GetAxis("Mouse Y");
+            }
+
+
+            //transform.Rotate(m_rotationXAxis, RightStick_yAxis * LookSpeed_mulitplier);
+            m_Angle += RightStick_yAxis * LookSpeed_mulitplier;
+
+            if (m_Angle < min_Vertical_Angle)
+            {
+                m_Angle = min_Vertical_Angle;
+            }
+            else if (m_Angle > max_Vertical_Angle)
+            {
+                m_Angle = max_Vertical_Angle;
+            }
+
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, m_Angle);
+
+            if (Camera_object != null)
             {
 
-                if (m_zoomedIn)
+                if ((m_gpPrevState.Buttons.Y == ButtonState.Released && m_gpState.Buttons.Y == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.V))
                 {
-                    Camera_object.transform.localPosition = new Vector3(Far_Zoom_Dist, 0, 0);
-                }
-                else
-                {
-                    Camera_object.transform.localPosition = new Vector3(Close_Zoom_Dist, 0, 0);
-                }
 
-                m_zoomedIn = !m_zoomedIn;
+                    if (m_zoomedIn)
+                    {
+                        Camera_object.transform.localPosition = new Vector3(Far_Zoom_Dist, 0, 0);
+                    }
+                    else
+                    {
+                        Camera_object.transform.localPosition = new Vector3(Close_Zoom_Dist, 0, 0);
+                    }
+
+                    m_zoomedIn = !m_zoomedIn;
+                }
             }
         }
        
+    }
+
+    public void Enable(bool bEnable = true)
+    {
+        m_bEnable = bEnable;
+
     }
 }
