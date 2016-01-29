@@ -13,14 +13,14 @@ public class EngineerMission : Event {
 	
 	}
 
-	public void Activate()
+	public override void Activate()
 	{
 		Initialise();
 		RunMG();
 	}
 
 	//setup pipe minigame
-	public void Initialise()
+	public override void Initialise()
 	{
 		//initialise board and populate with tiles
 		//jumble up pieces via rotation

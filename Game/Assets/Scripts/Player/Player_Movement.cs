@@ -110,11 +110,12 @@ public class Player_Movement : MonoBehaviour {
 
         if ((m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
         {
-            if(other.tag.Equals("Event"))
+            if (other.tag.Equals("Event") && other.GetComponent<Event>())
             {
+              
                 other.GetComponent<Event>().Activate();
-                m_bPlayerCanMove = false;
-
+                EnablePlayerMovement(false);
+               
             }
         }
 
@@ -124,6 +125,6 @@ public class Player_Movement : MonoBehaviour {
     public void EnablePlayerMovement(bool bCanmove = true)
     {
         m_bPlayerCanMove = bCanmove;
-
+        GetComponentInChildren<Camera_Movement>().Enable(bCanmove);
     }
 }

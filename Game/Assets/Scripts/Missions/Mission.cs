@@ -5,7 +5,8 @@ public enum MissionType
 {
 	OXYGEN,
 	ENGINEERING,
-	ILLNESS
+	ILLNESS,
+    NUM_OF_MISSIONS
 }
 
 public enum Difficulty

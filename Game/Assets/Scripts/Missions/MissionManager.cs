@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class MissionManager : MonoBehaviour {
 	static int MAX_AVAILABLE_MISSIONS = 5;
 	static int TIME_BETWEEN_MISSION_SPAWNS = 300;
-	static int NUMBER_OF_MISSION_TYPES = 3;
 
 	private List<Mission> avail_missions;
 	private Mission active_mission;
@@ -38,7 +37,7 @@ public class MissionManager : MonoBehaviour {
 	{
 		//DEVISE FORMULA FOR CALCULATING WHAT DIFFICULTY LEVEL SHOULD BE BASED ON HOW MANY OF THAT TYPE DONE BEFORE
 
-		int x = Random.Range(0, NUMBER_OF_MISSION_TYPES);
+		int x = Random.Range(0,(int)MissionType.NUM_OF_MISSIONS);
 		Mission new_mission = new Mission();
 		switch (x)
 		{

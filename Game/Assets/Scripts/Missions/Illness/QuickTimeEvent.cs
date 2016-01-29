@@ -10,16 +10,14 @@ public class QuickTimeEvent : Event {
         X,
         A,
         B,
-        RB,
-        LB,
         D_HatDown,
         D_HatUp,
         D_HatLeft,
         D_HatRight,
-        LeftStick,
-        Rightstick,
         Num_of_Buttons
     };
+
+    //Keyboard WASD, Arrow,
 
     public List<KeyCode>  m_KeyList = new List<KeyCode>();
 	public List<ControllerInput> m_ButtonList = new List<ControllerInput>();
@@ -225,18 +223,6 @@ public class QuickTimeEvent : Event {
                     bCorrect = true;
                 }
                 break;
-            case (ControllerInput.RB):
-                if (m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed)
-                {
-                    bCorrect = true;
-                }
-                break;
-            case (ControllerInput.LB):
-                if (m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed)
-                {
-                    bCorrect = true;
-                }
-                break;
             case (ControllerInput.D_HatDown):
                 if (m_gpPrevState.DPad.Down == ButtonState.Released && m_gpState.DPad.Down == ButtonState.Pressed)
                 {
@@ -261,19 +247,6 @@ public class QuickTimeEvent : Event {
                     bCorrect = true;
                 }
                 break;
-            case (ControllerInput.LeftStick):
-                if (m_gpPrevState.Buttons.LeftStick == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed)
-                {
-                    bCorrect = true;
-                }
-                break;
-            case (ControllerInput.Rightstick):
-                if (m_gpPrevState.Buttons.RightStick == ButtonState.Released && m_gpState.Buttons.RightStick == ButtonState.Pressed)
-                {
-                    bCorrect = true;
-                }
-                break;
-
         }
 
         return bCorrect;
@@ -286,18 +259,16 @@ public class QuickTimeEvent : Event {
         {
             if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
             {
-              /* GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
-                                Camera.main.GetScreenHeight() * m_UI_Pos.y,
-                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveButtonList[0].ToString());*/
-
-               GUI.DrawTexture(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
-                               Camera.main.GetScreenHeight() * m_UI_Pos.y,
-                               m_UI_Size.x, m_UI_Size.y), m_xBoxButtons[(int)m_ActiveButtonList[0]]);
+               GUI.DrawTexture(new Rect(Screen.width * m_UI_Pos.x,
+                                        Screen.height * m_UI_Pos.y,
+                                        m_xBoxButtons[(int)m_ActiveButtonList[0]].width,
+                                        m_xBoxButtons[(int)m_ActiveButtonList[0]].height),
+                               m_xBoxButtons[(int)m_ActiveButtonList[0]]);
             }
-            else if (m_KeyList.Count > 0)
+            else if (m_KeyList.Count > 0 && m_ActiveButtonList.Count > 0)
             {
-               GUI.Box(new Rect(Camera.main.GetScreenWidth() * m_UI_Pos.x,
-                                Camera.main.GetScreenHeight() * m_UI_Pos.y,
+               GUI.Box(new Rect(Screen.width * m_UI_Pos.x,
+                                Screen.height * m_UI_Pos.y,
                                 m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveKeyList[0]);
             }
             
