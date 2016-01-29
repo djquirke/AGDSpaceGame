@@ -111,7 +111,7 @@ MonoBehaviour:
   TimeBetweenEvents: 2
   m_IsRandomOrder: 1
   m_IsRandomButtons: 1
-  m_Number_of_events: 4
+  m_Number_of_events: 10
   m_UI_Pos: {x: .5, y: .5}
   m_UI_Size: {x: 256, y: 50}
   m_xBoxButtons:
@@ -119,14 +119,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: e682fb14e9b00874187b081e9e69c425, type: 3}
   - {fileID: 2800000, guid: 0b4d5b10faba2e449acfb3d3d2a95914, type: 3}
   - {fileID: 2800000, guid: 2bee79a253fd9f342aa00599162ef6b4, type: 3}
-  - {fileID: 2800000, guid: 00bf3f64322cc5445aaec8c93df9f7e9, type: 3}
-  - {fileID: 2800000, guid: b4379a7ad4d37d44dbf57d173bbde925, type: 3}
   - {fileID: 2800000, guid: ab8db208e4407264a8e2813b2f10443a, type: 3}
   - {fileID: 2800000, guid: f90feb4b84f819b4f96cad161cf99713, type: 3}
   - {fileID: 2800000, guid: 011d18daffc3e784094bc466846445c3, type: 3}
   - {fileID: 2800000, guid: e1af5b1585e565549a4002c592e1238b, type: 3}
-  - {fileID: 2800000, guid: 7536dc0dd807ac04db5a72b25f0fdf53, type: 3}
-  - {fileID: 2800000, guid: 3d5e52d9e137c7a4582eebb852c23abc, type: 3}
 --- !u!23 &218429049
 Renderer:
   m_ObjectHideFlags: 0
@@ -220,6 +216,14 @@ Prefab:
     - target: {fileID: 431048, guid: 57b71252852b5c24bb92f0e56d170c83, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431052, guid: 57b71252852b5c24bb92f0e56d170c83, type: 2}
+      propertyPath: min_Vertical_Angle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431052, guid: 57b71252852b5c24bb92f0e56d170c83, type: 2}
+      propertyPath: max_Vertical_Angle
+      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 57b71252852b5c24bb92f0e56d170c83, type: 2}
@@ -582,8 +586,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LookSpeed_mulitplier: 5
-  max_Vertical_Angle: 90
-  min_Vertical_Angle: 0
+  max_Vertical_Angle: 55
+  min_Vertical_Angle: 45
   Close_Zoom_Dist: 5
   Far_Zoom_Dist: 20
   Camera_object: {fileID: 1853947032}
@@ -658,12 +662,16 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+      propertyPath: m_KeyList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_ButtonList.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.size
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_LocalPosition.x
@@ -716,19 +724,19 @@ Prefab:
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[4]
       value: 
-      objectReference: {fileID: 2800000, guid: 00bf3f64322cc5445aaec8c93df9f7e9, type: 3}
+      objectReference: {fileID: 2800000, guid: ab8db208e4407264a8e2813b2f10443a, type: 3}
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[5]
       value: 
-      objectReference: {fileID: 2800000, guid: b4379a7ad4d37d44dbf57d173bbde925, type: 3}
+      objectReference: {fileID: 2800000, guid: f90feb4b84f819b4f96cad161cf99713, type: 3}
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[6]
       value: 
-      objectReference: {fileID: 2800000, guid: ab8db208e4407264a8e2813b2f10443a, type: 3}
+      objectReference: {fileID: 2800000, guid: 011d18daffc3e784094bc466846445c3, type: 3}
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[7]
       value: 
-      objectReference: {fileID: 2800000, guid: f90feb4b84f819b4f96cad161cf99713, type: 3}
+      objectReference: {fileID: 2800000, guid: e1af5b1585e565549a4002c592e1238b, type: 3}
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[8]
       value: 
@@ -740,11 +748,15 @@ Prefab:
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[10]
       value: 
-      objectReference: {fileID: 2800000, guid: 7536dc0dd807ac04db5a72b25f0fdf53, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[11]
       value: 
-      objectReference: {fileID: 2800000, guid: 3d5e52d9e137c7a4582eebb852c23abc, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+      propertyPath: m_Number_of_events
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
   m_RootGameObject: {fileID: 218429047}
