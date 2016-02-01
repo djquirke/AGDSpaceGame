@@ -16,10 +16,22 @@ public class QuickTimeEvent : Event {
         D_HatRight,
         Num_of_Buttons
     };
+    public enum KeyBoardInput
+    {
+        W,
+        A,
+        S,
+        D,
+        UpArrow,
+        RightArrow,
+        LeftArrow,
+        DownArrow,
+        Num_of_Keys
+    }
 
     //Keyboard WASD, Arrow,
 
-    public List<KeyCode>  m_KeyList = new List<KeyCode>();
+    public List<KeyBoardInput> m_KeyList = new List<KeyBoardInput>();
 	public List<ControllerInput> m_ButtonList = new List<ControllerInput>();
     
 	public float TimeBetweenEvents = 2f;
@@ -29,13 +41,14 @@ public class QuickTimeEvent : Event {
     public int m_Number_of_events = 0;
 
     public Vector2 m_UI_Pos = new Vector2(0.5f,0.5f);
-    public Vector2 m_UI_Size = new Vector2(256f, 50f);
+    public Vector2 m_UI_Size = new Vector2(128f, 128f);
 
-    public List<Texture> m_xBoxButtons = new List<Texture>();
+    public List<Texture> m_xBoxTex = new List<Texture>();
+    public List<Texture> m_KeyTex = new List<Texture>();
 
 	private bool m_isActive = false;
 
-    private List<KeyCode> m_ActiveKeyList = new List<KeyCode>();
+    private List<KeyBoardInput> m_ActiveKeyList = new List<KeyBoardInput>();
     private List<ControllerInput> m_ActiveButtonList = new List<ControllerInput>();
     
     private float m_fTimePassed = 0f;
@@ -64,14 +77,14 @@ public class QuickTimeEvent : Event {
 			for (int x= 0; x < m_Number_of_events; ++x) {
                 m_ButtonList.Add((ControllerInput)Rand.Next((int)ControllerInput.Num_of_Buttons));
 
-                m_KeyList.Add((KeyCode)Rand.Next((int)KeyCode.A, (int)KeyCode.Z));
+                m_KeyList.Add((KeyBoardInput)Rand.Next((int)KeyBoardInput.Num_of_Keys));
 			}
 		} 
 		else if (m_IsRandomOrder)
 		{
 			System.Random Rand = new System.Random ();
 			List<ControllerInput> NewButtonList = new List<ControllerInput>();
-            List<KeyCode> NewKeyList = new List<KeyCode>();
+            List<KeyBoardInput> NewKeyList = new List<KeyBoardInput>();
 
 			//randimize the Controllor buttons
             while (m_ButtonList.Count >0)
@@ -142,7 +155,7 @@ public class QuickTimeEvent : Event {
             {
                 if (m_fTimePassed < TimeBetweenEvents)
                 {
-                    if (Input.GetKeyDown(m_ActiveKeyList[0]))
+                    if (CheckKeys(m_ActiveKeyList[0]))
                     {
                         m_ActiveKeyList.RemoveAt(0);
                         m_fTimePassed = 0f;
@@ -253,23 +266,85 @@ public class QuickTimeEvent : Event {
 
     }
 
+    private bool CheckKeys(KeyBoardInput CorrectInput)
+    {
+        bool bCorrect = false;
+
+        switch (CorrectInput)
+        {
+            case (KeyBoardInput.W):
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.A):
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.S):
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.D):
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.UpArrow):
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.RightArrow):
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.DownArrow):
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    bCorrect = true;
+                }
+                break;
+            case (KeyBoardInput.LeftArrow):
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    bCorrect = true;
+                }
+                break;
+        }
+
+        return bCorrect;
+
+    }
+
     void OnGUI()
     {
         if (m_isActive)
         {
             if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
             {
-               GUI.DrawTexture(new Rect(Screen.width * m_UI_Pos.x,
-                                        Screen.height * m_UI_Pos.y,
-                                        m_xBoxButtons[(int)m_ActiveButtonList[0]].width,
-                                        m_xBoxButtons[(int)m_ActiveButtonList[0]].height),
-                               m_xBoxButtons[(int)m_ActiveButtonList[0]]);
+               GUI.DrawTexture(new Rect(Screen.width * m_UI_Pos.x - (m_UI_Size.x/2),
+                                        Screen.height * m_UI_Pos.y - (m_UI_Size.y /2),
+                                       m_UI_Size.x,
+                                        m_UI_Size.y),
+                               m_xBoxTex[(int)m_ActiveButtonList[0]]);
             }
             else if (m_KeyList.Count > 0 && m_ActiveButtonList.Count > 0)
             {
-               GUI.Box(new Rect(Screen.width * m_UI_Pos.x,
-                                Screen.height * m_UI_Pos.y,
-                                m_UI_Size.x, m_UI_Size.y), "Press " + m_ActiveKeyList[0]);
+                GUI.DrawTexture(new Rect(Screen.width * m_UI_Pos.x - (m_UI_Size.x / 2),
+                                         Screen.height * m_UI_Pos.y - (m_UI_Size.y / 2),
+                                         m_UI_Size.x,
+                                         m_UI_Size.y),
+                                m_KeyTex[(int)m_ActiveKeyList[0]]);
             }
             
         }
