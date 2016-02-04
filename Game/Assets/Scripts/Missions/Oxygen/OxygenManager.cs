@@ -87,7 +87,7 @@ public class OxygenManager : MonoBehaviour
     {
             //airBar = (GameObject)Instantiate(airBarPrefab, this.transform.position, this.transform.rotation);
             //airBar.transform.parent = transform;
-            InvokeRepeating("AirUpdate", Random.RandomRange(0.2f, 2.0f), 2.5f);
+            InvokeRepeating("AirUpdate", Random.Range(0.2f, 2.0f), 2.5f);
     }
     public void UpdateNeighbours()
     {

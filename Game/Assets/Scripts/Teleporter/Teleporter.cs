@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Teleporter : MonoBehaviour
 {
-    public bool active = false;
+    public bool activated = false;
     public GameObject owner = null;
     public GameObject targetTele = null;
     
@@ -41,7 +41,7 @@ public class Teleporter : MonoBehaviour
             return;
         if(targetTele != null)
         {
-            targetTele.GetComponent<Teleporter>().active = false;
+            targetTele.GetComponent<Teleporter>().activated = false;
             col.transform.position = targetTele.transform.position;
             col.transform.Translate(new Vector3(0.0f, 1.0f, 0.0f));
             TriggerEffects();
@@ -51,6 +51,6 @@ public class Teleporter : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-        active = true;
+        activated = true;
     }
 }
