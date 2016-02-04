@@ -111,10 +111,10 @@ MonoBehaviour:
   TimeBetweenEvents: 2
   m_IsRandomOrder: 1
   m_IsRandomButtons: 1
-  m_Number_of_events: 10
+  m_Number_of_events: 4
   m_UI_Pos: {x: .5, y: .5}
-  m_UI_Size: {x: 256, y: 50}
-  m_xBoxButtons:
+  m_UI_Size: {x: 128, y: 128}
+  m_xBoxTex:
   - {fileID: 2800000, guid: 031d9dec79559c940b9895307f361acc, type: 3}
   - {fileID: 2800000, guid: e682fb14e9b00874187b081e9e69c425, type: 3}
   - {fileID: 2800000, guid: 0b4d5b10faba2e449acfb3d3d2a95914, type: 3}
@@ -123,6 +123,15 @@ MonoBehaviour:
   - {fileID: 2800000, guid: f90feb4b84f819b4f96cad161cf99713, type: 3}
   - {fileID: 2800000, guid: 011d18daffc3e784094bc466846445c3, type: 3}
   - {fileID: 2800000, guid: e1af5b1585e565549a4002c592e1238b, type: 3}
+  m_KeyTex:
+  - {fileID: 2800000, guid: 118cb0e1cb45fda438660f0644c8c0c8, type: 3}
+  - {fileID: 2800000, guid: 8518c43990f15e041bdd4fb3060c1d53, type: 3}
+  - {fileID: 2800000, guid: 66e539b268214ea4589df7b97f73a62f, type: 3}
+  - {fileID: 2800000, guid: 3ced79932e0c7e442b9a9217082fe6de, type: 3}
+  - {fileID: 2800000, guid: 1c09a4fdbb2a774449bc85deab226125, type: 3}
+  - {fileID: 2800000, guid: b320a36afac91664ab36b134f7dd8c4f, type: 3}
+  - {fileID: 2800000, guid: e5bdc49738c2ce94ebe98d747e223192, type: 3}
+  - {fileID: 2800000, guid: b165a783d1324b246b7cabaf55893cee, type: 3}
 --- !u!23 &218429049
 Renderer:
   m_ObjectHideFlags: 0
@@ -752,10 +761,6 @@ Prefab:
     - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
       propertyPath: m_xBoxButtons.Array.data[11]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11471242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
-      propertyPath: m_Number_of_events
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
