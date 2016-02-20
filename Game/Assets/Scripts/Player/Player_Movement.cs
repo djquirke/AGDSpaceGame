@@ -21,6 +21,10 @@ public class Player_Movement : MonoBehaviour {
 
     private bool m_bPlayerCanMove = true;
 
+    private Vector3 m_TargetRotation, m_StartRotation;
+    private Vector3 Rotatevelocity = Vector3.zero;
+    public float Roation_time = 0.5f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +33,9 @@ public class Player_Movement : MonoBehaviour {
         m_rotationAxis.y = 1;
         m_rotationAxis.x = 0;
         m_rotationAxis.z = 0;
+
+        m_TargetRotation = transform.rotation.eulerAngles;
+        m_StartRotation = m_TargetRotation;
 	
 	}
 	
@@ -78,13 +85,23 @@ public class Player_Movement : MonoBehaviour {
 
             if ((m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.Q))
             {
-                transform.Rotate(m_rotationAxis, 90);
+                m_StartRotation = transform.rotation.eulerAngles;
+                m_TargetRotation = m_StartRotation + (m_rotationAxis * 90);
+
             }
             else if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.E))
             {
-                transform.Rotate(m_rotationAxis, -90);
+                m_StartRotation = transform.rotation.eulerAngles;
+                m_TargetRotation = m_StartRotation + (m_rotationAxis * -90);
+
             }
-            //transform.Rotate(m_rotationAxis, RightStick_xAxis * TurnSpeed_Mulitplier);
+
+            Vector3 rotation = Vector3.SmoothDamp(m_StartRotation, m_TargetRotation, ref Rotatevelocity, Roation_time);
+
+            m_StartRotation = rotation;
+
+            transform.rotation = Quaternion.Euler(rotation);
+
 
             Vector3 Direction = Front.transform.position - transform.position;
 
