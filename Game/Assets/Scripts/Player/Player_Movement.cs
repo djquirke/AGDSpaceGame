@@ -10,7 +10,7 @@ public class Player_Movement : MonoBehaviour {
     public float MoveSpeed_mulitplier = 1.0f;
 
 
-    private GameObject Front;
+    private GameObject Front,mesh;
 
     private Vector3 m_rotationAxis;
 
@@ -25,14 +25,22 @@ public class Player_Movement : MonoBehaviour {
     private Vector3 Rotatevelocity = Vector3.zero;
     public float Roation_time = 0.5f;
 
+    private Vector3 m_LastDirection; 
+
 
 	// Use this for initialization
 	void Start () {
 
         Front = GameObject.Find("Front");
+        mesh = GameObject.Find("PlayerMesh");
+
         m_rotationAxis.y = 1;
         m_rotationAxis.x = 0;
         m_rotationAxis.z = 0;
+
+        m_LastDirection = transform.position - Front.transform.position;
+
+        m_LastDirection.Normalize();
 
         m_TargetRotation = transform.rotation.eulerAngles;
         m_StartRotation = m_TargetRotation;
@@ -110,14 +118,36 @@ public class Player_Movement : MonoBehaviour {
             Vector3 DirectionRight = new Vector3(Direction.z, Direction.y, -Direction.x);
 
             DirectionRight *= LeftStick_xAxis;
-            Direction *= LeftStick_yAxis;
-            Vector3 TotalDirection = Direction + DirectionRight;
+            Vector3 newDirection = Direction * LeftStick_yAxis;
+            Vector3 TotalDirection = newDirection + DirectionRight;
 
             TotalDirection.Normalize();
 
             TotalDirection *= Time.deltaTime;
 
             transform.position += (TotalDirection) * MoveSpeed_mulitplier;
+            if (TotalDirection.magnitude > 0)
+            {
+
+                TotalDirection = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one) * TotalDirection;
+                float angle = Mathf.Rad2Deg * Mathf.Acos(Mathf.Clamp(Vector3.Dot(Direction.normalized, m_LastDirection.normalized), -1, 1));
+
+                float TotalFidd = Mathf.Rad2Deg * Mathf.Acos(Mathf.Clamp(Vector3.Dot(Direction.normalized, TotalDirection.normalized), -1, 1));
+
+                angle -= TotalFidd;
+
+
+                if (Vector3.Dot(new Vector3(0, 1, 0), Vector3.Cross(Direction.normalized, TotalDirection.normalized)) < 0)
+                {
+                    angle = -angle;
+                }
+               // if (angle != 0)
+                {
+                    mesh.transform.Rotate(0, angle, 0);
+
+                    m_LastDirection = TotalDirection.normalized;
+                }
+            }
         }
 	}
 
