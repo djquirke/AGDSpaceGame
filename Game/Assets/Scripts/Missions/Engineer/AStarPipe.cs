@@ -30,7 +30,7 @@ namespace PipeGame
 		public void Run(GameObject start_tile, GameObject end_tile, int board_width, BoardManager3D bm)
 		{
 			bm_ = bm;
-			
+			Debug.Log("starting A*");
 			PriorityQueue open_q = new PriorityQueue();
 			Dictionary<AStarNode, AStarNode> open_d = new Dictionary<AStarNode, AStarNode>();
 			Dictionary<AStarNode, AStarNode> closed_nodes = new Dictionary<AStarNode, AStarNode>();
@@ -88,6 +88,7 @@ namespace PipeGame
 			if(atGoal)
 			{
 				TraversePath(goal);
+				Debug.Log("path found");
 			}
 		}
 		

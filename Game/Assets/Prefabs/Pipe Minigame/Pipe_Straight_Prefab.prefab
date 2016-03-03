@@ -10,10 +10,12 @@ GameObject:
   - 4: {fileID: 453838}
   - 95: {fileID: 9553840}
   - 114: {fileID: 11410908}
-  - 65: {fileID: 6571718}
+  - 33: {fileID: 3343102}
+  - 23: {fileID: 2378816}
+  - 65: {fileID: 6517984}
   m_Layer: 0
   m_Name: Pipe_Straight_Prefab
-  m_TagString: Untagged
+  m_TagString: TileNS
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +43,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153838}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -80,6 +82,33 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!23 &2378816
+Renderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153838}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: a50a56a27f71ec94ebbf63c3b6595090, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &3343102
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153838}
+  m_Mesh: {fileID: 4300000, guid: f2e22b8702f041448aeda32be24ce8e4, type: 3}
 --- !u!33 &3353840
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -87,7 +116,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153840}
   m_Mesh: {fileID: 4300000, guid: f2e22b8702f041448aeda32be24ce8e4, type: 3}
---- !u!65 &6571718
+--- !u!65 &6517984
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,8 +126,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 89.1923981, y: 76.3591995, z: 78.6495972}
+  m_Center: {x: 0, y: 0, z: -5.91020012}
 --- !u!95 &9553840
 Animator:
   serializedVersion: 3
@@ -125,10 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b9e4c40ba415244a48063abbc7e714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  north: 1
-  south: 1
-  east: 0
-  west: 0
+  north: 0
+  south: 0
+  east: 1
+  west: 1
   isStart: 0
   isEnd: 0
   isRotatable: 1

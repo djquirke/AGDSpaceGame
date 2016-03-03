@@ -27,16 +27,17 @@ namespace PipeGame
 		public void Initialise()
 		{
 			start = (GameObject)Instantiate (start);
-			start.GetComponent<Tile3D>().Initialise(0, UnityEngine.Random.Range(1, board_height - 2), false); //set start tile to a random height
+			start.GetComponent<Tile3D>().Initialise(0, UnityEngine.Random.Range(1, board_height - 2)); //set start tile to a random height
 			end = (GameObject)Instantiate(end);
-			end.GetComponent<Tile3D>().Initialise (board_width - 1, UnityEngine.Random.Range (1, board_height - 2), false);
+			end.GetComponent<Tile3D>().Initialise (board_width - 1, UnityEngine.Random.Range (1, board_height - 2));
 
 			Camera cam = gameObject.GetComponent<Camera>();
 			float cam_height = 2f * cam.orthographicSize;
 			float cam_width = cam_height * cam.aspect;
-			Debug.Log(cam_width + " " + cam_height);
-			Renderer tile_size = start.GetComponent<Renderer>(); //get tile dimensions
-			
+
+			var tile_size = start.GetComponent<MeshFilter>().mesh.bounds; //get tile dimensions
+			float tile_width = 2*(tile_size.max.x - tile_size.min.x);// + 13;
+
 			for(int i = 0; i < board_width; i++)
 			{
 				List<GameObject> tempList = new List<GameObject>();
@@ -48,28 +49,40 @@ namespace PipeGame
 					if(i == 0 && j == start.GetComponent<Tile3D>().Y())
 					{
 						new_tile = start;
-//						start.transform.SetParent(gameObject.transform, false);
-//						start.transform.position = new Vector3(cam_width / 2, cam_height / 2, 5); //TODO: fix pos here
-//						//start.GetComponent<Tile3D>().setPos(tile_transform);
-//						new_tile = start;
-//						tempList.Add(new_tile);
+						new_tile.transform.SetParent(gameObject.transform, false);
+						Vector3 temp_tform = new_tile.transform.position;
+//						tempList.Add (new_tile);
 //						continue;
+						start.transform.SetParent(gameObject.transform, false);
+						start.transform.position = new Vector3(temp_tform.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
+						                                       temp_tform.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+						                                       50); //TODO: fix pos here
+						//start.GetComponent<Tile3D>().setPos(tile_transform);
+						new_tile = start;
+						tempList.Add(new_tile);
+						continue;
 					}
 					
 					//add end tile to list
 					if(i == board_width - 1 && j == end.GetComponent<Tile3D>().Y())
 					{
 						new_tile = end;
-//						end.transform.SetParent(gameObject.transform, false);
-//						end.transform.position = new Vector3(cam_width / 2, cam_height / 2, 5); //TODO: fix pos here
-//						//end.GetComponent<tile>().setPos(tile_transform);
-//						new_tile = end;
+						new_tile.transform.SetParent(gameObject.transform, false);
+						Vector3 temp_tform = new_tile.transform.position;
 //						tempList.Add(new_tile);
 //						continue;
+						end.transform.SetParent(gameObject.transform, false);
+						end.transform.position = new Vector3(temp_tform.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
+						                                     temp_tform.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+						                                     50); //TODO: fix pos here
+						//end.GetComponent<tile>().setPos(tile_transform);
+						new_tile = end;
+						tempList.Add(new_tile);
+						continue;
 					}
 					
 					//add blank tiles to list
-					if( i == 0 || i == board_width - 1 || j == 0 || j == board_height - 1 && new_tile == null)
+					if( i == 0 || i == board_width - 1 || j == 0 || j == board_height - 1)
 					{
 						new_tile = new GameObject();
 						new_tile.transform.SetParent(gameObject.transform, false);
@@ -78,32 +91,34 @@ namespace PipeGame
 						continue; 
 					}
 
-					if(new_tile == null)
+					//choose a random tile
+					switch (UnityEngine.Random.Range(0, 4))
 					{
-						//choose a random tile
-						switch (UnityEngine.Random.Range(0, 4))
-						{
-						case 0:
-							new_tile = (GameObject)Instantiate(TileNE);
-							break;
-						case 1:
-							new_tile = (GameObject)Instantiate(TileNES);
-							break;
-						case 2:
-							new_tile = (GameObject)Instantiate(TileNESW);
-							break;
-						default:
-							new_tile = (GameObject)Instantiate(TileNS);
-							break;
-						}
+					case 0:
+						new_tile = (GameObject)Instantiate(TileNE);
+						break;
+					case 1:
+						new_tile = (GameObject)Instantiate(TileNES);
+						break;
+					case 2:
+						new_tile = (GameObject)Instantiate(TileNESW);
+						break;
+					default:
+						new_tile = (GameObject)Instantiate(TileNS);
+						break;
 					}
 					
 					new_tile.transform.SetParent(gameObject.transform, false); //make child of camera
-					new_tile.transform.position = new Vector3(cam_width / 4, cam_height / 4, 50);
+					Vector3 temp_tform2 = new_tile.transform.position;
+					new_tile.transform.position = new Vector3(temp_tform2.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
+					                                          temp_tform2.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+					                                          50);
+					new_tile.GetComponent<Tile3D>().Initialise(i, j);
+					//new_tile.transform.position = new Vector3(cam_width / 4, cam_height / 4, 50);
 						//new Vector3((cam_width / 2) - ((board_width - 1) / 2 - i) * tile_size.bounds.size.x / 2,
 						//            (cam_height / 2) + ((board_height - 1) / 2 - j) * tile_size.bounds.size.y / 2, 50);
-					Debug.Log("tile width: " + tile_size.bounds.size.x + ", tile height: " + tile_size.bounds.size.y);
-					//new_tile = new GameObject();
+				//	Debug.Log("tile width: " + tile_size.rect.width//.bounds.size.x
+				//	          + ", tile height: " + tile_size.rect.height);//.bounds.size.y);
 					tempList.Add(new_tile);
 				}
 				tiles.Add(tempList);
@@ -137,7 +152,7 @@ namespace PipeGame
 			{
 			case Direction.NORTH:
 				next_x = cur_x;
-				next_y = --cur_y;
+				next_y = ++cur_y;
 				break;
 			case Direction.EAST:
 				next_x = ++cur_x;
@@ -145,7 +160,7 @@ namespace PipeGame
 				break;
 			case Direction.SOUTH:
 				next_x = cur_x;
-				next_y = ++cur_y;
+				next_y = --cur_y;
 				break;
 			case Direction.WEST:
 				next_x = --cur_x;
