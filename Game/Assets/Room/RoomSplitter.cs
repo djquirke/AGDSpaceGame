@@ -38,7 +38,7 @@ public class RoomSplitter : MonoBehaviour
         }
         else
         {
-            GameObject rooms = (GameObject)Instantiate(roomsets[weightsList[rand]], transform.position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            GameObject rooms = (GameObject)Instantiate(roomsets[weightsList[rand]], transform.position, transform.rotation);
         }
         Destroy(gameObject);
     }
