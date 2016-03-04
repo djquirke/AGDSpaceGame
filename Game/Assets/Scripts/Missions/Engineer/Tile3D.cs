@@ -9,6 +9,12 @@ namespace PipeGame
 		public bool north, south, east, west, isStart, isEnd, isRotatable;
 		private bool visited = false, rotate = false;
 		private Vector3 prev_rotation;
+		public Material normal, flowing;
+
+		void Start()
+		{
+			gameObject.GetComponentInChildren<Renderer>().material = normal;
+		}
 
 		void Update()
 		{
@@ -110,6 +116,15 @@ namespace PipeGame
 		public void setFlow(bool flow)
 		{
 			visited = flow;
+			if (flow)
+			{
+				Renderer[] temp = gameObject.GetComponentsInChildren<Renderer>();
+				foreach(Renderer r in temp)
+				{
+					r.material = flowing;
+				}
+			}
+			else gameObject.GetComponentInChildren<Renderer>().material = normal;
 //			Image tile_col = gameObject.GetComponent<Image>();
 //			if(flow) tile_col.color = new Color(0, 0.5f, 0);
 //			else tile_col.color = new Color(1, 1, 1);
