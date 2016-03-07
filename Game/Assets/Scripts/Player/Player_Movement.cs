@@ -25,8 +25,6 @@ public class Player_Movement : MonoBehaviour {
     private Vector3 Rotatevelocity = Vector3.zero;
     public float Roation_time = 0.5f;
 
-    private Vector3 m_LastDirection; 
-
 
 	// Use this for initialization
 	void Start () {
@@ -38,10 +36,6 @@ public class Player_Movement : MonoBehaviour {
         m_rotationAxis.x = 0;
         m_rotationAxis.z = 0;
 
-        m_LastDirection = transform.position - Front.transform.position;
-
-        m_LastDirection.Normalize();
-
         m_TargetRotation = transform.rotation.eulerAngles;
         m_StartRotation = m_TargetRotation;
 	
@@ -50,6 +44,7 @@ public class Player_Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //check the controller is there if it isn't already
         if (!m_bPlayerIndexSet || !m_gpPrevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
@@ -65,12 +60,15 @@ public class Player_Movement : MonoBehaviour {
             }
         }
 
+        //update xinput controller states
         m_gpPrevState = m_gpState;
         m_gpState = GamePad.GetState(m_PlayerIndex);
 
+
+
         if (m_bPlayerCanMove)
         {
-
+            //get movement information
             float LeftStick_xAxis = m_gpState.ThumbSticks.Left.X;
             float LeftStick_yAxis = m_gpState.ThumbSticks.Left.Y;
 
@@ -104,49 +102,33 @@ public class Player_Movement : MonoBehaviour {
 
             }
 
+            //do smooth step for the camera roation
             Vector3 rotation = Vector3.SmoothDamp(m_StartRotation, m_TargetRotation, ref Rotatevelocity, Roation_time);
-
             m_StartRotation = rotation;
-
             transform.rotation = Quaternion.Euler(rotation);
 
-
+            // get a direction vector of the front of the camera
             Vector3 Direction = Front.transform.position - transform.position;
-
             Direction.Normalize();
 
+            //get a direction vector to the Right of the player
             Vector3 DirectionRight = new Vector3(Direction.z, Direction.y, -Direction.x);
 
-            DirectionRight *= LeftStick_xAxis;
-            Vector3 newDirection = Direction * LeftStick_yAxis;
-            Vector3 TotalDirection = newDirection + DirectionRight;
-
+            // get the direction of travel
+            Vector3 TotalDirection = Direction * LeftStick_yAxis + DirectionRight * LeftStick_xAxis;
             TotalDirection.Normalize();
 
             TotalDirection *= Time.deltaTime;
-
             transform.position += (TotalDirection) * MoveSpeed_mulitplier;
+
+            //rotate the player model
             if (TotalDirection.magnitude > 0)
             {
+                float angle = Mathf.Atan2(Vector3.Dot(Vector3.up, Vector3.Cross(Direction, TotalDirection)), Vector3.Dot(Direction, TotalDirection));
 
-                TotalDirection = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one) * TotalDirection;
-                float angle = Mathf.Rad2Deg * Mathf.Acos(Mathf.Clamp(Vector3.Dot(Direction.normalized, m_LastDirection.normalized), -1, 1));
+                mesh.transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * angle, 0) * Quaternion.Euler(0, 100, 0);
 
-                float TotalFidd = Mathf.Rad2Deg * Mathf.Acos(Mathf.Clamp(Vector3.Dot(Direction.normalized, TotalDirection.normalized), -1, 1));
-
-                angle -= TotalFidd;
-
-
-                if (Vector3.Dot(new Vector3(0, 1, 0), Vector3.Cross(Direction.normalized, TotalDirection.normalized)) < 0)
-                {
-                    angle = -angle;
-                }
-               // if (angle != 0)
-                {
-                    mesh.transform.Rotate(0, angle, 0);
-
-                    m_LastDirection = TotalDirection.normalized;
-                }
+                mesh.transform.Rotate(0, angle, 0);
             }
         }
 	}
