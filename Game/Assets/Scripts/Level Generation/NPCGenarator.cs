@@ -6,16 +6,16 @@ public class NPCGenarator : MonoBehaviour {
 
     public GameObject[] NPCsets;
     public int[] weights;
-    public int NumberOfNPCs = 1;
+    public int NumberOfNPCs = 0;
 
     List<int> weightsList = new List<int>();
 
     // Use this for initialization
+
     void Start()
     {
-        while(0!=NumberOfNPCs--)
+        while (0 != NumberOfNPCs--)
             Genarate();
-        
     }
 
     void Genarate()

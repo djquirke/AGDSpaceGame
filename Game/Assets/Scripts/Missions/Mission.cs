@@ -18,7 +18,7 @@ public enum Difficulty
 }
 
 public class Mission : MonoBehaviour {
-	private SubGameMap level_map;
+	private string level_map;
 	private float time_remaining = 300;
 	private bool mission_lost = false;
 	private bool mission_won = false;
@@ -28,7 +28,7 @@ public class Mission : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		level_map = new SubGameMap();
+        DontDestroyOnLoad(this);
 	}
 	
 	// Update is called once per frame
@@ -59,21 +59,22 @@ public class Mission : MonoBehaviour {
 	}
 
 	// TODO: change minigame count to difficulty
-	public void Initialise(MissionType type, int minigame_count)
+	public void Initialise(MissionType type, int minigame_count, string Level)
 	{
 		mission_type = type;
 		minigames = minigame_count;
+
+        level_map = Level;
+        
 	}
 
-	void StartMission(int idx)
+	public void StartMission()
 	{
 		//Peter - find out who to take on the mission
 		//display a loading screen
-		level_map.GenerateLevel();
-		level_map.GenerateNPCs();
+        Application.LoadLevel(level_map);
 		//Matt - teleport to location
 		mission_active = true;
-		array_idx = idx;
 
 	}
 
@@ -134,4 +135,8 @@ public class Mission : MonoBehaviour {
 		minigames_complete = 0;
 		ResetSpecifics();
 	}
+    public string getLevelName()
+    {
+        return level_map;
+    }
 }
