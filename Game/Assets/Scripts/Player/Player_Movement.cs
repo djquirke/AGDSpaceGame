@@ -23,8 +23,8 @@ public class Player_Movement : MonoBehaviour {
     private bool rotate = false;
 
     private Vector3 m_TargetRotation, m_StartRotation;
-    private Vector3 Rotatevelocity = Vector3.zero;
-    public float Roation_time = 0.5f;
+    private Vector3 Rotatevelocity = Vector3.zero, CharRotateVelocity = Vector3.zero;
+    public float Roation_time = 0.5f, Char_Rotation_Time = 0.1f;
 
 
 	// Use this for initialization
@@ -151,9 +151,17 @@ public class Player_Movement : MonoBehaviour {
             {
                 float angle = Mathf.Atan2(Vector3.Dot(Vector3.up, Vector3.Cross(Direction, TotalDirection)), Vector3.Dot(Direction, TotalDirection));
 
-                mesh.transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * angle, 0) * Quaternion.Euler(0, 100, 0);
 
-                mesh.transform.Rotate(0, angle, 0);
+                 Vector3 CharRotation = Vector3.SmoothDamp(mesh.transform.rotation.eulerAngles, 
+                                                           new Vector3(0, Mathf.Rad2Deg * angle, 0) +
+                                                           new Vector3(0, 100, 0),
+                                                      ref CharRotateVelocity, Char_Rotation_Time);
+               
+                mesh.transform.rotation = Quaternion.Euler(CharRotation);
+
+              //  mesh.transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * angle, 0) * Quaternion.Euler(0, 100, 0);
+
+                
             }
         }
 	}
