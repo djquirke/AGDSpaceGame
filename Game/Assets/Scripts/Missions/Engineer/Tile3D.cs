@@ -13,7 +13,7 @@ namespace PipeGame
 
 		void Start()
 		{
-			gameObject.GetComponentInChildren<Renderer>().material = normal;
+			//gameObject.GetComponentInChildren<Renderer>().material = normal;
 		}
 
 		void Update()
@@ -35,13 +35,13 @@ namespace PipeGame
 			this.x = x;
 			this.y = y;
 
-			if(tag == "TileNS" || tag == "TileNES")
-			{
-				prev_rotation = new Vector3(0, 90, 90);
-			}
+//			if(tag == "TileNS" || tag == "TileNES")
+//			{
+//				prev_rotation = new Vector3(0, 90, 90);
+//			}
 
-			transform.Rotate(-90, -90, 90);
-			transform.Rotate(90, 0, 0);
+			//transform.Rotate(-90, -90, 90);
+			//transform.Rotate(90, 0, 0);
 		}
 
 		public int Y() { return this.y; }
@@ -55,40 +55,40 @@ namespace PipeGame
 			{
 				rotate = true;
 
-				if(tag == "TileNE")
+				//if(tag == "TileNE")
 				{
-					transform.Rotate(0, 90, 0);
+					transform.Rotate(0, 0, 90);
 				}
-				else if(tag == "TileNS" || tag == "TileNES")
-				{
-					Vector3 temp = transform.eulerAngles;
-
-//					Debug.Log("prev rot:" + prev_rotation.x + " " + prev_rotation.y + " " + prev_rotation.z);
-//					Debug.Log("cur rot:" + temp.x + " " + temp.y + " " + temp.z);
-
-					int temp_x, temp_y, temp_z;
-					if(temp.x == 0)
-					{
-						if(prev_rotation.x == 90) temp_x = 270;
-						else temp_x = 90;
-					}
-					else temp_x = 0;
-
-					temp_y = (int)temp.y - 90;
-
-					if(temp.z == 0)
-					{
-						if(prev_rotation.z == 90) temp_z = 270;
-						else temp_z = 90;
-					}
-					else temp_z = 0;
-
-					transform.eulerAngles = new Vector3(temp_x, temp_y, temp_z);
-
-//					Debug.Log("new rot:" + transform.eulerAngles.x + " " + transform.eulerAngles.y + " " + transform.eulerAngles.z);
-
-					prev_rotation = temp;
-				}
+//				else if(tag == "TileNS" || tag == "TileNES")
+//				{
+//					Vector3 temp = transform.eulerAngles;
+//
+////					Debug.Log("prev rot:" + prev_rotation.x + " " + prev_rotation.y + " " + prev_rotation.z);
+////					Debug.Log("cur rot:" + temp.x + " " + temp.y + " " + temp.z);
+//
+//					int temp_x, temp_y, temp_z;
+//					if(temp.x == 0)
+//					{
+//						if(prev_rotation.x == 90) temp_x = 270;
+//						else temp_x = 90;
+//					}
+//					else temp_x = 0;
+//
+//					temp_y = (int)temp.y - 90;
+//
+//					if(temp.z == 0)
+//					{
+//						if(prev_rotation.z == 90) temp_z = 270;
+//						else temp_z = 90;
+//					}
+//					else temp_z = 0;
+//
+//					transform.eulerAngles = new Vector3(temp_x, temp_y, temp_z);
+//
+////					Debug.Log("new rot:" + transform.eulerAngles.x + " " + transform.eulerAngles.y + " " + transform.eulerAngles.z);
+//
+//					prev_rotation = temp;
+//				}
 
 
 //				Debug.Log("new rot:" + transform.rotation.x + " " + transform.rotation.y + " " + transform.rotation.z);
@@ -116,15 +116,22 @@ namespace PipeGame
 		public void setFlow(bool flow)
 		{
 			visited = flow;
+			Renderer rend = GetComponent<Renderer>();
 			if (flow)
 			{
-				Renderer[] temp = gameObject.GetComponentsInChildren<Renderer>();
-				foreach(Renderer r in temp)
-				{
-					r.material = flowing;
-				}
+				rend.material.SetColor("_EnergyColor",  new Color(0, 0.5f, 0, 1.0f));
 			}
-			else gameObject.GetComponentInChildren<Renderer>().material = normal;
+			else
+			{
+				rend.material.SetColor("_EnergyColor",  new Color(0.3f, 0.3f, 0.3f, 1.0f));
+			}
+//				Renderer[] temp = gameObject.GetComponentsInChildren<Renderer>();
+//				foreach(Renderer r in temp)
+//				{
+//					r.material = flowing;
+//				}
+//			}
+//			else gameObject.GetComponentInChildren<Renderer>().material = normal;
 //			Image tile_col = gameObject.GetComponent<Image>();
 //			if(flow) tile_col.color = new Color(0, 0.5f, 0);
 //			else tile_col.color = new Color(1, 1, 1);

@@ -34,9 +34,12 @@ namespace PipeGame
 			Camera cam = gameObject.GetComponent<Camera>();
 			float cam_height = 2f * cam.orthographicSize;
 			float cam_width = cam_height * cam.aspect;
+			Vector3 cam_pos = cam.transform.position;
 
-			var tile_size = start.GetComponent<MeshFilter>().mesh.bounds; //get tile dimensions
-			float tile_width = 2*(tile_size.max.x - tile_size.min.x);// + 13;
+			GameObject temp = (GameObject)Instantiate(TileNESW);
+			var tile_size = temp.GetComponent<MeshFilter>().mesh.bounds; //get tile dimensions
+			float tile_width = (tile_size.max.x - tile_size.min.x);// + 13;
+			Destroy(temp);
 
 			for(int i = 0; i < board_width; i++)
 			{
@@ -49,16 +52,16 @@ namespace PipeGame
 					if(i == 0 && j == start.GetComponent<Tile3D>().Y())
 					{
 						new_tile = start;
-						new_tile.transform.SetParent(gameObject.transform, false);
-						Vector3 temp_tform = new_tile.transform.position;
+						//new_tile.transform.SetParent(gameObject.transform, false);
+						//Vector3 temp_tform = new_tile.transform.position;
 //						tempList.Add (new_tile);
 //						continue;
-						start.transform.SetParent(gameObject.transform, false);
-						start.transform.position = new Vector3(temp_tform.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-						                                       temp_tform.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
-						                                       50); //TODO: fix pos here
+						new_tile.transform.SetParent(gameObject.transform, false);
+						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
+						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+						                                       10); //TODO: fix pos here
 						//start.GetComponent<Tile3D>().setPos(tile_transform);
-						new_tile = start;
+						//new_tile = start;
 						tempList.Add(new_tile);
 						continue;
 					}
@@ -67,16 +70,16 @@ namespace PipeGame
 					if(i == board_width - 1 && j == end.GetComponent<Tile3D>().Y())
 					{
 						new_tile = end;
-						new_tile.transform.SetParent(gameObject.transform, false);
-						Vector3 temp_tform = new_tile.transform.position;
+						//new_tile.transform.SetParent(gameObject.transform, false);
+						//Vector3 temp_tform = new_tile.transform.position;
 //						tempList.Add(new_tile);
 //						continue;
-						end.transform.SetParent(gameObject.transform, false);
-						end.transform.position = new Vector3(temp_tform.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-						                                     temp_tform.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
-						                                     50); //TODO: fix pos here
+						new_tile.transform.SetParent(gameObject.transform, false);
+						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
+						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+						                                     10); //TODO: fix pos here
 						//end.GetComponent<tile>().setPos(tile_transform);
-						new_tile = end;
+						//new_tile = end;
 						tempList.Add(new_tile);
 						continue;
 					}
@@ -109,10 +112,10 @@ namespace PipeGame
 					}
 					
 					new_tile.transform.SetParent(gameObject.transform, false); //make child of camera
-					Vector3 temp_tform2 = new_tile.transform.position;
-					new_tile.transform.position = new Vector3(temp_tform2.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-					                                          temp_tform2.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
-					                                          50);
+					//Vector3 temp_tform2 = new_tile.transform.position;
+					new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
+					                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+					                                          10);
 					new_tile.GetComponent<Tile3D>().Initialise(i, j);
 					//new_tile.transform.position = new Vector3(cam_width / 4, cam_height / 4, 50);
 						//new Vector3((cam_width / 2) - ((board_width - 1) / 2 - i) * tile_size.bounds.size.x / 2,
