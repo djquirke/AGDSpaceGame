@@ -195,6 +195,19 @@ namespace PipeGame
 				}
 			}
 		}
-	}
+
+        internal void FlowFound()
+        {
+            for (int i = 0; i < board_width; i++)
+            {
+                for (int j = 0; j < board_height; j++)
+                {
+                    if (tiles[i][j].CompareTag("TileBlank")) continue;
+
+                    tiles[i][j].GetComponent<Tile3D>().FlowActive();
+                }
+            }
+        }
+    }
 
 }

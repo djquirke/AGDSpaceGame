@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PipeGame
 {
@@ -10,38 +11,50 @@ namespace PipeGame
 		private bool visited = false, rotate = false;
 		private Vector3 prev_rotation;
 		public Material normal, flowing;
+        private float rotation_time = 0.25f;
+        private Vector3 target_rotation, start_rotation, rotation_velocity = Vector3.zero;
+        private List<int> target_points = new List<int>();
 
 		void Start()
 		{
-			//gameObject.GetComponentInChildren<Renderer>().material = normal;
+            start_rotation = transform.rotation.eulerAngles;
+            target_rotation = transform.rotation.eulerAngles;
+            target_points.Add(0);
+            target_points.Add(90);
+            target_points.Add(180);
+            target_points.Add(270);
 		}
 
 		void Update()
 		{
-//			if(rotate)
-//			{
-//				var new_angle = transform.rotation.z - 90;
-//				while (transform.eulerAngles.z < new_angle)
-//				{
-//					transform.eulerAngles.z = Mathf.MoveTowards(transform.eulerAngles.z, new_angle, 90 * Time.deltaTime);
-//					yield;
-//				}
-//				rotate = false;
-//			}
+            if(rotate)
+            {
+                Vector3 rotation = Vector3.SmoothDamp(start_rotation, target_rotation,
+                                                      ref rotation_velocity, rotation_time);
+                start_rotation = rotation;
+                transform.rotation = Quaternion.Euler(rotation);
+    
+                if (isCloseTo(rotation, target_rotation))
+                {
+                    rotate = false;
+                }
+            }
+            
 		}
+
+        private bool isCloseTo(Vector3 r1, Vector3 r2)
+        {
+            bool x = Mathf.Approximately(r1.x, r2.x);
+            bool y = Mathf.Approximately(r1.y, r2.y);
+            bool z = Mathf.Approximately(r1.z, r2.z);
+
+            return x && y && z;
+        }
 
 		public void Initialise(int x, int y)
 		{
 			this.x = x;
 			this.y = y;
-
-//			if(tag == "TileNS" || tag == "TileNES")
-//			{
-//				prev_rotation = new Vector3(0, 90, 90);
-//			}
-
-			//transform.Rotate(-90, -90, 90);
-			//transform.Rotate(90, 0, 0);
 		}
 
 		public int Y() { return this.y; }
@@ -54,44 +67,16 @@ namespace PipeGame
 			if(isRotatable)
 			{
 				rotate = true;
+                if (!rotate)
+                {
+                    start_rotation = transform.rotation.eulerAngles;
+                    target_rotation.z = start_rotation.z + 90;
+                }
+                else
+                {
+                    target_rotation.z += 90;
+                }
 
-				//if(tag == "TileNE")
-				{
-					transform.Rotate(0, 0, 90);
-				}
-//				else if(tag == "TileNS" || tag == "TileNES")
-//				{
-//					Vector3 temp = transform.eulerAngles;
-//
-////					Debug.Log("prev rot:" + prev_rotation.x + " " + prev_rotation.y + " " + prev_rotation.z);
-////					Debug.Log("cur rot:" + temp.x + " " + temp.y + " " + temp.z);
-//
-//					int temp_x, temp_y, temp_z;
-//					if(temp.x == 0)
-//					{
-//						if(prev_rotation.x == 90) temp_x = 270;
-//						else temp_x = 90;
-//					}
-//					else temp_x = 0;
-//
-//					temp_y = (int)temp.y - 90;
-//
-//					if(temp.z == 0)
-//					{
-//						if(prev_rotation.z == 90) temp_z = 270;
-//						else temp_z = 90;
-//					}
-//					else temp_z = 0;
-//
-//					transform.eulerAngles = new Vector3(temp_x, temp_y, temp_z);
-//
-////					Debug.Log("new rot:" + transform.eulerAngles.x + " " + transform.eulerAngles.y + " " + transform.eulerAngles.z);
-//
-//					prev_rotation = temp;
-//				}
-
-
-//				Debug.Log("new rot:" + transform.rotation.x + " " + transform.rotation.y + " " + transform.rotation.z);
 				AdjustExits();
 				GameObject.FindGameObjectWithTag("PipeCamera").GetComponent<BoardManager3D>().CheckFlow(); //TODO: get this is work with parent
 			}
@@ -119,23 +104,26 @@ namespace PipeGame
 			Renderer rend = GetComponent<Renderer>();
 			if (flow)
 			{
-				rend.material.SetColor("_EnergyColor",  new Color(0, 0.5f, 0, 1.0f));
+                rend.material.SetColor("_EnergyColor", new Color(0, 0.5f, 0, 1.0f));
+                rend.material.SetColor("_Color", new Color(1, 1, 1, 1.0f));
 			}
 			else
 			{
-				rend.material.SetColor("_EnergyColor",  new Color(0.3f, 0.3f, 0.3f, 1.0f));
+                rend.material.SetColor("_EnergyColor", new Color(0.3f, 0.3f, 0.3f, 1.0f));
+                rend.material.SetColor("_Color", new Color(1, 1, 1, 1.0f));
 			}
-//				Renderer[] temp = gameObject.GetComponentsInChildren<Renderer>();
-//				foreach(Renderer r in temp)
-//				{
-//					r.material = flowing;
-//				}
-//			}
-//			else gameObject.GetComponentInChildren<Renderer>().material = normal;
-//			Image tile_col = gameObject.GetComponent<Image>();
-//			if(flow) tile_col.color = new Color(0, 0.5f, 0);
-//			else tile_col.color = new Color(1, 1, 1);
 		}
+
+        public void FlowActive()
+        {
+            Renderer rend = GetComponent<Renderer>();
+            if (visited) return;
+            else
+            {
+                rend.material.SetColor("_EnergyColor", new Color(0, 0, 0, 1.0f));
+                rend.material.SetColor("_Color", new Color(0.45f, 0.45f, 0.45f, 1.0f));
+            }
+        }
 		
 		public bool hasExitOppositeTo(Direction dir)
 		{
@@ -161,3 +149,4 @@ namespace PipeGame
 		}
 	}
 }
+

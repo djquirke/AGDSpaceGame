@@ -88,6 +88,7 @@ namespace PipeGame
 			if(atGoal)
 			{
 				TraversePath(goal);
+                bm_.FlowFound();
 				Debug.Log("path found");
 			}
 		}
