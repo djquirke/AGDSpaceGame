@@ -20,6 +20,7 @@ public class Player_Movement : MonoBehaviour {
     private bool m_bPlayerIndexSet = false;
 
     private bool m_bPlayerCanMove = true;
+    private bool rotate = false;
 
     private Vector3 m_TargetRotation, m_StartRotation;
     private Vector3 Rotatevelocity = Vector3.zero;
@@ -89,23 +90,47 @@ public class Player_Movement : MonoBehaviour {
                 LeftStick_xAxis = -1;
             }
 
-            if ((m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.Q))
+            if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.Q))
             {
-                m_StartRotation = transform.rotation.eulerAngles;
-                m_TargetRotation = m_StartRotation + (m_rotationAxis * 90);
-
+                rotate = true;
+                if (!rotate)
+                {
+                    m_StartRotation = transform.rotation.eulerAngles;
+                    m_TargetRotation = m_StartRotation + (m_rotationAxis * 90);
+                }
+                else
+                {
+                    m_TargetRotation += (m_rotationAxis * 90);
+                }
             }
-            else if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.E))
+            else if ((m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.E))
             {
-                m_StartRotation = transform.rotation.eulerAngles;
-                m_TargetRotation = m_StartRotation + (m_rotationAxis * -90);
+                rotate = true;
+                if (!rotate)
+                {
+                    m_StartRotation = transform.rotation.eulerAngles;
+                    m_TargetRotation = m_StartRotation + (m_rotationAxis * -90);
+                }
+                else
+                {
+                    m_TargetRotation += (m_rotationAxis * -90);
+                }
 
             }
 
             //do smooth step for the camera roation
-            Vector3 rotation = Vector3.SmoothDamp(m_StartRotation, m_TargetRotation, ref Rotatevelocity, Roation_time);
-            m_StartRotation = rotation;
-            transform.rotation = Quaternion.Euler(rotation);
+            if (rotate)
+            {
+                Vector3 rotation = Vector3.SmoothDamp(m_StartRotation, m_TargetRotation,
+                                                      ref Rotatevelocity, Roation_time);
+                m_StartRotation = rotation;
+                transform.rotation = Quaternion.Euler(rotation);
+
+                if (isCloseTo(rotation, m_TargetRotation))
+                {
+                    rotate = false;
+                }
+            }		
 
             // get a direction vector of the front of the camera
             Vector3 Direction = Front.transform.position - transform.position;
@@ -133,6 +158,14 @@ public class Player_Movement : MonoBehaviour {
         }
 	}
 
+ private bool isCloseTo(Vector3 r1, Vector3 r2)
+        {
+            bool x = Mathf.Approximately(r1.x, r2.x);
+            bool y = Mathf.Approximately(r1.y, r2.y);
+            bool z = Mathf.Approximately(r1.z, r2.z);
+
+            return x && y && z;
+        }
 
     void OnTriggerStay(Collider other)
     {
