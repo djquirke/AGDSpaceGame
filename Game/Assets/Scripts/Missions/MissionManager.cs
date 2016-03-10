@@ -14,6 +14,8 @@ public class MissionManager : MonoBehaviour {
 	private Mission active_mission;
 	private float time_since_last_new_mission = 0;
 
+    public GameObject PlayButton;
+
 	// Use this for initialization
 	void Start () {
 		avail_missions = new List<Mission>();
@@ -59,6 +61,7 @@ public class MissionManager : MonoBehaviour {
                 {
                     new_mission.Initialise(MissionType.ILLNESS, 1, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)]);
                     avail_missions.Add(new_mission);
+                    StartMission();
                     Debug.Log("Illness Created");
                 }
 				break;
@@ -79,8 +82,8 @@ public class MissionManager : MonoBehaviour {
 	void StartMission()
 	{
 		//find out which mission is selected from menu
-		//active_mission = selected mission
-		//avail_missions[selected mission].StartMission(selected mission index);
+        active_mission = avail_missions[0];
+		active_mission.StartMission();
 	}
 
 	public void EndMission(int idx)
@@ -103,37 +106,4 @@ public class MissionManager : MonoBehaviour {
 			active_mission.MinigameFailed();
 		}
 	}
-
-////////////////////////TEMP CODE/////////////////////////////
-    void OnGUI()
-    {
-        if(active_mission != null)
-        {
-            return;
-        }
-
-        int CurrentLine = 0;
-      
-       GUI.BeginGroup(new Rect(Screen.width * 0.1f, Screen.height * 0.1f, Screen.width - Screen.width * 0.1f, Screen.height - Screen.height * 0.1f));
-
-       foreach (var item in avail_missions)
-       {
-           AddButton(item.getLevelName(), ref CurrentLine, item);
-	   }
-
-       GUI.EndGroup();
-
-    }
-    
-
-    void AddButton(string Text, ref int CurrentLine,  Mission CurMission)
-    {
-        if (GUI.Button(new Rect(0, CurrentLine * (50 + 10), 250, 50), Text))
-        {
-            active_mission = CurMission;
-            active_mission.StartMission();
-        }
-        ++CurrentLine;
-    }
-
 }
