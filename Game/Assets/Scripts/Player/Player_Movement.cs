@@ -139,7 +139,7 @@ public class Player_Movement : MonoBehaviour {
 
         if ((m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
         {
-            if (other.tag.Equals("Event") && other.GetComponent<Event>())
+            if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
             {
               
                 other.GetComponent<Event>().Activate();

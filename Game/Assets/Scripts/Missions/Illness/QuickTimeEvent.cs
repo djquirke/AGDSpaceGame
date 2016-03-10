@@ -18,15 +18,15 @@ public class QuickTimeEvent : Event {
     };
     public enum KeyBoardInput
     {
-        W = KeyCode.W,
-        A = KeyCode.A,
-        S = KeyCode.S,
-        D = KeyCode.D,
-        UpArrow = KeyCode.UpArrow,
-        RightArrow = KeyCode.RightArrow,
-        LeftArrow = KeyCode.LeftArrow,
-        DownArrow = KeyCode.DownArrow,
-        Num_of_Keys,
+        W,
+        A,
+        S, 
+        D,
+        UpArrow,
+        RightArrow,
+        LeftArrow,
+        DownArrow,
+        Num_of_Keys
     }
 
     //Keyboard WASD, Arrow,
