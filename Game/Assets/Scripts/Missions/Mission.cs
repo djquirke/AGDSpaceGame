@@ -17,7 +17,7 @@ public enum Difficulty
 	Insane //4 minigame per level
 }
 
-public class Mission : MonoBehaviour {
+public class Mission {
 	private string level_map;
 	private float time_remaining = 300;
 	private bool mission_lost = false;
@@ -28,7 +28,6 @@ public class Mission : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        DontDestroyOnLoad(this);
 	}
 	
 	// Update is called once per frame

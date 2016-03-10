@@ -47,22 +47,33 @@ public class MissionManager : MonoBehaviour {
 		switch (x)
 		{
 			case 0:
-                if(Engineer_Levels.Count>0)
+                if (Engineer_Levels.Count > 0)
+                {
                     new_mission.Initialise(MissionType.ENGINEERING, 1, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)]);
+                    avail_missions.Add(new_mission);
+                }
 				break;
 			case 1:
+                Debug.Log("IllnessLevels" + Illness_Levels.Count);
                 if (Illness_Levels.Count > 0)
+                {
                     new_mission.Initialise(MissionType.ILLNESS, 1, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)]);
+                    avail_missions.Add(new_mission);
+                    Debug.Log("Illness Created");
+                }
 				break;
 			case 2:
                 if (Oxygen_Levels.Count > 0)
+                {
                     new_mission.Initialise(MissionType.OXYGEN, 1, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)]);
+                    avail_missions.Add(new_mission);
+                }
 				break;
 			default:
 				break;
 		}
 
-		avail_missions.Add(new_mission);
+		
 	}
 
 	void StartMission()
@@ -79,7 +90,7 @@ public class MissionManager : MonoBehaviour {
 
 	public void MinigameComplete()
 	{
-		if(active_mission)
+        if (active_mission != null)
 		{
 			active_mission.MinigameComplete();
 		}
@@ -87,7 +98,7 @@ public class MissionManager : MonoBehaviour {
 
 	public void MinigameFailed()
 	{
-		if(active_mission)
+        if (active_mission != null)
 		{
 			active_mission.MinigameFailed();
 		}
@@ -96,7 +107,7 @@ public class MissionManager : MonoBehaviour {
 ////////////////////////TEMP CODE/////////////////////////////
     void OnGUI()
     {
-        if(!active_mission)
+        if(active_mission != null)
         {
             return;
         }
