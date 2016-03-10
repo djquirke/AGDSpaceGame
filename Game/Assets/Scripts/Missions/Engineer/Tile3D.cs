@@ -13,16 +13,11 @@ namespace PipeGame
 		public Material normal, flowing;
         private float rotation_time = 0.25f;
         private Vector3 target_rotation, start_rotation, rotation_velocity = Vector3.zero;
-        private List<int> target_points = new List<int>();
 
 		void Start()
 		{
             start_rotation = transform.rotation.eulerAngles;
             target_rotation = transform.rotation.eulerAngles;
-            target_points.Add(0);
-            target_points.Add(90);
-            target_points.Add(180);
-            target_points.Add(270);
 		}
 
 		void Update()

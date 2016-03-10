@@ -6,7 +6,6 @@ public class PipeMiniGameAnimationController : MonoBehaviour {
     void Start()
     {
         openMiniGame();
-
     }
     void openMiniGame()
     {
