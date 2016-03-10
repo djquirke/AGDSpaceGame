@@ -169,15 +169,12 @@ public class Player_Movement : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-
-        if ((m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
+        if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
         {
-            if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
+            if ((m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
             {
-              
-                other.GetComponent<Event>().Activate();
-                EnablePlayerMovement(false);
-               
+                    EnablePlayerMovement(false);
+                    other.GetComponent<Event>().Activate();
             }
         }
 
