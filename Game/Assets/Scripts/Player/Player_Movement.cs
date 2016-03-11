@@ -24,6 +24,9 @@ public class Player_Movement : MonoBehaviour {
 
     private Vector3 m_TargetRotation, m_StartRotation;
     private Vector3 Rotatevelocity = Vector3.zero, CharRotateVelocity = Vector3.zero;
+
+    private Vector3 m_CharictorTotalRotation = Vector3.zero;
+    private Vector3 m_CharictorTargetRotation = Vector3.zero;
     public float Roation_time = 0.5f, Char_Rotation_Time = 0.1f;
 
 
@@ -149,17 +152,23 @@ public class Player_Movement : MonoBehaviour {
             //rotate the player model
             if (TotalDirection.magnitude > 0)
             {
-                float angle = Mathf.Atan2(Vector3.Dot(Vector3.up, Vector3.Cross(Direction, TotalDirection)), Vector3.Dot(Direction, TotalDirection));
 
 
-                 Vector3 CharRotation = Vector3.SmoothDamp(mesh.transform.rotation.eulerAngles, 
-                                                           new Vector3(0, Mathf.Rad2Deg * angle, 0) +
-                                                           new Vector3(0, 100, 0),
+
+                float angle = Mathf.Atan2(Vector3.Dot(Vector3.up, 
+                                                      Vector3.Cross(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(m_CharictorTotalRotation) ,Vector3.one) * Direction , 
+                                                                    TotalDirection)),
+                                          Vector3.Dot(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(m_CharictorTotalRotation), Vector3.one) * Direction, TotalDirection));
+
+                Vector3 TargetAngle = m_CharictorTotalRotation + new Vector3(0, Mathf.Rad2Deg * angle, 0);
+
+
+                m_CharictorTotalRotation = Vector3.SmoothDamp(m_CharictorTotalRotation,
+                                                           TargetAngle,
                                                       ref CharRotateVelocity, Char_Rotation_Time);
-               
-                mesh.transform.rotation = Quaternion.Euler(CharRotation);
 
-              //  mesh.transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * angle, 0) * Quaternion.Euler(0, 100, 0);
+                mesh.transform.localRotation = Quaternion.Euler(m_CharictorTotalRotation);
+
 
                 
             }
