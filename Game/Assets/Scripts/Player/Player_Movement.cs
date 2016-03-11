@@ -10,7 +10,7 @@ public class Player_Movement : MonoBehaviour {
     public float MoveSpeed_mulitplier = 1.0f;
 
 
-    private GameObject Front,mesh;
+    private GameObject Front, mesh;
 
     private Vector3 m_rotationAxis;
 
@@ -188,11 +188,14 @@ public class Player_Movement : MonoBehaviour {
     {
         if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
         {
+           // m_gpPrevState = m_gpState;
+            m_gpState = GamePad.GetState(m_PlayerIndex);
             if ((m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
             {
                     EnablePlayerMovement(false);
                     other.GetComponent<Event>().Activate();
             }
+            Debug.Log("Colliding with event");
         }
 
 

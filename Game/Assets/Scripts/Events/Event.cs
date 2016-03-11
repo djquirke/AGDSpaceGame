@@ -5,6 +5,7 @@ public class Event : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        tag = "Event";
 	
 	}
 	
@@ -26,6 +27,7 @@ public class Event : MonoBehaviour {
 	// Called when a minigame is complete to update the mission manager
 	public void Success()
 	{
+        tag = "EventDone";
         GameObject Mission = GameObject.Find("MissionManager");
         if (Mission)
         {
