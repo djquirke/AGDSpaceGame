@@ -15,7 +15,7 @@ namespace PipeGame
 	public class BoardManager3D : MonoBehaviour {
 
 		private List<List<GameObject>> tiles; //<width<height>>
-		private int board_width = 11, board_height = 11;
+		private int board_width = 9, board_height = 9;
 		public GameObject TileNE, TileNES, TileNESW, TileNS, TileNull, start, end, blank, corner, stage9, stage7, stage5;
 		private int depth = 15;
 

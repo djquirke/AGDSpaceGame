@@ -10,7 +10,6 @@ namespace PipeGame
 		public bool north, south, east, west, isStart, isEnd, isRotatable;
 		private bool visited = false, rotate = false;
 		private Vector3 prev_rotation;
-		public Material normal, flowing;
         private float rotation_time = 0.25f;
         private Vector3 target_rotation, start_rotation, rotation_velocity = Vector3.zero;
 
