@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 114: {fileID: 11418792}
   - 114: {fileID: 11416344}
   m_Layer: 0
   m_Name: Room MB 1
@@ -2197,22 +2196,6 @@ MonoBehaviour:
   wideRoom: 0
   neighbours: []
   doors: []
---- !u!114 &11418792
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCsets:
-  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
-  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
-  weights: 0100000002000000
-  NumberOfNPCs: 3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

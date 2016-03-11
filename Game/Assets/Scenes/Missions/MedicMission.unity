@@ -90,7 +90,7 @@ GameObject:
   - 114: {fileID: 19039943}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,9 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &75096177
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +281,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 458810, guid: 53dc20256e2691e4287809b948572929, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -310,6 +320,26 @@ Prefab:
     - target: {fileID: 458810, guid: 53dc20256e2691e4287809b948572929, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53dc20256e2691e4287809b948572929, type: 2}
@@ -409,7 +439,7 @@ GameObject:
   - 114: {fileID: 266111607}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,7 +455,7 @@ Transform:
   m_LocalScale: {x: .600000024, y: 1, z: .600000024}
   m_Children: []
   m_Father: {fileID: 2100320240}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!114 &266111603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,9 +527,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &268964833
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +547,7 @@ GameObject:
   - 114: {fileID: 268964839}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -603,9 +635,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &334771509
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +675,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -672,6 +714,26 @@ Prefab:
     - target: {fileID: 400000, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418128, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31b9aa088922d4146800e0bf01b326dc, type: 2}
@@ -763,7 +825,7 @@ GameObject:
   - 114: {fileID: 485403173}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -851,9 +913,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1001 &491093531
 Prefab:
   m_ObjectHideFlags: 0
@@ -861,6 +925,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
       propertyPath: m_LocalPosition.x
       value: 9
@@ -901,6 +973,26 @@ Prefab:
       propertyPath: roomsets.Array.data[1]
       value: 
       objectReference: {fileID: 100000, guid: e2a29d438540443448f4a97c00a09499, type: 2}
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11452498, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 01a19ae25eb769742993356e2ffee302, type: 2}
   m_RootGameObject: {fileID: 1502893693}
@@ -921,7 +1013,7 @@ GameObject:
   - 114: {fileID: 716806630}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -933,11 +1025,11 @@ Transform:
   m_PrefabInternal: {fileID: 761794121}
   m_GameObject: {fileID: 716806624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.95000005, y: 0, z: 0}
+  m_LocalPosition: {x: -2.94999981, y: 0, z: 0}
   m_LocalScale: {x: .600000024, y: 1, z: .600000024}
   m_Children: []
   m_Father: {fileID: 2100320240}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &716806626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,9 +1101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &720223487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1150,7 @@ GameObject:
   - 114: {fileID: 727090094}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1144,9 +1238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1001 &761794121
 Prefab:
   m_ObjectHideFlags: 0
@@ -1154,6 +1250,22 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 473584, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
       propertyPath: m_LocalPosition.x
       value: -12
@@ -1188,7 +1300,51 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 473580, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.95000005
+      value: -2.94999981
+      objectReference: {fileID: 0}
+    - target: {fileID: 473580, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
@@ -1400,7 +1556,7 @@ GameObject:
   - 114: {fileID: 1030869525}
   m_Layer: 0
   m_Name: 2x2Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1489,9 +1645,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &1049638732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,7 +1728,7 @@ GameObject:
   - 114: {fileID: 1107389077}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1658,9 +1816,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
+--- !u!1 &1128400776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1128400778}
+  - 114: {fileID: 1128400777}
+  m_Layer: 0
+  m_Name: levelGenarater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1128400777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128400776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe9f4bc6c3b1144bba590cf84d5873e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1128400778
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128400776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.9363327, y: 27.6673336, z: 20.6580563}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1001 &1249883855
 Prefab:
   m_ObjectHideFlags: 0
@@ -1668,6 +1867,22 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 473584, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -1704,6 +1919,46 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -2.95000005
       objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
   m_RootGameObject: {fileID: 1525250683}
@@ -1724,7 +1979,7 @@ GameObject:
   - 114: {fileID: 1373964837}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1812,9 +2067,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &1502893693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,7 +2087,7 @@ GameObject:
   - 114: {fileID: 1502893699}
   m_Layer: 0
   m_Name: 1x2Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1918,9 +2175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &1525250683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,7 +2224,7 @@ GameObject:
   - 114: {fileID: 1791362800}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2053,9 +2312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &1813758096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,7 +2332,7 @@ GameObject:
   - 114: {fileID: 1813758102}
   m_Layer: 0
   m_Name: 1x1Base
-  m_TagString: Untagged
+  m_TagString: RoomTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2159,9 +2420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCsets: []
-  weights: 
-  NumberOfNPCs: 0
+  NPCsets:
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  weights: 0100000002000000
+  NumberOfNPCs: 3
 --- !u!1 &1890726332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2461,22 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 473584, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -2230,6 +2509,46 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
   m_RootGameObject: {fileID: 720223487}
@@ -2242,6 +2561,22 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 473584, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
       propertyPath: m_LocalPosition.x
       value: -12
@@ -2278,6 +2613,46 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -2.95000005
       objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11458266, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11418608, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 768edabfa9e98104d9c25a40f668d05f, type: 2}
   m_RootGameObject: {fileID: 1890726332}
@@ -2290,6 +2665,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NPCsets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: weights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 458810, guid: 53dc20256e2691e4287809b948572929, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -2322,6 +2705,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NPCsets.Array.data[0]
+      value: 
+      objectReference: {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NPCsets.Array.data[1]
+      value: 
+      objectReference: {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: weights.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: weights.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11431074, guid: 53dc20256e2691e4287809b948572929, type: 2}
+      propertyPath: NumberOfNPCs
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53dc20256e2691e4287809b948572929, type: 2}
   m_RootGameObject: {fileID: 485403167}
@@ -2352,7 +2755,7 @@ Transform:
   m_LocalPosition: {x: -12, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 716806625}
   - {fileID: 266111602}
+  - {fileID: 716806625}
   m_Father: {fileID: 0}
   m_RootOrder: 8
