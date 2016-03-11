@@ -7,12 +7,24 @@ public class RoomManager : MonoBehaviour
 
     public bool safe = false;
     public bool wideRoom = false;
-    List<GameObject> neighbours = new List<GameObject>();
-    public GameObject[] doors;
+    [SerializeField] List<GameObject> neighbours = new List<GameObject>();
+    public List<GameObject> doors;
     // Use this for initialization
     void Start()
     {
-
+		doors = new List<GameObject> ();
+		foreach (Transform child in transform.GetChild(0).transform) {
+			if(child.tag == "Door")
+			{
+				doors.Add(child.gameObject);
+			}
+		}
+		foreach (Transform child in transform) {
+			if(child.tag == "Door")
+			{
+				doors.Add(child.gameObject);
+			}
+		}
     }
 
     // Update is called once per frame
@@ -35,18 +47,25 @@ public class RoomManager : MonoBehaviour
 
     void GetNeighbours()
     {
-        for (int i = 0; i < doors.Length; i++)
+        for (int i = 0; i < doors.Count; i++)
         {
             GameObject[] allDoors = GameObject.FindGameObjectsWithTag("Door");
             for (int j = 0; j < allDoors.Length; j++)
             {
-                if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 0.25f)
+                if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 1.0f)
                 {
-                    if(allDoors[j].transform.parent.gameObject.GetComponent<RoomManager>())
-                        neighbours.Add(allDoors[j].transform.parent.gameObject);
+                    if(allDoors[j].transform.parent.parent.gameObject.GetComponent<RoomManager>())
+						neighbours.Add(allDoors[j].transform.parent.parent.gameObject);
                     else if (allDoors[j].transform.parent.parent.gameObject.GetComponent<RoomManager>())
                         neighbours.Add(allDoors[j].transform.parent.parent.gameObject);
-                }
+				}
+				if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 1.0f)
+				{
+					if(allDoors[j].transform.parent.gameObject.GetComponent<RoomManager>())
+						neighbours.Add(allDoors[j].transform.parent.gameObject);
+					else if (allDoors[j].transform.parent.gameObject.GetComponent<RoomManager>())
+						neighbours.Add(allDoors[j].transform.parent.gameObject);
+				}
             }
         }
     }

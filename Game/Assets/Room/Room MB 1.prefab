@@ -9,9 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11418792}
+  - 114: {fileID: 11416344}
   m_Layer: 0
   m_Name: Room MB 1
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2181,6 +2182,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11416344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543c69b5e520f4a4aaa78d8bd0758258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safe: 0
+  wideRoom: 0
+  neighbours: []
+  doors: []
 --- !u!114 &11418792
 MonoBehaviour:
   m_ObjectHideFlags: 1

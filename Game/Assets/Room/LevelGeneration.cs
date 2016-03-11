@@ -49,8 +49,9 @@ public class LevelGeneration : MonoBehaviour {
                     }
                     bool unfinished = false;
                     for (int i = 0; i < rooms.Length; i++)
-                    {
-                        if (rooms[i].GetComponent<RoomManager>().safe == false)
+				{
+					rooms[i].GetComponent<RoomManager>().SafeNeighbourCheck();
+					if (rooms[i].GetComponent<RoomManager>().safe == false)
                         {
                             rooms[i].GetComponent<RoomManager>().Rotate();
                             unfinished = true;
