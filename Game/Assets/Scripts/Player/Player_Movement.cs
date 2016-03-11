@@ -189,13 +189,12 @@ public class Player_Movement : MonoBehaviour {
         if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
         {
            // m_gpPrevState = m_gpState;
-            m_gpState = GamePad.GetState(m_PlayerIndex);
-            if ((m_gpPrevState.Buttons.A == ButtonState.Released && m_gpState.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
+            GamePadState current_state  = GamePad.GetState(m_PlayerIndex);
+            if ((m_gpPrevState.Buttons.A == ButtonState.Released && current_state.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
             {
                     EnablePlayerMovement(false);
                     other.GetComponent<Event>().Activate();
             }
-            Debug.Log("Colliding with event");
         }
 
 
