@@ -46,12 +46,16 @@ public class QuickTimeEvent : Event {
     public List<Texture> m_xBoxTex = new List<Texture>();
     public List<Texture> m_KeyTex = new List<Texture>();
 
+    public Material IncompleteMat;
+    public Material CompleteMat;
+
 	private bool m_isActive = false;
 
     private List<KeyBoardInput> m_ActiveKeyList = new List<KeyBoardInput>();
     private List<ControllerInput> m_ActiveButtonList = new List<ControllerInput>();
     
     private float m_fTimePassed = 0f;
+
 
 
     //controller setup
@@ -73,14 +77,15 @@ public class QuickTimeEvent : Event {
 		{
             m_KeyList.Clear();
             m_ButtonList.Clear();
-			System.Random Rand = new System.Random ();
+			//System.Random Rand = new System.Random (Random.);
 			for (int x= 0; x < m_Number_of_events; ++x) {
-                m_ButtonList.Add((ControllerInput)Rand.Next((int)ControllerInput.Num_of_Buttons));
+                m_ButtonList.Add((ControllerInput)Random.Range(0,(int)ControllerInput.Num_of_Buttons));//(ControllerInput)Rand.Next((int)ControllerInput.Num_of_Buttons));
 
-                m_KeyList.Add((KeyBoardInput)Rand.Next((int)KeyBoardInput.Num_of_Keys));
+                m_KeyList.Add((KeyBoardInput)Random.Range(0,(int)KeyBoardInput.Num_of_Keys));//(KeyBoardInput)Rand.Next((int)KeyBoardInput.Num_of_Keys));
 			}
 		} 
-		else if (m_IsRandomOrder)
+
+		if (m_IsRandomOrder)
 		{
 			System.Random Rand = new System.Random ();
 			List<ControllerInput> NewButtonList = new List<ControllerInput>();
@@ -108,8 +113,12 @@ public class QuickTimeEvent : Event {
             m_KeyList .AddRange(NewKeyList);
 
 		}
-		m_ActiveKeyList = m_KeyList;
-		m_ActiveButtonList = m_ButtonList;
+
+		m_ActiveKeyList.AddRange(m_KeyList);
+		m_ActiveButtonList.AddRange(m_ButtonList);
+
+
+        renderer.material = IncompleteMat;
 
 	}
 	
@@ -138,33 +147,23 @@ public class QuickTimeEvent : Event {
 		{
             if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
             {
-                if (m_fTimePassed < TimeBetweenEvents)
-                  {
-                      if (CheckControllerButton(m_ActiveButtonList[0]))
-                    {
-                        m_ActiveButtonList.RemoveAt(0);
-                        m_fTimePassed = 0f;
-                    }
-                  }
-                  else
-                  {
-                    // missed do something
-                  }
+                
+            if (CheckControllerButton(m_ActiveButtonList[0]))
+            {
+                m_ActiveButtonList.RemoveAt(0);
+                m_fTimePassed = 0f;
+            }
+                  
+                 
             }
             else if (!m_gpState.IsConnected && m_ActiveKeyList.Count > 0)
             {
-                if (m_fTimePassed < TimeBetweenEvents)
+                if (CheckKeys(m_ActiveKeyList[0]))
                 {
-                    if (CheckKeys(m_ActiveKeyList[0]))
-                    {
-                        m_ActiveKeyList.RemoveAt(0);
-                        m_fTimePassed = 0f;
-                    }
+                    m_ActiveKeyList.RemoveAt(0);
+                    m_fTimePassed = 0f;
                 }
-                else
-                {
-                    // missed do somthing
-                }
+                
             }
             else
             {
@@ -172,18 +171,21 @@ public class QuickTimeEvent : Event {
                 {
                     //win
                     Success();
+                    renderer.material = CompleteMat;
 
                 }
                 else if(m_KeyList.Count > 0 && m_ActiveKeyList.Count == 0)
                 {
                     //win
                     Success();
+                    renderer.material = CompleteMat;
                 }
                 else
                 {
                     //fail
                     Failure();
                 }
+
                 m_isActive = false;
                 m_fTimePassed = 0f;
                 FindObjectOfType<Player_Movement>().EnablePlayerMovement();
@@ -353,9 +355,12 @@ public class QuickTimeEvent : Event {
     public override void Activate()
     {
        // if it is not active reset the lists
-       
-            m_ActiveButtonList = m_ButtonList;
-            m_ActiveKeyList = m_KeyList;
+
+        m_ActiveKeyList.Clear();
+        m_ActiveButtonList.Clear();
+
+        m_ActiveKeyList.AddRange(m_KeyList);
+        m_ActiveButtonList.AddRange(m_ButtonList);
         
 
         m_isActive = true;

@@ -13,6 +13,7 @@ GameObject:
   - 23: {fileID: 2371242}
   - 114: {fileID: 11471242}
   - 54: {fileID: 5405694}
+  - 135: {fileID: 13598874}
   m_Layer: 0
   m_Name: Ill NPC
   m_TagString: Event
@@ -111,6 +112,20 @@ MonoBehaviour:
   - {fileID: 2800000, guid: b320a36afac91664ab36b134f7dd8c4f, type: 3}
   - {fileID: 2800000, guid: e5bdc49738c2ce94ebe98d747e223192, type: 3}
   - {fileID: 2800000, guid: b165a783d1324b246b7cabaf55893cee, type: 3}
+  IncompleteMat: {fileID: 2100000, guid: 51f91b8071a62cc469afcf9da17c436c, type: 2}
+  CompleteMat: {fileID: 2100000, guid: 978846c1b0bc6f24b806320f6ad01b97, type: 2}
+--- !u!135 &13598874
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171242}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 5.96046448e-08, y: 0, z: -8.94069672e-08}
 --- !u!136 &13671242
 CapsuleCollider:
   m_ObjectHideFlags: 1
