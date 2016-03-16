@@ -3,44 +3,45 @@ using System.Collections;
 
 public class DoorManager : MonoBehaviour {
 
+	private bool open;
+
 	// Use this for initialization
     private bool doorState = false;
 	void Start () {
-        StartCoroutine(Tick());
+        //StartCoroutine(Tick());
+		Animator[] doors = GetComponentsInChildren<Animator>();
+		foreach(Animator door in doors)
+		{
+			door.Play("Close", -1, 0);
+		}
+		open = false;
 	}
-    IEnumerator Tick()
-    {
-        yield return new WaitForSeconds(1);
-        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject p in player)
-        {
-            float dist = Vector3.Distance(p.transform.position, transform.position);
-            if (dist < 3 && doorState == false)
-            {
-                doorState = true;
-                triggerAnim(true);
-            }
-            else if (dist > 3 && doorState == true)
-            {
-                doorState = false;
-                triggerAnim(false);
-            }
-        }
-        StartCoroutine(Tick());
-        
-    }
-    public void triggerAnim(bool state)
-    {
-        if (state == true)
-        {
-            GetComponent<Animator>().Play("Open", -1, 0f);
-        }
-        else
-        {
-            GetComponent<Animator>().Play("Close", -1, 0f);
-        }
-    }
-	void Update () {
-	
+
+	void OnTriggerEnter(Collider other)
+	{
+		//Debug.Log(other.collider.GetType().Equals(typeof(BoxCollider)));
+		Debug.Log(other.GetType() == (typeof(BoxCollider)));
+		if(other.tag.Equals("Player") || other.tag.Equals("AI"))// && other.collider.GetType().Equals(typeof(BoxCollider)))
+		{
+			Animator[] doors = GetComponentsInChildren<Animator>();
+			foreach(Animator door in doors)
+			{
+				door.Play("Open", -1, 0);
+			}
+			open = true;
+		}
+	}
+
+	void OnTriggerExit()
+	{
+		if(open)
+		{
+			Animator[] doors = GetComponentsInChildren<Animator>();
+			foreach(Animator door in doors)
+			{
+				door.Play("Close", -1, 0);
+			}
+			open = false;
+		}
 	}
 }
