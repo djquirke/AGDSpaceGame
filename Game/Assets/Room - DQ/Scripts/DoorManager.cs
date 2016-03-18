@@ -4,6 +4,7 @@ using System.Collections;
 public class DoorManager : MonoBehaviour {
 
 	private bool open;
+	[SerializeField] bool gives_access = false;
 
 	// Use this for initialization
     private bool doorState = false;
@@ -20,7 +21,7 @@ public class DoorManager : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		//Debug.Log(other.collider.GetType().Equals(typeof(BoxCollider)));
-		Debug.Log(other.GetType() == (typeof(BoxCollider)));
+		//Debug.Log(other.GetType() == (typeof(BoxCollider)));
 		if(other.tag.Equals("Player") || other.tag.Equals("AI"))// && other.collider.GetType().Equals(typeof(BoxCollider)))
 		{
 			Animator[] doors = GetComponentsInChildren<Animator>();
@@ -44,4 +45,7 @@ public class DoorManager : MonoBehaviour {
 			open = false;
 		}
 	}
+
+	public void SetAccess(bool b) {gives_access = b;}
+	public bool GetAccess() {return gives_access;}
 }

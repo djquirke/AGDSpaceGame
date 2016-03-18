@@ -11,8 +11,8 @@ public class DynamicFloor : MonoBehaviour {
     public int type = 0;
     public Material[] MaterialList;
 	// Use this for initialization
-	IEnumerator Example() {
-		yield return new WaitForSeconds(1);
+	public void Calculate() {
+		//yield return new WaitForSeconds(3);
 		rend = GetComponent<Renderer>();
 		
 		fNodes = GameObject.FindGameObjectsWithTag("DynamicFloor");
@@ -23,9 +23,9 @@ public class DynamicFloor : MonoBehaviour {
 		{
 			iList[i] = fNodes[i];
 		}
-		for (int ii = 0; ii < doors.Length; ii += 1)
+		for (int j = 0; j < doors.Length; j += 1)
 		{
-			iList[fNodes.Length + ii] = doors[ii];
+			iList[fNodes.Length + j] = doors[j];
 		}
 		fNodes = iList;
 		foreach (Transform child in transform)
@@ -39,7 +39,7 @@ public class DynamicFloor : MonoBehaviour {
 		adjustOrientation();
 	}
 	void Start () {
-		StartCoroutine(Example());
+		//StartCoroutine(Calculate());
         
 	}
    

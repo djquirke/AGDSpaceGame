@@ -16,7 +16,7 @@ public class doorspawntest : MonoBehaviour {
 				Transform[] c2 = child.GetComponentsInChildren<Transform>();
 				foreach(Transform c in c2)
 				{
-					Debug.Log(c.tag);
+					//Debug.Log(c.tag);
 					if(c.tag.Equals("Door"))
 					{
 						//c.collider.enabled = false;

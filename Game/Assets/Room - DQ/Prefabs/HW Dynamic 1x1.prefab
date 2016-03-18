@@ -8,9 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 427606}
+  - 114: {fileID: 11477562}
   m_Layer: 0
   m_Name: HW Dynamic 1x1
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +26,7 @@ GameObject:
   - 4: {fileID: 427608}
   m_Layer: 0
   m_Name: South
-  m_TagString: DynamicFloorNodes
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +41,7 @@ GameObject:
   - 4: {fileID: 427610}
   m_Layer: 0
   m_Name: West
-  m_TagString: DynamicFloorNodes
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +56,7 @@ GameObject:
   - 4: {fileID: 427612}
   m_Layer: 0
   m_Name: East
-  m_TagString: DynamicFloorNodes
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +71,7 @@ GameObject:
   - 4: {fileID: 427614}
   m_Layer: 0
   m_Name: North
-  m_TagString: DynamicFloorNodes
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 14.2053204, y: 5.66602414e-16, z: -25.5175056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 427616}
@@ -231,6 +232,21 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 53b0f61c4b6b02f4bb26ef75ee80db8f, type: 2}
   - {fileID: 2100000, guid: 1e94c8e22036c20418b23d2615d3e406, type: 2}
   - {fileID: 2100000, guid: 89519c9c288cd2640bc51113f61d683c, type: 2}
+--- !u!114 &11477562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543c69b5e520f4a4aaa78d8bd0758258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safe: 1
+  wideRoom: 0
+  neighbours: []
+  doors: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
