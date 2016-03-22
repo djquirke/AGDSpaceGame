@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 427606}
   - 114: {fileID: 11477562}
+  - 114: {fileID: 11440772}
   m_Layer: 0
   m_Name: HW Dynamic 1x1
   m_TagString: Room
@@ -232,6 +233,22 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 53b0f61c4b6b02f4bb26ef75ee80db8f, type: 2}
   - {fileID: 2100000, guid: 1e94c8e22036c20418b23d2615d3e406, type: 2}
   - {fileID: 2100000, guid: 89519c9c288cd2640bc51113f61d683c, type: 2}
+--- !u!114 &11440772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCsets:
+  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  weights: 
+  NumberOfNPCs: 0
 --- !u!114 &11477562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,8 +262,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safe: 1
   wideRoom: 0
-  neighbours: []
-  doors: []
+  type: 4
+  size: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

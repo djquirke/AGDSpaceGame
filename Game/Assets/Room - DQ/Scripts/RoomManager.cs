@@ -2,13 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum RoomType
+{
+	MEDIC,
+	ENGINEER,
+	FLIGHT_DECK,
+	SLEEPING,
+	HALLWAY
+}
+
+public enum RoomSize
+{
+	SMALL,
+	MEDIUM,
+	LARGE
+}
+
 public class RoomManager : MonoBehaviour
 {
 
     public bool safe = false;
     public bool wideRoom = false;
-    [SerializeField] List<GameObject> neighbours = new List<GameObject>();
-    public List<GameObject> doors;
+	public RoomType type;
+	public RoomSize size;
+    private List<GameObject> neighbours = new List<GameObject>();
+    private List<GameObject> doors;
+
     // Use this for initialization
     void Start()
     {

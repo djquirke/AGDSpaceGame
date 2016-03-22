@@ -7,18 +7,35 @@ public class NPCGenarator : MonoBehaviour {
     public GameObject[] NPCsets;
     public int[] weights;
     public int NumberOfNPCs = 0;
+	private RoomSize r_size;
+	private RoomType r_type;
 
     List<int> weightsList = new List<int>();
 
-    // Use this for initialization
+	public void Initialise(MissionType mission_type)
+	{
+		r_type = gameObject.GetComponent<RoomManager>().type;
+		r_size = gameObject.GetComponent<RoomManager>().size;
 
-    void Start()
-    {
-        while (0 != NumberOfNPCs--)
-            Genarate();
-    }
+		NumberOfNPCs = Random.Range (0, 2 * ((int)r_size + 1));
+		Debug.Log (r_size + " " + NumberOfNPCs);
+		if(NumberOfNPCs == 0) return;
 
-    void Genarate()
+		if (mission_type != MissionType.ILLNESS) {
+			weights = new int[]{1};
+		}
+		else
+		{
+			weights = new int[]{1, 2};
+		}
+
+		while (0 < NumberOfNPCs--)
+		{
+			Generate();
+		}
+	}
+
+    void Generate()
     {
         for (int i = 0; i < weights.Length; i++)
         {

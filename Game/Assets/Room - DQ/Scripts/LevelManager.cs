@@ -1,63 +1,68 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class LevelManager : MonoBehaviour {
 
-	private GameObject[] room_templates, rooms, door_spawns, hallways;
+	private GameObject[] rooms;
+//	private Stopwatch mission_time;
+//	private bool game_over = false;
 
 	// Use this for initialization
 	void Start () {
-		//split rooms
-		for(int i = 0; i < 3; i++)
-		{
-			room_templates = GameObject.FindGameObjectsWithTag("RoomTemplate");
-			foreach(GameObject template in room_templates)
-			{
-				template.GetComponent<RoomSplitter>().Split();
-			}
-		}
 
-		//randomly rotate rooms before making ship accessible
+
+		// 1. Split rooms
+		// 2. Randomly rotate rooms before making ship accessible
+		// 3. Rotate rooms until fully accessible ship
+		// 4. Delete doors/walls appropriately
+		// 5. Remove overlapping walls
+		// 6. Dynamic floor
+
+		SplitRooms ();
 		rooms = GameObject.FindGameObjectsWithTag("Room");
+		RandomRoomRotation ();
+		MakeShipAccessible ();
+		RemoveWallDoors ();
+		RemoveOverlappingWalls ();
+		CalculateFloor ();
+		GenerateNPCs ();
+
+		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	}
+
+	private bool CheckShipAccessible()
+	{
+		bool ret = false;
 		foreach(GameObject room in rooms)
 		{
-			int r = Random.Range(0, 4);
-			for(int i = 0; i < r; i++)
+			if(!room.GetComponent<RoomManager>().safe)
 			{
-				room.GetComponent<RoomManager>().Rotate();
+				ret = true;
+				break;
 			}
+			ret = false;
 		}
+		return ret;
+	}
 
-
-		//rotate rooms until fully accessible ship
-		foreach(GameObject room in rooms)
+	private void CalculateFloor()
+	{
+		GameObject[] hallways = GameObject.FindGameObjectsWithTag("DynamicFloor");
+		foreach(GameObject hallway in hallways)
 		{
-			room.GetComponent<RoomManager>().SafeNeighbourCheck();
+			hallway.GetComponent<DynamicFloor>().Calculate();
 		}
-		bool running = false;
-		do {
-			//rotate inaccessible rooms
-			foreach(GameObject room in rooms)
-			{
-				if(!room.GetComponent<RoomManager>().safe)
-				{
-					room.GetComponent<RoomManager>().Rotate();
-					room.GetComponent<RoomManager>().SafeNeighbourCheck();
-				}
-			}
+	}
 
-			//check if ship is accessible
-			running = CheckShipAccessible();
-		} while (running);
-
-		foreach(GameObject r in rooms)
-		{
-			r.GetComponent<RoomManager>().SafeNeighbourCheck();
-		}
-
-		//delete doors/walls appropriately
-		door_spawns = GameObject.FindGameObjectsWithTag("Door Spawn");
+	private void RemoveWallDoors()
+	{
+		GameObject[] door_spawns = GameObject.FindGameObjectsWithTag("Door Spawn");
 		foreach(GameObject door_spawn in door_spawns)
 		{
 			//get door
@@ -91,8 +96,62 @@ public class LevelManager : MonoBehaviour {
 				}
 			}
 		}
+	}
 
-		//remove overlapping walls
+	private void MakeShipAccessible ()
+	{
+		foreach(GameObject room in rooms)
+		{
+			room.GetComponent<RoomManager>().SafeNeighbourCheck();
+		}
+		bool running = false;
+		do {
+			//rotate inaccessible rooms
+			foreach(GameObject room in rooms)
+			{
+				if(!room.GetComponent<RoomManager>().safe)
+				{
+					room.GetComponent<RoomManager>().Rotate();
+					room.GetComponent<RoomManager>().SafeNeighbourCheck();
+				}
+			}
+			
+			//check if ship is accessible
+			running = CheckShipAccessible();
+		} while (running);
+		
+		foreach(GameObject r in rooms)
+		{
+			r.GetComponent<RoomManager>().SafeNeighbourCheck();
+		}
+	}
+
+	private void SplitRooms()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			GameObject[] room_templates = GameObject.FindGameObjectsWithTag("RoomTemplate");
+			foreach(GameObject template in room_templates)
+			{
+				template.GetComponent<RoomSplitter>().Split();
+			}
+		}
+	}
+
+	private void RandomRoomRotation()
+	{
+		foreach(GameObject room in rooms)
+		{
+			int r = Random.Range(0, 4);
+			for(int i = 0; i < r; i++)
+			{
+				room.GetComponent<RoomManager>().Rotate();
+			}
+		}
+	}
+
+	private void RemoveOverlappingWalls ()
+	{
 //		GameObject[] all_walls = GameObject.FindGameObjectsWithTag("Wall");
 //		for(int i = 0; i < all_walls.Length; i++)
 //		{
@@ -106,33 +165,17 @@ public class LevelManager : MonoBehaviour {
 //				}
 //			}
 //		}
-
-		//dynamic floor
-		hallways = GameObject.FindGameObjectsWithTag("DynamicFloor");
-		//Debug.Log(hallways.Length);
-		foreach(GameObject hallway in hallways)
-		{
-			hallway.GetComponent<DynamicFloor>().Calculate();
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
-	private bool CheckShipAccessible()
+	private void GenerateNPCs ()
 	{
-		bool ret = false;
-		foreach(GameObject room in rooms)
+		MissionType mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
+		if (mt == MissionType.NUM_OF_MISSIONS)
+			return;
+
+		foreach (GameObject room in rooms)
 		{
-			if(!room.GetComponent<RoomManager>().safe)
-			{
-				ret = true;
-				break;
-			}
-			ret = false;
+			room.GetComponent<NPCGenarator>().Initialise(mt);
 		}
-		return ret;
 	}
 }

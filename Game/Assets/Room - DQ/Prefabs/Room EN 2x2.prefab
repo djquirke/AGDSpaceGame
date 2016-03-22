@@ -714,8 +714,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 449584}
-  - 114: {fileID: 11449706}
   - 114: {fileID: 11449708}
+  - 114: {fileID: 11440772}
   m_Layer: 0
   m_Name: Room EN 2x2
   m_TagString: Room
@@ -3894,7 +3894,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b643f4a8e9d1541ba622a4df3ad425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gives_access: 0
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3906,7 +3905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b643f4a8e9d1541ba622a4df3ad425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gives_access: 0
 --- !u!114 &11400100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3918,8 +3916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b643f4a8e9d1541ba622a4df3ad425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gives_access: 0
---- !u!114 &11449706
+--- !u!114 &11440772
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -3931,10 +3928,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCsets:
-  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
   - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
-  weights: 0100000002000000
-  NumberOfNPCs: 3
+  - {fileID: 171242, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  weights: 
+  NumberOfNPCs: 0
 --- !u!114 &11449708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3948,8 +3945,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safe: 0
   wideRoom: 0
-  neighbours: []
-  doors: []
+  type: 1
+  size: 2
 --- !u!114 &11449710
 MonoBehaviour:
   m_ObjectHideFlags: 1

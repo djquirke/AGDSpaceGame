@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public enum MissionType
 {
@@ -11,15 +12,15 @@ public enum MissionType
 
 public enum Difficulty
 {
-	Easy, //1 minigame per level
-	Medium, //2 minigame per level
-	Hard, //3 minigame per level
-	Insane //4 minigame per level
+	Easy,   // 1 Minigame per level
+	Medium, // 2 Minigames per level
+	Hard,   // 3 Minigames per level
+	Insane  // 4 Minigames per level
 }
 
 public class Mission {
 	private string level_map;
-	private float time_remaining = 300;
+	private Stopwatch time_elapsed;
 	private bool mission_lost = false;
 	private bool mission_won = false;
 	private bool mission_active = false;
@@ -31,12 +32,12 @@ public class Mission {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 		if(mission_active)
 		{
-			time_remaining -= Time.deltaTime;
-            if (time_remaining == 0)
+            if (TimeRemaining() <= 0)
 			{
+				time_elapsed.Stop();
 				EndMission();
 			}
 		}
@@ -58,12 +59,12 @@ public class Mission {
 	}
 
 	// TODO: change minigame count to difficulty
-	public void Initialise(MissionType type, int minigame_count, string Level)
+	public void Initialise(MissionType type, int minigame_count, string scene)
 	{
 		mission_type = type;
 		minigames = minigame_count;
 
-        level_map = Level;
+        level_map = scene;
         
 	}
 
@@ -72,15 +73,20 @@ public class Mission {
 		//Peter - find out who to take on the mission
 		//display a loading screen
         Application.LoadLevel(level_map);
-		//Matt - teleport to location
 		mission_active = true;
+		time_elapsed = new Stopwatch ();
+		//time_elapsed.Start ();
+	}
 
+	public void Begin()
+	{
+		time_elapsed.Start ();
 	}
 
 	//CHECK THIS FOR ERRORS
 	void EndMission()
 	{
-		if(AllObjectivesComplete() && time_remaining > 0)
+		if(AllObjectivesComplete() && TimeRemaining() > 0)
 		{
 			//VICTORY SONG
 			//VICTORY ANIMATION
@@ -128,14 +134,24 @@ public class Mission {
 
 	void Reset()
 	{
-		time_remaining = 300;
 		mission_lost = false;
 		mission_won = false;
 		minigames_complete = 0;
 		ResetSpecifics();
+		time_elapsed.Reset();
 	}
     public string getLevelName()
     {
         return level_map;
     }
+
+	public float TimeRemaining()
+	{
+		return (float)(MissionManager.MISSION_LENGTH_SECONDS - time_elapsed.ElapsedMilliseconds / 1000);
+	}
+
+	public MissionType missionType()
+	{
+		return mission_type;
+	}
 }

@@ -45,6 +45,8 @@ public class Camera_Movement : MonoBehaviour {
         m_rotationZAxis.y = 0;
         m_rotationZAxis.z = 1;
         m_Angle = transform.eulerAngles.z;
+
+		Camera_object.transform.localPosition = new Vector3(Far_Zoom_Dist, 0, 0);
 	}
 
     // Update is called once per frame
