@@ -33,6 +33,7 @@ public class Event : MonoBehaviour {
         {
             Mission.GetComponent<MissionManager>().MinigameComplete();
         }
+		GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
 	}
 
 	// Called when a minigame is failed to update the mission manager

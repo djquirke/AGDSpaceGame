@@ -18,8 +18,19 @@ public class LevelManager : MonoBehaviour {
 			}
 		}
 
-		//rotate rooms until fully accessible ship
+		//randomly rotate rooms before making ship accessible
 		rooms = GameObject.FindGameObjectsWithTag("Room");
+		foreach(GameObject room in rooms)
+		{
+			int r = Random.Range(0, 4);
+			for(int i = 0; i < r; i++)
+			{
+				room.GetComponent<RoomManager>().Rotate();
+			}
+		}
+
+
+		//rotate rooms until fully accessible ship
 		foreach(GameObject room in rooms)
 		{
 			room.GetComponent<RoomManager>().SafeNeighbourCheck();

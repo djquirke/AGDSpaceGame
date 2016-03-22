@@ -20,16 +20,11 @@ public class DoorManager : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		//Debug.Log(other.collider.GetType().Equals(typeof(BoxCollider)));
+		Debug.Log(other.GetType());
 		//Debug.Log(other.GetType() == (typeof(BoxCollider)));
 		if(other.tag.Equals("Player") || other.tag.Equals("AI"))// && other.collider.GetType().Equals(typeof(BoxCollider)))
 		{
-			Animator[] doors = GetComponentsInChildren<Animator>();
-			foreach(Animator door in doors)
-			{
-				door.Play("Open", -1, 0);
-			}
-			open = true;
+			//Open();
 		}
 	}
 
@@ -37,15 +32,30 @@ public class DoorManager : MonoBehaviour {
 	{
 		if(open)
 		{
-			Animator[] doors = GetComponentsInChildren<Animator>();
-			foreach(Animator door in doors)
-			{
-				door.Play("Close", -1, 0);
-			}
-			open = false;
+			//Close();
 		}
 	}
 
 	public void SetAccess(bool b) {gives_access = b;}
 	public bool GetAccess() {return gives_access;}
+
+	public void Open()
+	{
+		Animator[] doors = GetComponentsInChildren<Animator>();
+		foreach(Animator door in doors)
+		{
+			door.Play("Open", -1, 0);
+		}
+		open = true;
+	}
+
+	public void Close()
+	{
+		Animator[] doors = GetComponentsInChildren<Animator>();
+		foreach(Animator door in doors)
+		{
+			door.Play("Close", -1, 0);
+		}
+		open = false;
+	}
 }

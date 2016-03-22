@@ -200,6 +200,30 @@ public class Player_Movement : MonoBehaviour {
 
     }
 
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.tag.Equals("Event"))
+		{
+			GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = true;
+		}
+		else if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().Open();
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.tag.Equals("Event"))
+		{
+			GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
+		}
+		else if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().Close();
+		}
+	}
+
     public void EnablePlayerMovement(bool bCanmove = true)
     {
         m_bPlayerCanMove = bCanmove;
