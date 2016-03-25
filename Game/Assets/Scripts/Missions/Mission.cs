@@ -15,7 +15,8 @@ public enum Difficulty
 	Easy,   // 1 Minigame per level
 	Medium, // 2 Minigames per level
 	Hard,   // 3 Minigames per level
-	Insane  // 4 Minigames per level
+	Insane,  // 4 Minigames per level
+	Difficulty_Count
 }
 
 public class Mission {
@@ -26,6 +27,7 @@ public class Mission {
 	private bool mission_active = false;
 	private int array_idx, minigames, minigames_complete = 0, minigames_failed = 0;
 	private MissionType mission_type;
+	private Difficulty difficulty;
 
 	// Use this for initialization
 	void Start () {
@@ -59,11 +61,11 @@ public class Mission {
 	}
 
 	// TODO: change minigame count to difficulty
-	public void Initialise(MissionType type, int minigame_count, string scene)
+	public void Initialise(MissionType type, Difficulty difficulty, string scene)
 	{
 		mission_type = type;
-		minigames = minigame_count;
-
+		this.difficulty = difficulty;
+		UnityEngine.Debug.Log("MISSION:" + difficulty);
         level_map = scene;
         
 	}
@@ -78,8 +80,10 @@ public class Mission {
 		//time_elapsed.Start ();
 	}
 
-	public void Begin()
+	public void Begin(int minigame_count)
 	{
+		UnityEngine.Debug.Log(minigame_count);
+		minigames = minigame_count;
 		time_elapsed.Start ();
 	}
 
@@ -127,17 +131,11 @@ public class Mission {
         return mission_won;
 	}
 
-	//override this function in your mission type
-	public void ResetSpecifics()
-	{
-	}
-
 	void Reset()
 	{
 		mission_lost = false;
 		mission_won = false;
 		minigames_complete = 0;
-		ResetSpecifics();
 		time_elapsed.Reset();
 	}
     public string getLevelName()
@@ -154,4 +152,8 @@ public class Mission {
 	{
 		return mission_type;
 	}
+
+	public Difficulty Difficulty() {return difficulty;}
+
+	//public void MinigameCount(int count) {minigames = count;}
 }

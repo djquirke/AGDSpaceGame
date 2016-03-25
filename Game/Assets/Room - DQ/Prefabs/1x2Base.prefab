@@ -12,7 +12,6 @@ GameObject:
   - 64: {fileID: 6400000}
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11452498}
   m_Layer: 0
   m_Name: 1x2Base
   m_TagString: RoomTemplate
@@ -80,27 +79,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52313b019862475438ba418a9c881760, type: 3}
+  m_Script: {fileID: 11500000, guid: 1877bf47bc3d37c409122da9708f8be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsets:
-  - {fileID: 150950, guid: a5ce60257ee695245981120b4c02415e, type: 2}
-  - {fileID: 150950, guid: a5ce60257ee695245981120b4c02415e, type: 2}
-  weights: 0100000001000000
---- !u!114 &11452498
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf787efe7c110be4b8f6543c2b035664, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCsets: []
+  roomsets: []
   weights: 
-  NumberOfNPCs: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

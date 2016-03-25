@@ -192,8 +192,9 @@ public class Player_Movement : MonoBehaviour {
             GamePadState current_state  = GamePad.GetState(m_PlayerIndex);
             if ((m_gpPrevState.Buttons.A == ButtonState.Released && current_state.Buttons.A == ButtonState.Pressed) || Input.GetMouseButtonDown(0))
             {
-                    EnablePlayerMovement(false);
-                    other.GetComponent<Event>().Activate();
+                EnablePlayerMovement(false);
+				GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
+                other.GetComponent<Event>().Activate();
             }
         }
 

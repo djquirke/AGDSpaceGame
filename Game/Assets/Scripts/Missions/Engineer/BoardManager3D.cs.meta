@@ -2,7 +2,19 @@ fileFormatVersion: 2
 guid: 0c2099b3d0c6b7946b84ebbb6b1cd3c9
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TileNE: {fileID: 196910, guid: c6bdea6c7e94cf246acb566d34f5d2f9, type: 2}
+  - TileNES: {fileID: 185962, guid: 6ab5249e4c4eb614fa9cc44899a08d5d, type: 2}
+  - TileNESW: {fileID: 156004, guid: 17b8d449c2967f047b8ba02787604286, type: 2}
+  - TileNS: {fileID: 142512, guid: 0840525f03472614f91b8fd8cbda6ee4, type: 2}
+  - TileNull: {fileID: 170188, guid: c5fed152ed657434fb6dd9190f86489b, type: 2}
+  - start: {fileID: 184184, guid: 7c7b9ee776c9e214c9c3dbbd79fd741c, type: 2}
+  - end: {fileID: 137116, guid: 404a0508d594e334f94a56168b853aa5, type: 2}
+  - blank: {fileID: 111432, guid: 035b375d99c05384b8661536080bc2e2, type: 2}
+  - corner: {fileID: 162870, guid: 9ad330cbaf4632b48b9cfeef782e504c, type: 2}
+  - stage9: {fileID: 122804, guid: ba64965052131ff4f8f1063d092c0cd0, type: 2}
+  - stage7: {fileID: 179482, guid: bf2adc88a49ccd0488c4f0cfb3e36d9b, type: 2}
+  - stage5: {fileID: 130076, guid: 0c6a504421319734b9b32c4d3d477421, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

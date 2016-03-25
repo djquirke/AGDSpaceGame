@@ -170,6 +170,7 @@ public class QuickTimeEvent : Event {
                 if(m_ButtonList.Count > 0 && m_ActiveButtonList.Count == 0)
                 {
                     //win
+					m_isActive = false;
                     Success();
                     renderer.material = CompleteMat;
 
@@ -177,18 +178,20 @@ public class QuickTimeEvent : Event {
                 else if(m_KeyList.Count > 0 && m_ActiveKeyList.Count == 0)
                 {
                     //win
+					m_isActive = false;
                     Success();
                     renderer.material = CompleteMat;
                 }
                 else
                 {
                     //fail
+					m_isActive = false;
                     Failure();
                 }
 
-                m_isActive = false;
+                
                 m_fTimePassed = 0f;
-                FindObjectOfType<Player_Movement>().EnablePlayerMovement();
+//                FindObjectOfType<Player_Movement>().EnablePlayerMovement();
             }
 
             m_fTimePassed += Time.deltaTime;

@@ -6,12 +6,14 @@ using System.Diagnostics;
 public class LevelManager : MonoBehaviour {
 
 	private GameObject[] rooms;
+	private MissionType mt;
 //	private Stopwatch mission_time;
 //	private bool game_over = false;
 
 	// Use this for initialization
 	void Start () {
-
+		
+		mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
 
 		// 1. Split rooms
 		// 2. Randomly rotate rooms before making ship accessible
@@ -27,9 +29,12 @@ public class LevelManager : MonoBehaviour {
 		RemoveWallDoors ();
 		RemoveOverlappingWalls ();
 		CalculateFloor ();
+		CheckDisableEngineering();
 		GenerateNPCs ();
+		SpawnPlayer();
 
-		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded ();
+		int minigames = CountMinigames();
+		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
 	}
 	
 	// Update is called once per frame
@@ -169,7 +174,6 @@ public class LevelManager : MonoBehaviour {
 
 	private void GenerateNPCs ()
 	{
-		MissionType mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
 		if (mt == MissionType.NUM_OF_MISSIONS)
 			return;
 
@@ -177,5 +181,40 @@ public class LevelManager : MonoBehaviour {
 		{
 			room.GetComponent<NPCGenarator>().Initialise(mt);
 		}
+	}
+
+	private void SpawnPlayer()
+	{
+		GameObject.FindGameObjectWithTag("PlayerSpawn").GetComponent<SpawnCharacter>().SpawnPlayer(mt);
+	}
+
+	private int CountMinigames()
+	{
+		GameObject[] events = GameObject.FindGameObjectsWithTag("Event");
+		return events.Length;
+	}
+
+	//TODO: remove all broken engineer panels or fixed ones based on if it is an engineer level
+	private void CheckDisableEngineering()
+	{
+		if(mt == MissionType.ENGINEERING) return;
+		else
+		{
+			foreach(GameObject room in rooms)
+			{
+				if(room.GetComponent<RoomManager>().type == RoomType.ENGINEER)
+				{
+					Transform[] tforms = room.GetComponentsInChildren<Transform>();
+					foreach(Transform tform in tforms)
+					{
+						if(tform.tag.Equals("Event"))
+						{
+							tform.tag = "Untagged";
+						}
+					}
+				}
+			}
+		}
+
 	}
 }

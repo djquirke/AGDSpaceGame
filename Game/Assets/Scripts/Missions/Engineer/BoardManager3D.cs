@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PipeGame
 {
@@ -18,39 +19,38 @@ namespace PipeGame
 		private int board_width = 7, board_height = 7;
 		public GameObject TileNE, TileNES, TileNESW, TileNS, TileNull, start, end, blank, corner, stage9, stage7, stage5;
 		private int depth = 15;
+		private Vector3 cam_pos;
+		private Stopwatch completion_pause;
+		private float completion_pause_time = 2000;
+		private bool game_complete;
+		private Event event_;
 
-		// Use this for initialization
-		void Start () {
-			tiles = new List<List<GameObject>>();
-			Initialise();
+		void Update()
+		{
+			if(game_complete)
+			{
+				if(completion_pause.ElapsedMilliseconds >= completion_pause_time)
+				{
+					completion_pause.Reset();
+					GameObject.FindGameObjectWithTag("PipeStage").GetComponent<PipeMiniGameAnimationController>().closeMiniGame();
+				}
+			}
 		}
 
-		public void Initialise()
+		public void Initialise(Difficulty difficulty, Event event_)
 		{
+			this.event_ = new PipeMinigame();
+			this.event_ = event_;
+
+			tiles = new List<List<GameObject>>();
+			GetCameraDims();
+			SpawnBoard(difficulty);
+
 			start = (GameObject)Instantiate (start);
 			start.GetComponent<Tile3D>().Initialise(0, UnityEngine.Random.Range(1, board_height - 2)); //set start tile to a random height
 			end = (GameObject)Instantiate(end);
 			end.GetComponent<Tile3D>().Initialise (board_width - 1, UnityEngine.Random.Range (1, board_height - 2));
 
-			Camera cam = gameObject.GetComponent<Camera>();
-			float cam_height = 2f * cam.orthographicSize;
-			float cam_width = cam_height * cam.aspect;
-			Vector3 cam_pos = cam.transform.position;
-
-			GameObject bg = null;
-
-			if(board_width == 11)
-				bg = (GameObject)Instantiate(stage9);
-			else if(board_width == 9)
-				bg = (GameObject)Instantiate(stage7);
-			else if(board_width == 7)
-				bg = (GameObject)Instantiate(stage5);
-
-			//bg.transform.localScale = new Vector3((board_width - 2), (board_height - 2), (board_height - 2));
-			bg.transform.SetParent(gameObject.transform, false);
-			bg.transform.position = new Vector3(cam_pos.x, cam_pos.y, depth);
-
-			
 			GameObject temp = (GameObject)Instantiate(TileNESW);
 			var tile_size = temp.GetComponent<MeshFilter>().mesh.bounds; //get tile dimensions
 			float tile_width = (tile_size.max.x - tile_size.min.x);
@@ -67,16 +67,10 @@ namespace PipeGame
 					if(i == 0 && j == start.GetComponent<Tile3D>().Y())
 					{
 						new_tile = start;
-						//new_tile.transform.SetParent(gameObject.transform, false);
-						//Vector3 temp_tform = new_tile.transform.position;
-//						tempList.Add (new_tile);
-//						continue;
 						new_tile.transform.SetParent(gameObject.transform, false);
-						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
-						                                          depth); //TODO: fix pos here
-						//start.GetComponent<Tile3D>().setPos(tile_transform);
-						//new_tile = start;
+						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
+						                                          depth);
 						tempList.Add(new_tile);
 						continue;
 					}
@@ -85,16 +79,10 @@ namespace PipeGame
 					if(i == board_width - 1 && j == end.GetComponent<Tile3D>().Y())
 					{
 						new_tile = end;
-						//new_tile.transform.SetParent(gameObject.transform, false);
-						//Vector3 temp_tform = new_tile.transform.position;
-//						tempList.Add(new_tile);
-//						continue;
 						new_tile.transform.SetParent(gameObject.transform, false);
-						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
-						                                          depth); //TODO: fix pos here
-						//end.GetComponent<tile>().setPos(tile_transform);
-						//new_tile = end;
+						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
+						                                          depth);
 						tempList.Add(new_tile);
 						continue;
 					}
@@ -106,8 +94,8 @@ namespace PipeGame
 						{
 							new_tile = (GameObject)Instantiate(corner);
 							new_tile.transform.SetParent(gameObject.transform, false);
-							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
 							                                          depth);
 							new_tile.tag = "TileBlank";
 							new_tile.transform.Rotate(0, 0, 180);
@@ -118,8 +106,8 @@ namespace PipeGame
 						{
 							new_tile = (GameObject)Instantiate(corner);
 							new_tile.transform.SetParent(gameObject.transform, false);
-							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
 							                                          depth);
 							new_tile.tag = "TileBlank";
 							new_tile.transform.Rotate(0, 0, -90);
@@ -130,8 +118,8 @@ namespace PipeGame
 						{
 							new_tile = (GameObject)Instantiate(corner);
 							new_tile.transform.SetParent(gameObject.transform, false);
-							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
 							                                          depth);
 							new_tile.tag = "TileBlank";
 							new_tile.transform.Rotate(0, 0, 90);
@@ -143,8 +131,8 @@ namespace PipeGame
 						{
 							new_tile = (GameObject)Instantiate(corner);
 							new_tile.transform.SetParent(gameObject.transform, false);
-							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+							new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+							                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
 							                                          depth);
 							new_tile.tag = "TileBlank";
 							tempList.Add(new_tile);
@@ -155,8 +143,8 @@ namespace PipeGame
 
 						new_tile = (GameObject)Instantiate(blank);//new GameObject();
 						new_tile.transform.SetParent(gameObject.transform, false);
-						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+						new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+						                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
 						                                          depth);
 						new_tile.tag = "TileBlank";
 
@@ -189,16 +177,10 @@ namespace PipeGame
 					}
 					
 					new_tile.transform.SetParent(gameObject.transform, false); //make child of camera
-					//Vector3 temp_tform2 = new_tile.transform.position;
-					new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,//.bounds.size.x,
-					                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,//.bounds.size.y,
+					new_tile.transform.position = new Vector3(cam_pos.x - ((board_width ) / 2 - i) * tile_width,
+					                                          cam_pos.y - ((board_height ) / 2 - j) * tile_width,
 					                                          depth);
 					new_tile.GetComponent<Tile3D>().Initialise(i, j);
-					//new_tile.transform.position = new Vector3(cam_width / 4, cam_height / 4, 50);
-						//new Vector3((cam_width / 2) - ((board_width - 1) / 2 - i) * tile_size.bounds.size.x / 2,
-						//            (cam_height / 2) + ((board_height - 1) / 2 - j) * tile_size.bounds.size.y / 2, 50);
-				//	Debug.Log("tile width: " + tile_size.rect.width//.bounds.size.x
-				//	          + ", tile height: " + tile_size.rect.height);//.bounds.size.y);
 					tempList.Add(new_tile);
 				}
 				tiles.Add(tempList);
@@ -209,7 +191,13 @@ namespace PipeGame
 		{
 			ResetTileColours();
 			AStarPipe astar = new AStarPipe();
-			astar.Run(start, end, board_width, this);
+			if(astar.Run(start, end, board_width, this))
+			{
+				game_complete = true;
+				completion_pause = new Stopwatch();
+				completion_pause.Start();
+			}
+
 		}
 		
 		public bool BlankTile(int pos_x, int pos_y)
@@ -260,8 +248,6 @@ namespace PipeGame
 		
 		void ResetTileColours()
 		{
-			//GameObject.FindGameObjectWithTag("TileStart").GetComponent<Tile3D>().setFlow(false);
-			//GameObject.FindGameObjectWithTag("TileEnd").GetComponent<Tile3D>().setFlow(false);
 			for(int i = 1; i < board_width - 1; i++)
 			{
 				for(int j = 1; j < board_height - 1; j++)
@@ -279,13 +265,53 @@ namespace PipeGame
             {
                 for (int j = 1; j < board_height - 1; j++)
                 {
-					//string tag = tiles[i][j].tag;
-                    //if (tag.Equals("TileBlank") || tag.Equals("TileStartEnd")) continue;
-
                     tiles[i][j].GetComponent<Tile3D>().FlowActive();
                 }
             }
         }
-    }
+
+		private void SpawnBoard(Difficulty difficulty)
+		{
+			GameObject bg = null;
+			
+			if(difficulty == Difficulty.Hard || difficulty == Difficulty.Insane)
+			{
+				bg = (GameObject)Instantiate(stage9);
+				board_width = 11;
+				board_height = 11;
+			}
+			else if(difficulty == Difficulty.Medium)
+			{
+				bg = (GameObject)Instantiate(stage7);
+				board_width = 9;
+				board_height = 9;
+			}
+			else if(difficulty == Difficulty.Easy)
+			{
+				bg = (GameObject)Instantiate(stage5);
+				board_width = 7;
+				board_height = 7;
+			}
+
+			bg.transform.SetParent(gameObject.transform, false);
+			bg.transform.position = new Vector3(cam_pos.x, cam_pos.y, depth);
+		}
+
+		private void GetCameraDims()
+		{
+			Camera cam = gameObject.GetComponent<Camera>();
+			float cam_height = 2f * cam.orthographicSize;
+			float cam_width = cam_height * cam.aspect;
+			cam_pos = new Vector3();
+			cam_pos = cam.transform.position;
+		}
+
+		public void DoorsClosed()
+		{
+			//GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().MinigameComplete();
+			event_.Success();
+			Destroy(this.gameObject);
+		}
+	}
 
 }

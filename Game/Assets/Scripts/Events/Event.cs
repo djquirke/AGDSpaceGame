@@ -3,10 +3,11 @@ using System.Collections;
 
 public class Event : MonoBehaviour {
 
+	protected Difficulty difficulty;
+
 	// Use this for initialization
 	void Start () {
         tag = "Event";
-	
 	}
 	
 	// Update is called once per frame
@@ -33,7 +34,7 @@ public class Event : MonoBehaviour {
         {
             Mission.GetComponent<MissionManager>().MinigameComplete();
         }
-		GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
+		ContinueGame();
 	}
 
 	// Called when a minigame is failed to update the mission manager
@@ -43,6 +44,13 @@ public class Event : MonoBehaviour {
         if (Mission)
         {
             Mission.GetComponent<MissionManager>().MinigameFailed();
-        }
+		}
+		ContinueGame();
+	}
+
+	private void ContinueGame()
+	{
+		GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
+		FindObjectOfType<Player_Movement>().EnablePlayerMovement();
 	}
 }

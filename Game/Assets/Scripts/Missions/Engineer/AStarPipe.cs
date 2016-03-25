@@ -27,7 +27,7 @@ namespace PipeGame
 		
 		BoardManager3D bm_;
 		
-		public void Run(GameObject start_tile, GameObject end_tile, int board_width, BoardManager3D bm)
+		public bool Run(GameObject start_tile, GameObject end_tile, int board_width, BoardManager3D bm)
 		{
 			bm_ = bm;
 			Debug.Log("starting A*");
@@ -45,7 +45,7 @@ namespace PipeGame
 			start.h = GetNodeDistance(start, goal);
 			start.g = 0;
 			start.f = start.g + start.h;
-			
+
 			open_q.Add(start);
 			open_d.Add(start, start);
 			bool atGoal = false;
@@ -90,7 +90,9 @@ namespace PipeGame
 				TraversePath(goal);
                 bm_.FlowFound();
 				Debug.Log("path found");
+				return true;
 			}
+			return false;
 		}
 		
 		void TraversePath(AStarNode node)

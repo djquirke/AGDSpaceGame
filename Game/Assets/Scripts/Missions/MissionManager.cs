@@ -22,7 +22,8 @@ public class MissionManager : MonoBehaviour {
 		avail_missions = new List<Mission>();
 		active_mission = null;
 		GenerateMission();
-        DontDestroyOnLoad(this);
+		DontDestroyOnLoad(this);
+		GameObject.FindGameObjectWithTag("LoadManager").GetComponent<LoadManager>().mManagerReady();
 	}
 	
 	// Update is called once per frame
@@ -47,38 +48,40 @@ public class MissionManager : MonoBehaviour {
 	void GenerateMission()
 	{
 		//DEVISE FORMULA FOR CALCULATING WHAT DIFFICULTY LEVEL SHOULD BE BASED ON HOW MANY OF THAT TYPE DONE BEFORE
+		int y = Random.Range(0, (int)Difficulty.Difficulty_Count);
 
 		int x = Random.Range(0,(int)MissionType.NUM_OF_MISSIONS);
 		Mission new_mission = new Mission();
 		switch (x)
 		{
-			case 0: // Engineer
-                if (Engineer_Levels.Count > 0)
-                {
-                    new_mission.Initialise(MissionType.ENGINEERING, 1, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)]);
-					avail_missions.Add(new_mission);
-					Debug.Log("Engineer Created");
-                }
-				break;
-			case 1: // Illness
-                //Debug.Log("IllnessLevels" + Illness_Levels.Count);
-                if (Illness_Levels.Count > 0)
-                {
-                    new_mission.Initialise(MissionType.ILLNESS, 1, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)]);
-                    avail_missions.Add(new_mission);
-                    //StartMission();
-                    Debug.Log("Illness Created");
-                }
-				break;
-			case 2: // Oxygen
-                if (Oxygen_Levels.Count > 0)
-                {
-                    new_mission.Initialise(MissionType.OXYGEN, 1, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)]);
-                    avail_missions.Add(new_mission);
-                }
-				break;
-			default:
-				break;
+		case 0: // Engineer
+        	if (Engineer_Levels.Count > 0)
+			{
+				Debug.Log((Difficulty)y);
+                new_mission.Initialise(MissionType.ENGINEERING, (Difficulty)y, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)]);
+				avail_missions.Add(new_mission);
+				Debug.Log("Engineer Created");
+            }
+			break;
+		case 1: // Illness
+            if (Illness_Levels.Count > 0)
+			{
+				Debug.Log((Difficulty)y);
+				new_mission.Initialise(MissionType.ILLNESS, (Difficulty)y, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)]);
+                avail_missions.Add(new_mission);
+                Debug.Log("Illness Created");
+            }
+			break;
+		case 2: // Oxygen
+            if (Oxygen_Levels.Count > 0)
+            {
+				new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)]);
+				avail_missions.Add(new_mission);
+				Debug.Log("Oxygen Created");
+            }
+			break;
+		default:
+			break;
 		}
 
 		
@@ -126,9 +129,10 @@ public class MissionManager : MonoBehaviour {
 		return -1;
 	}
 
-	public void LevelLoaded()
+	public void LevelLoaded(int minigame_count)
 	{
-		active_mission.Begin ();
+		if(active_mission != null)
+			active_mission.Begin (minigame_count);
 	}
 
 	public MissionType ActiveMissionType()
@@ -136,5 +140,12 @@ public class MissionManager : MonoBehaviour {
 		if(active_mission != null)
 			return active_mission.missionType ();
 		return MissionType.NUM_OF_MISSIONS;
+	}
+
+	public Difficulty ActiveMissionDifficulty()
+	{
+		if(active_mission != null)
+			return active_mission.Difficulty ();
+		return Difficulty.Difficulty_Count;
 	}
 }
