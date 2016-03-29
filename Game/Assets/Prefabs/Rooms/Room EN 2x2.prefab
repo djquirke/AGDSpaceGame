@@ -732,7 +732,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 449588}
   - 95: {fileID: 9549680}
-  - 114: {fileID: 11449710}
   m_Layer: 0
   m_Name: EN_2x2_01_c.neale
   m_TagString: Untagged
@@ -3922,6 +3921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b643f4a8e9d1541ba622a4df3ad425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gives_access: 0
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3933,6 +3933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b643f4a8e9d1541ba622a4df3ad425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gives_access: 0
 --- !u!114 &11400100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3944,6 +3945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b643f4a8e9d1541ba622a4df3ad425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gives_access: 0
 --- !u!114 &11440772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3975,18 +3977,6 @@ MonoBehaviour:
   wideRoom: 0
   type: 1
   size: 2
---- !u!114 &11449710
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb17d0bcce324c341b9287d1f8151ad3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  door: {fileID: 101706, guid: 0606d7de53e8b4e4d951a94b2c695ffa, type: 2}
 --- !u!114 &11495794
 MonoBehaviour:
   m_ObjectHideFlags: 1

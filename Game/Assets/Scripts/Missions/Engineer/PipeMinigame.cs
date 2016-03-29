@@ -22,4 +22,9 @@ public class PipeMinigame : Event {
 		temp.transform.position = new Vector3(0, 200, 0);
 		temp.GetComponent<PipeGame.BoardManager3D>().Initialise(difficulty, this);
 	}
+
+	public override void EventNotNeeded()
+	{
+		tag = "Untagged";
+	}
 }

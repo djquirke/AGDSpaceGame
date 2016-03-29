@@ -5,6 +5,7 @@ public class HUDstats : MonoBehaviour {
 
 	public bool event_close = false;
 	public float width, height;
+	private int event_count, events_done;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,7 @@ public class HUDstats : MonoBehaviour {
 		}
 
 		DisplayTimeRemaining ();
+		DisplayEventInfo ();
 	}
 
 	private void DisplayTimeRemaining()
@@ -49,5 +51,20 @@ public class HUDstats : MonoBehaviour {
 		catch {
 			return;
 		}
+	}
+
+	private void DisplayEventInfo ()
+	{
+		GUI.TextArea (new Rect (100, height - 75, 200, 20), "Events Complete: " + events_done + "/" + event_count);
+	}
+
+	public void SetNumEvents (int minigame_count)
+	{
+		event_count = minigame_count;
+	}
+
+	public void SetEventsComplete(int count)
+	{
+		events_done = count;
 	}
 }
