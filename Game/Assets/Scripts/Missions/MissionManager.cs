@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class MissionManager : MonoBehaviour {
 	static int MAX_AVAILABLE_MISSIONS = 5;
-	static int TIME_BETWEEN_MISSION_SPAWNS = 300;
-	public static int MISSION_LENGTH_SECONDS = 300;
+	static int TIME_BETWEEN_MISSION_SPAWNS = 300000;
+	public static int MISSION_LENGTH_SECONDS = 255;
+	public static string HUB_WORLD_SCENE = "UI";
 
     public List<string> Illness_Levels;
     public List<string> Engineer_Levels;
@@ -13,15 +15,15 @@ public class MissionManager : MonoBehaviour {
 
 	private List<Mission> avail_missions;
 	private Mission active_mission;
-	private float time_since_last_new_mission = 0;
-
-    public GameObject PlayButton;
+	private Stopwatch time_since_last_new_mission;
 
 	// Use this for initialization
 	void Start () {
 		avail_missions = new List<Mission>();
 		active_mission = null;
 		GenerateMission();
+		time_since_last_new_mission = new Stopwatch ();
+		time_since_last_new_mission.Start ();
 		DontDestroyOnLoad(this);
 		GameObject.FindGameObjectWithTag("LoadManager").GetComponent<LoadManager>().mManagerReady();
 	}
@@ -34,10 +36,9 @@ public class MissionManager : MonoBehaviour {
 				return;
 			}
 			
-			time_since_last_new_mission += Time.deltaTime;
-			
-			if (avail_missions.Count <= MAX_AVAILABLE_MISSIONS && time_since_last_new_mission > TIME_BETWEEN_MISSION_SPAWNS) {
-				time_since_last_new_mission = 0;
+			if (avail_missions.Count <= MAX_AVAILABLE_MISSIONS && time_since_last_new_mission.ElapsedMilliseconds > TIME_BETWEEN_MISSION_SPAWNS) {
+				time_since_last_new_mission.Reset();
+				time_since_last_new_mission.Start();
 				GenerateMission ();
 			}
 		} else {
@@ -47,29 +48,28 @@ public class MissionManager : MonoBehaviour {
 
 	void GenerateMission()
 	{
-		//DEVISE FORMULA FOR CALCULATING WHAT DIFFICULTY LEVEL SHOULD BE BASED ON HOW MANY OF THAT TYPE DONE BEFORE
 		int y = Random.Range(0, (int)Difficulty.Difficulty_Count);
-
 		int x = Random.Range(0,(int)MissionType.NUM_OF_MISSIONS);
 		Mission new_mission = new Mission();
+
 		switch (x)
 		{
 		case 0: // Engineer
         	if (Engineer_Levels.Count > 0)
 			{
-				Debug.Log((Difficulty)y);
+				UnityEngine.Debug.Log((Difficulty)y);
                 new_mission.Initialise(MissionType.ENGINEERING, (Difficulty)y, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)]);
 				avail_missions.Add(new_mission);
-				Debug.Log("Engineer Created");
+				UnityEngine.Debug.Log("Engineer Created");
             }
 			break;
 		case 1: // Illness
             if (Illness_Levels.Count > 0)
 			{
-				Debug.Log((Difficulty)y);
+				UnityEngine.Debug.Log((Difficulty)y);
 				new_mission.Initialise(MissionType.ILLNESS, (Difficulty)y, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)]);
                 avail_missions.Add(new_mission);
-                Debug.Log("Illness Created");
+				UnityEngine.Debug.Log("Illness Created");
             }
 			break;
 		case 2: // Oxygen
@@ -77,7 +77,7 @@ public class MissionManager : MonoBehaviour {
             {
 				new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)]);
 				avail_missions.Add(new_mission);
-				Debug.Log("Oxygen Created");
+				UnityEngine.Debug.Log("Oxygen Created");
             }
 			break;
 		default:

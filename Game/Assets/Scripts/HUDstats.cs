@@ -39,8 +39,12 @@ public class HUDstats : MonoBehaviour {
 			//int time_remaining = MissionManager.MISSION_LENGTH_SECONDS - time_elapsed;
 			int mins = Mathf.FloorToInt (time_remaining / 60);
 			int secs = time_remaining - mins * 60;
-			
-			GUI.TextArea (new Rect (width / 2 - 50, 50, 100, 20), mins + ":" + secs);
+
+			if(secs < 10)
+				GUI.TextArea (new Rect (width / 2 - 50, 50, 100, 20), mins + ":0" + secs);
+			else
+				GUI.TextArea (new Rect (width / 2 - 50, 50, 100, 20), mins + ":" + secs);
+
 		}
 		catch {
 			return;

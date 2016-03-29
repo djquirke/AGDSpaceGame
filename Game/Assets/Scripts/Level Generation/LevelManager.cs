@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour {
 		CheckDisableEngineering();
 		GenerateNPCs ();
 		SpawnPlayer();
+		RandomiseEvents ();
 
 		int minigames = CountMinigames();
 		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
@@ -137,6 +138,20 @@ public class LevelManager : MonoBehaviour {
 		for(int i = 0; i < 3; i++)
 		{
 			GameObject[] room_templates = GameObject.FindGameObjectsWithTag("RoomTemplate");
+			GameObject[] dmbs = GameObject.FindGameObjectsWithTag("DMB");
+
+			foreach(GameObject dmb in dmbs)
+			{
+				int r = Random.Range(0, 2);
+				switch (r) {
+				case 0:
+					dmb.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+					break;
+				default:
+				break;
+				}
+			}
+
 			foreach(GameObject template in room_templates)
 			{
 				template.GetComponent<RoomSplitter>().Split();
@@ -148,6 +163,8 @@ public class LevelManager : MonoBehaviour {
 	{
 		foreach(GameObject room in rooms)
 		{
+			if(room.GetComponent<RoomManager>().type == RoomType.FLIGHT_DECK) continue;
+
 			int r = Random.Range(0, 4);
 			for(int i = 0; i < r; i++)
 			{
@@ -216,6 +233,13 @@ public class LevelManager : MonoBehaviour {
 				}
 			}
 		}
+
+	}
+
+	private void RandomiseEvents ()
+	{
+		int possible = CountMinigames ();
+
 
 	}
 }

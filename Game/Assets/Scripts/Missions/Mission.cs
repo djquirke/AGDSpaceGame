@@ -37,7 +37,7 @@ public class Mission {
 	public void Update () {
 		if(mission_active)
 		{
-            if (TimeRemaining() <= 0)
+			if (!AllObjectivesComplete() && TimeRemaining() <= 0)
 			{
 				time_elapsed.Stop();
 				EndMission();
@@ -65,9 +65,7 @@ public class Mission {
 	{
 		mission_type = type;
 		this.difficulty = difficulty;
-		UnityEngine.Debug.Log("MISSION:" + difficulty);
         level_map = scene;
-        
 	}
 
 	public void StartMission()
@@ -90,11 +88,12 @@ public class Mission {
 	//CHECK THIS FOR ERRORS
 	void EndMission()
 	{
-		if(AllObjectivesComplete() && TimeRemaining() > 0)
+		if(TimeRemaining() > 0)
 		{
 			//VICTORY SONG
 			//VICTORY ANIMATION
 			mission_won = true;
+			Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
 			//modify global stats
 		}
 		else
@@ -102,6 +101,7 @@ public class Mission {
 			//DEFEAT SONG
 			//DEFEAT ANIMATION
 			mission_lost = true;
+			Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
 			//modify global stats
 		}
 		GameObject.Find("MissionManager").GetComponent<MissionManager>().EndMission(array_idx);
