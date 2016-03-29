@@ -114,10 +114,11 @@ public class LevelManager : MonoBehaviour {
 			//rotate inaccessible rooms
 			foreach(GameObject room in rooms)
 			{
-				if(!room.GetComponent<RoomManager>().safe)
+				RoomManager rm = room.GetComponent<RoomManager>();
+				if(!rm.safe)
 				{
-					room.GetComponent<RoomManager>().Rotate();
-					room.GetComponent<RoomManager>().SafeNeighbourCheck();
+					rm.Rotate();
+					rm.SafeNeighbourCheck();
 				}
 			}
 			

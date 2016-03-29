@@ -61,12 +61,12 @@ namespace PipeGame
 			if(isRotatable)
 			{
 				rotate = true;
-                if (!rotate)
-                {
-                    start_rotation = transform.rotation.eulerAngles;
-                    target_rotation.z = start_rotation.z + 90;
-                }
-                else
+//                if (!rotate)
+//                {
+//                    start_rotation = transform.rotation.eulerAngles;
+//                    target_rotation.z = start_rotation.z + 90;
+                //}
+                //else
                 {
                     target_rotation.z += 90;
                 }

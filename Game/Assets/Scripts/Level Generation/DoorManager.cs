@@ -28,33 +28,20 @@ public class DoorManager : MonoBehaviour {
 
 		foreach(Animator door in doors)
 		{
-//			if(!door.GetCurrentAnimatorStateInfo(0).IsName("Close"))
-//				door.Play("Open", -1, 0);
-//			else
-			{
-				StartCoroutine(AnimateDoor(door, "Open"));
-			}
+			AnimateDoor(door, "Open");
 		}
-		//open = true;
 	}
 
 	public void Close()
 	{
 		foreach(Animator door in doors)
 		{
-//			if(!door.GetCurrentAnimatorStateInfo(0).IsName("Open"))
-//				door.Play("Close", -1, 0);
-//			else
-			{
-				StartCoroutine(AnimateDoor(door, "Close"));
-			}
+			AnimateDoor(door, "Close");
 		}
-		//open = false;
 	}
 
-	private IEnumerator AnimateDoor(Animator door, string anim_name)
+	private void AnimateDoor(Animator door, string anim_name)
 	{
-		yield return new WaitForEndOfFrame();
 		float norm_t = door.GetCurrentAnimatorStateInfo(0).normalizedTime;
 		float t;
 		if(norm_t >= 1)

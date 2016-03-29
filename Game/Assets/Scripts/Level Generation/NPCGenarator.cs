@@ -18,15 +18,18 @@ public class NPCGenarator : MonoBehaviour {
 		r_size = gameObject.GetComponent<RoomManager>().size;
 
 		NumberOfNPCs = Random.Range (0, 2 * ((int)r_size + 1));
-		Debug.Log (r_size + " " + NumberOfNPCs);
+		//Debug.Log (r_size + " " + NumberOfNPCs);
 		if(NumberOfNPCs == 0) return;
 
-		if (mission_type != MissionType.ILLNESS) {
+		if (mission_type != MissionType.ILLNESS || r_type == RoomType.FLIGHT_DECK) {
 			weights = new int[]{1};
 		}
 		else
 		{
-			weights = new int[]{1, 2};
+			if(r_type != RoomType.MEDIC)
+				weights = new int[]{10, 5};
+			else
+				weights = new int[]{10, 15};
 		}
 
 		while (0 < NumberOfNPCs--)

@@ -82,44 +82,8 @@ public class DynamicFloor : MonoBehaviour {
 		default:
 			break;
 		}
-
-//        if (type == 2)
-//        {
-////                if (!(hasAdjacent(north, fNodes)) || !(hasAdjacent(east, fNodes)))
-////                {
-////                }
-////                if (!(hasAdjacent(north, fNodes)) || !(hasAdjacent(east, fNodes)))
-////                {
-////                    transform.Rotate(0, 0, 90);
-////                }
-////                if (!(hasAdjacent(north, fNodes)) || !(hasAdjacent(east, fNodes)))
-////                {
-////                    transform.Rotate(0, 0, 90);
-////                }
-//            }
-//        }
-//        else if (type == 3)
-//        {
-//
-//            if (hasAdjacent(south, fNodes))
-//            {
-//                transform.Rotate(0, 0, 90);
-//            }
-//            if (hasAdjacent(south, fNodes))
-//            {
-//                transform.Rotate(0, 0, 90);
-//            }
-//            if (hasAdjacent(south, fNodes))
-//            {
-//                transform.Rotate(0, 0, 90);
-//            }
-//            if (hasAdjacent(south, fNodes))
-//            {
-//                transform.Rotate(0, 0, 90);
-//            }
-//             
-//        }
     }
+
     public void applyMaterial()
     {
         GameObject north = transform.Find("North").gameObject;
