@@ -7,13 +7,13 @@ public class LevelManager : MonoBehaviour {
 
 	private GameObject[] rooms;
 	private MissionType mt;
-//	private Stopwatch mission_time;
-//	private bool game_over = false;
+	private Difficulty difficulty;
 
 	// Use this for initialization
 	void Start () {
 		
 		mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
+		difficulty = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionDifficulty();
 
 		// 1. Split rooms
 		// 2. Randomly rotate rooms before making ship accessible
@@ -106,20 +106,20 @@ public class LevelManager : MonoBehaviour {
 
 	private void MakeShipAccessible ()
 	{
-		foreach(GameObject room in rooms)
-		{
-			room.GetComponent<RoomManager>().SafeNeighbourCheck();
-		}
+//		foreach(GameObject room in rooms)
+//		{
+//			room.GetComponent<RoomManager>().SafeNeighbourCheck();
+//		}
 		bool running = false;
 		do {
 			//rotate inaccessible rooms
 			foreach(GameObject room in rooms)
 			{
 				RoomManager rm = room.GetComponent<RoomManager>();
+				rm.SafeNeighbourCheck();
 				if(!rm.safe)
 				{
 					rm.Rotate();
-					rm.SafeNeighbourCheck();
 				}
 			}
 			
@@ -143,13 +143,8 @@ public class LevelManager : MonoBehaviour {
 			foreach(GameObject dmb in dmbs)
 			{
 				int r = Random.Range(0, 2);
-				switch (r) {
-				case 0:
+				if(r == 0)
 					dmb.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
-					break;
-				default:
-				break;
-				}
 			}
 
 			foreach(GameObject template in room_templates)
@@ -238,8 +233,58 @@ public class LevelManager : MonoBehaviour {
 
 	private void RandomiseEvents ()
 	{
-		int possible = CountMinigames ();
+		int x = CountMinigames();
+		UnityEngine.Debug.Log ("Minigames to choose from:" + x);
 
+		List<int> the_chosen_ones = new List<int> ();
+		int r;
+		switch (difficulty) {
+		case Difficulty.Easy:
+			r = Random.Range(2, 4);
+			the_chosen_ones = ChooseRandomNumbers(r, x);
+			break;
+		case Difficulty.Medium:
+			r = Random.Range(3, 5);
+			the_chosen_ones = ChooseRandomNumbers(r, x);
+			break;
+		case Difficulty.Hard:
+			r = Random.Range(3, 5);
+			the_chosen_ones = ChooseRandomNumbers(r, x);
+			break;
+		case Difficulty.Insane:
+			r = Random.Range(3, 6);
+			the_chosen_ones = ChooseRandomNumbers(r, x);
+			break;
+		default:
+			break;
+		}
 
+		GameObject[] events = GameObject.FindGameObjectsWithTag("Event");
+
+		for (int i = 0; i < x; i++)
+		{
+			if(the_chosen_ones.Contains(i))
+			{
+				//events[i].GetComponent<Event>().Initialise();
+				continue;
+			}
+			events[i].GetComponent<Event>().EventNotNeeded();
+		}
+	}
+
+	private List<int> ChooseRandomNumbers(int num, int events)
+	{
+		List<int> temp = new List<int> ();
+
+		int counter = 0;
+		while (counter < num)
+		{
+			int r = Random.Range(0, events);
+			if(temp.Contains(r)) continue;
+			temp.Add(r);
+			counter++;
+		}
+
+		return temp;
 	}
 }

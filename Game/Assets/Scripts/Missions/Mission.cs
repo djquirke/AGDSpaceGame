@@ -80,7 +80,8 @@ public class Mission {
 
 	public void Begin(int minigame_count)
 	{
-		UnityEngine.Debug.Log(minigame_count);
+		UnityEngine.Debug.Log("minigames to complete:" + minigame_count);
+		GameObject.FindGameObjectWithTag ("HUD Camera").GetComponent<HUDstats> ().SetNumEvents (minigame_count);
 		minigames = minigame_count;
 		time_elapsed.Start ();
 	}
@@ -110,6 +111,7 @@ public class Mission {
 	public void MinigameComplete()
 	{
 		minigames_complete ++;
+		GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().SetEventsComplete(minigames_complete);
 		if(AllObjectivesComplete())
 		{
 			EndMission();

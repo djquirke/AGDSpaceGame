@@ -6,7 +6,7 @@ using System.Diagnostics;
 public class MissionManager : MonoBehaviour {
 	static int MAX_AVAILABLE_MISSIONS = 5;
 	static int TIME_BETWEEN_MISSION_SPAWNS = 300000;
-	public static int MISSION_LENGTH_SECONDS = 255;
+	public static int MISSION_LENGTH_SECONDS = 300;
 	public static string HUB_WORLD_SCENE = "UI";
 
     public List<string> Illness_Levels;

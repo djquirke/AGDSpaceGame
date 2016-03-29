@@ -4,7 +4,7 @@ using System.Collections;
 public class DoorManager : MonoBehaviour {
 
 	//private bool open;
-	private bool gives_access = false;
+	public bool gives_access = false;
 	private Animator[] doors;
 
 	// Use this for initialization

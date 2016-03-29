@@ -9,7 +9,7 @@ public class ChangeScene : MonoBehaviour {
 	void Start () {
         if(!m_instanceCreated)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             m_instanceCreated = true;
         }
 	}

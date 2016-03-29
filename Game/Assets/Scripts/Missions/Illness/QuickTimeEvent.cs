@@ -71,6 +71,12 @@ public class QuickTimeEvent : Event {
     private PlayerIndex m_PlayerIndex;
     private bool m_bPlayerIndexSet = false;
 
+	public override void EventNotNeeded()
+	{
+		tag = "Untagged";
+		//transform.tag = "Untagged";
+		renderer.material = CompleteMat;
+	}
     
 	// Use this for initialization
 	void setup() 

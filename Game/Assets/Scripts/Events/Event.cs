@@ -7,7 +7,7 @@ public class Event : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        tag = "Event";
+        //tag = "Event";
 	}
 	
 	// Update is called once per frame
@@ -22,6 +22,11 @@ public class Event : MonoBehaviour {
 
 	// may or may not be needed
 	public virtual void Initialise()
+	{
+		tag = "Event";
+	}
+
+	public virtual void EventNotNeeded()
 	{
 	}
 
