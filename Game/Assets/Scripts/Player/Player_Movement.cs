@@ -27,6 +27,7 @@ public class Player_Movement : MonoBehaviour {
 
     private Vector3 m_CharictorTotalRotation = Vector3.zero;
     private Vector3 m_CharictorTargetRotation = Vector3.zero;
+    private Vector3 m_MeshOffsetRotation = Vector3.zero;
     public float Roation_time = 0.5f, Char_Rotation_Time = 0.1f;
 
 
@@ -42,6 +43,8 @@ public class Player_Movement : MonoBehaviour {
 
         m_TargetRotation = transform.rotation.eulerAngles;
         m_StartRotation = m_TargetRotation;
+
+        m_MeshOffsetRotation = mesh.transform.localRotation.eulerAngles;
 	
 	}
 	
@@ -167,7 +170,7 @@ public class Player_Movement : MonoBehaviour {
                                                            TargetAngle,
                                                       ref CharRotateVelocity, Char_Rotation_Time);
 
-                mesh.transform.localRotation = Quaternion.Euler(m_CharictorTotalRotation);
+                mesh.transform.localRotation = Quaternion.Euler(m_CharictorTotalRotation + m_MeshOffsetRotation);
 
 
                 
