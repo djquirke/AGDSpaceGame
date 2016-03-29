@@ -31,14 +31,21 @@ public class QuickTimeEvent : Event {
 
     //Keyboard WASD, Arrow,
 
-    public List<KeyBoardInput> m_KeyList = new List<KeyBoardInput>();
-	public List<ControllerInput> m_ButtonList = new List<ControllerInput>();
-    
-	public float TimeBetweenEvents = 2f;
+    private List<KeyBoardInput> m_KeyList = new List<KeyBoardInput>();
+    private List<ControllerInput> m_ButtonList = new List<ControllerInput>();
 
-    public bool m_IsRandomOrder = false;
-	public bool m_IsRandomButtons = false;
-    public int m_Number_of_events = 0;
+    public float EasyReactionTime = 4f;
+    public float MedReactionTime = 2f;
+    public float HardReactionTime = 1f;
+
+    public int EasyNumberofEvents = 2;
+    public int MedNumberofEvents = 4;
+    public int HardNumberofEvents = 6;
+
+
+    private float m_reaction_time = 2f;
+
+    private int m_Number_of_events = 0;
 
     public Vector2 m_UI_Pos = new Vector2(0.5f,0.5f);
     public Vector2 m_UI_Size = new Vector2(128f, 128f);
@@ -63,56 +70,79 @@ public class QuickTimeEvent : Event {
     private GamePadState m_gpPrevState;
     private PlayerIndex m_PlayerIndex;
     private bool m_bPlayerIndexSet = false;
-    
+
     
 	// Use this for initialization
-	void Start () 
+	void setup() 
     {
+        Difficulty d = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().ActiveMissionDifficulty();
+        switch (d)
+        {
+            case Difficulty.Easy:
+                {
+                    m_reaction_time = EasyReactionTime;
+                    m_Number_of_events = EasyNumberofEvents;
+                    break;
+                }
+            case Difficulty.Medium:
+                {
+                    m_reaction_time = MedReactionTime;
+                    m_Number_of_events = MedNumberofEvents;
+                    break;
+                }
+            default:
+                {
+                    m_reaction_time = HardReactionTime;
+                    m_Number_of_events = HardNumberofEvents;
+                    break;
+                }
+
+        }
+       
 		//Check that the numebr of event isn't negative
 		m_Number_of_events = (m_Number_of_events > 0) ? m_Number_of_events
 												  	  : 0;
 
-		//if random buttons is 
-		if (m_IsRandomButtons) 
-		{
-            m_KeyList.Clear();
-            m_ButtonList.Clear();
-			//System.Random Rand = new System.Random (Random.);
-			for (int x= 0; x < m_Number_of_events; ++x) {
-                m_ButtonList.Add((ControllerInput)Random.Range(0,(int)ControllerInput.Num_of_Buttons));//(ControllerInput)Rand.Next((int)ControllerInput.Num_of_Buttons));
+		//set random buttons
+		
+        m_KeyList.Clear();
+        m_ButtonList.Clear();
+		//System.Random Rand = new System.Random (Random.);v
+		for (int x= 0; x < m_Number_of_events; ++x) 
+        {
+            m_ButtonList.Add((ControllerInput)Random.Range(0,(int)ControllerInput.Num_of_Buttons));//(ControllerInput)Rand.Next((int)ControllerInput.Num_of_Buttons));
 
-                m_KeyList.Add((KeyBoardInput)Random.Range(0,(int)KeyBoardInput.Num_of_Keys));//(KeyBoardInput)Rand.Next((int)KeyBoardInput.Num_of_Keys));
-			}
-		} 
-
-		if (m_IsRandomOrder)
-		{
-			System.Random Rand = new System.Random ();
-			List<ControllerInput> NewButtonList = new List<ControllerInput>();
-            List<KeyBoardInput> NewKeyList = new List<KeyBoardInput>();
-
-			//randimize the Controllor buttons
-            while (m_ButtonList.Count >0)
-			{
-                int randIndex = Rand.Next(m_ButtonList.Count);
-
-                NewButtonList.Add(m_ButtonList[randIndex]);
-                m_ButtonList.RemoveAt(randIndex);
-			}
-			//randimize the KeyValuePair board buttons
-            while (m_KeyList.Count>0)
-			{
-                int randIndex = Rand.Next(m_KeyList.Count);
-
-                NewKeyList.Add(m_KeyList[randIndex]);
-                m_KeyList.RemoveAt(randIndex);
-			}
-            m_ButtonList.Clear();
-            m_ButtonList.AddRange(NewButtonList);
-            m_KeyList.Clear();
-            m_KeyList .AddRange(NewKeyList);
-
+            m_KeyList.Add((KeyBoardInput)Random.Range(0,(int)KeyBoardInput.Num_of_Keys));//(KeyBoardInput)Rand.Next((int)KeyBoardInput.Num_of_Keys));
 		}
+		 
+
+		//randomise button order
+		System.Random Rand = new System.Random ();
+		List<ControllerInput> NewButtonList = new List<ControllerInput>();
+        List<KeyBoardInput> NewKeyList = new List<KeyBoardInput>();
+
+		//randimize the Controllor buttons
+        while (m_ButtonList.Count >0)
+		{
+            int randIndex = Rand.Next(m_ButtonList.Count);
+
+            NewButtonList.Add(m_ButtonList[randIndex]);
+            m_ButtonList.RemoveAt(randIndex);
+		}
+		//randimize the KeyValuePair board buttons
+        while (m_KeyList.Count>0)
+		{
+            int randIndex = Rand.Next(m_KeyList.Count);
+
+            NewKeyList.Add(m_KeyList[randIndex]);
+            m_KeyList.RemoveAt(randIndex);
+		}
+        m_ButtonList.Clear();
+        m_ButtonList.AddRange(NewButtonList);
+        m_KeyList.Clear();
+        m_KeyList .AddRange(NewKeyList);
+
+		
 
 		m_ActiveKeyList.AddRange(m_KeyList);
 		m_ActiveButtonList.AddRange(m_ButtonList);
@@ -145,18 +175,18 @@ public class QuickTimeEvent : Event {
 
 		if (m_isActive ) 
 		{
-            if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
+            if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0 && m_fTimePassed < m_reaction_time)
             {
                 
-            if (CheckControllerButton(m_ActiveButtonList[0]))
-            {
-                m_ActiveButtonList.RemoveAt(0);
-                m_fTimePassed = 0f;
-            }
+                if (CheckControllerButton(m_ActiveButtonList[0]))
+                {
+                    m_ActiveButtonList.RemoveAt(0);
+                    m_fTimePassed = 0f;
+                }
                   
                  
             }
-            else if (!m_gpState.IsConnected && m_ActiveKeyList.Count > 0)
+            else if (!m_gpState.IsConnected && m_ActiveKeyList.Count > 0 && m_fTimePassed < m_reaction_time)
             {
                 if (CheckKeys(m_ActiveKeyList[0]))
                 {
@@ -343,7 +373,7 @@ public class QuickTimeEvent : Event {
                                         m_UI_Size.y),
                                m_xBoxTex[(int)m_ActiveButtonList[0]]);
             }
-            else if (m_KeyList.Count > 0 && m_ActiveButtonList.Count > 0)
+            else if (m_KeyList.Count > 0 && m_ActiveKeyList.Count > 0)
             {
                 GUI.DrawTexture(new Rect(Screen.width * m_UI_Pos.x - (m_UI_Size.x / 2),
                                          Screen.height * m_UI_Pos.y - (m_UI_Size.y / 2),
@@ -357,7 +387,9 @@ public class QuickTimeEvent : Event {
 
     public override void Activate()
     {
-       // if it is not active reset the lists
+       
+        setup();
+
 
         m_ActiveKeyList.Clear();
         m_ActiveButtonList.Clear();
