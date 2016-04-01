@@ -25,6 +25,7 @@ public class Mission {
 	private bool mission_lost = false;
 	private bool mission_won = false;
 	private bool mission_active = false;
+    private bool isPaused = false;
 	private int array_idx, minigames, minigames_complete = 0, minigames_failed = 0;
 	private MissionType mission_type;
 	private Difficulty difficulty;
@@ -35,7 +36,7 @@ public class Mission {
 	
 	// Update is called once per frame
 	public void Update () {
-		if(mission_active)
+		if(mission_active && !isPaused)
 		{
 			if (!AllObjectivesComplete() && TimeRemaining() <= 0)
 			{
@@ -160,6 +161,11 @@ public class Mission {
 
 	public void setIdx(int idx) {array_idx = idx;}
 	public int getIdx() {return array_idx;}
+
+    public void PauseGame(bool pause = true)
+    {
+        isPaused = pause;
+    }
 
 	//public void MinigameCount(int count) {minigames = count;}
 }

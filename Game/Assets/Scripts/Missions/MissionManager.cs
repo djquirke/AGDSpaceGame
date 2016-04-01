@@ -170,4 +170,20 @@ public class MissionManager : MonoBehaviour {
 	{
 		return avail_missions;
 	}
+
+    public void PauseGame(bool pause = true)
+    {
+        // display pause menu
+
+        var Events = FindObjectsOfType<Event>();
+
+        foreach (var item in Events)
+        {
+            item.PauseGame(pause);
+        }
+
+        FindObjectOfType<Player_Movement>().PauseGame(pause);
+        active_mission.PauseGame(pause);
+
+    }
 }

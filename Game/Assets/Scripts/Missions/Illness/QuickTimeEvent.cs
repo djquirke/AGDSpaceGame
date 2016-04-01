@@ -63,6 +63,7 @@ public class QuickTimeEvent : Event {
     
     private float m_fTimePassed = 0f;
 
+    private bool isPaused = false;
 
 
     //controller setup
@@ -161,6 +162,9 @@ public class QuickTimeEvent : Event {
 	// Update is called once per frame
 	void Update () 
 	{
+        if (isPaused)
+            return;
+
          if (!m_bPlayerIndexSet || !m_gpPrevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
@@ -369,7 +373,7 @@ public class QuickTimeEvent : Event {
 
     void OnGUI()
     {
-        if (m_isActive)
+        if (m_isActive && !isPaused)
         {
             if (m_gpState.IsConnected && m_ActiveButtonList.Count > 0)
             {
@@ -408,6 +412,9 @@ public class QuickTimeEvent : Event {
 
         m_fTimePassed = 0f;
 	}
-    
+    public override void PauseGame(bool pause = true)
+    {
+        isPaused = pause;
+    }
  
 }

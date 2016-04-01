@@ -58,4 +58,10 @@ public class Event : MonoBehaviour {
 		GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
 		FindObjectOfType<Player_Movement>().EnablePlayerMovement();
 	}
+
+     public virtual void PauseGame(bool pause = true)
+    {
+
+
+    }
 }

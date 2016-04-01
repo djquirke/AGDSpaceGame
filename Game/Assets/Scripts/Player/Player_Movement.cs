@@ -30,6 +30,8 @@ public class Player_Movement : MonoBehaviour {
     private Vector3 m_MeshOffsetRotation = Vector3.zero;
     public float Roation_time = 0.5f, Char_Rotation_Time = 0.1f;
 
+    private bool m_bWasActive; 
+
 
 	// Use this for initialization
 	void Start () {
@@ -232,5 +234,20 @@ public class Player_Movement : MonoBehaviour {
     {
         m_bPlayerCanMove = bCanmove;
         GetComponentInChildren<Camera_Movement>().Enable(bCanmove);
+    }
+
+    public void PauseGame(bool pause = true)
+    {
+        if(pause)
+        {
+            m_bWasActive = m_bPlayerCanMove;
+
+            EnablePlayerMovement(false);
+        }
+        else
+        {
+            EnablePlayerMovement(m_bWasActive);
+
+        }
     }
 }
