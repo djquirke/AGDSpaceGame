@@ -5,10 +5,10 @@ using System.Diagnostics;
 
 public class MissionManager : MonoBehaviour {
 	static int MAX_AVAILABLE_MISSIONS = 5;
-	static int TIME_BETWEEN_MISSION_SPAWNS = 3000;
+	public static int TIME_BETWEEN_MISSION_SPAWNS = 240000;
 	static MissionManager instance = null;
 	public static int MISSION_LENGTH_SECONDS = 300;
-	public static string HUB_WORLD_SCENE = "UI";
+	public static string HUB_WORLD_SCENE = "HUB_World";
 
     public List<string> Illness_Levels;
     public List<string> Engineer_Levels;
@@ -20,21 +20,19 @@ public class MissionManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (instance == null) {
-			instance = this;
-			avail_missions = new List<Mission> ();
-			active_mission = null;
-			GenerateMission ();
-			time_since_last_new_mission = new Stopwatch ();
-			time_since_last_new_mission.Start ();
-			DontDestroyOnLoad (this);
-			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
-		} else {
-			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
-			//return this;
+		if (instance != null && instance != this) {
+			Destroy(this.gameObject);
+			return;
 		}
 
-		//GameObject.FindGameObjectWithTag("LoadManager").GetComponent<LoadManager>().mManagerReady();
+		instance = this;
+		avail_missions = new List<Mission> ();
+		active_mission = null;
+		GenerateMission ();
+		time_since_last_new_mission = new Stopwatch ();
+		time_since_last_new_mission.Start ();
+		DontDestroyOnLoad (this);
+		GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
 	}
 	
 	// Update is called once per frame
@@ -45,7 +43,7 @@ public class MissionManager : MonoBehaviour {
 				return;
 			}
 			
-			if (avail_missions.Count < MAX_AVAILABLE_MISSIONS && time_since_last_new_mission.ElapsedMilliseconds > TIME_BETWEEN_MISSION_SPAWNS) {
+			if (avail_missions.Count < MAX_AVAILABLE_MISSIONS && TimeSinceNewMission() > TIME_BETWEEN_MISSION_SPAWNS) {
 				time_since_last_new_mission.Reset();
 				time_since_last_new_mission.Start();
 				GenerateMission ();
@@ -53,6 +51,11 @@ public class MissionManager : MonoBehaviour {
 		} else {
 			active_mission.Update();
 		}
+	}
+
+	public int TimeSinceNewMission()
+	{
+		return (int)time_since_last_new_mission.ElapsedMilliseconds;
 	}
 
 	void GenerateMission()

@@ -7,20 +7,53 @@ public class HUBManager : MonoBehaviour {
 
 	public List<HUBMission> avail_missions;
 
+	void Start()
+	{
+		try {
+			List<Mission> missions = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().AvailableMissions();
+			if(missions != null)
+			{
+				Initialise(missions);
+			}
+		} catch (System.Exception ex) {
+			
+		}
+	}
+
 	void OnGUI()
 	{
-		//display available missions
-		foreach (HUBMission mission in avail_missions) {
-			if(GUI.Button(new Rect(mission.pos.x, mission.pos.y, 100, 100), mission.mission.missionType().ToString() + "\n"
-			             + mission.mission.Difficulty().ToString() + "\n"
-			             + mission.mission.getLevelName()))
-			{
-				Debug.Log(mission.mission.getIdx());
-				GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().StartMission(mission.mission.getIdx());
-
+		if (avail_missions != null) {
+			//display available missions
+			foreach (HUBMission mission in avail_missions) {
+				if(GUI.Button(new Rect(mission.pos.x, mission.pos.y, 100, 100), mission.mission.missionType().ToString() + "\n"
+				              + mission.mission.Difficulty().ToString() + "\n"
+				              + mission.mission.getLevelName()))
+				{
+					Debug.Log(mission.mission.getIdx());
+					//Application.LoadLevel("UI");
+					GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().StartMission(mission.mission.getIdx());
+					
+				}
+				
 			}
-
+			DisplayTimeUntilNewMission ();
 		}
+	}
+
+	void DisplayTimeUntilNewMission ()
+	{
+		int t = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().TimeSinceNewMission ();
+		int r_t = (MissionManager.TIME_BETWEEN_MISSION_SPAWNS - t) / 1000;
+
+		int mins = r_t / 60;
+		int seconds = r_t - (mins * 60);
+
+		if (seconds < 10) {
+			GUI.TextArea(new Rect(Screen.width / 2 - 50, 50, 100, 20), mins + ":0" + seconds);
+		} else {
+			GUI.TextArea(new Rect(Screen.width / 2 - 50, 50, 100, 20), mins + ":" + seconds);
+		}
+
 	}
 
 	public void Initialise(List<Mission> avail_missions)
