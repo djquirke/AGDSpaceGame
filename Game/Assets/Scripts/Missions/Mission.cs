@@ -76,6 +76,7 @@ public class Mission {
 		//display a loading screen
         Application.LoadLevel(level_map);
 		mission_active = true;
+		UnityEngine.Debug.Log (mission_won);
 		time_elapsed = new Stopwatch ();
 		//time_elapsed.Start ();
 	}
@@ -127,11 +128,14 @@ public class Mission {
 	
 	bool AllObjectivesComplete()
 	{
+		UnityEngine.Debug.Log("Checking all objectives complete:" + minigames_complete + "/" + minigames);
+		if (minigames == 0) return false;
+
 		if(minigames_complete == minigames)
 		{
 			mission_won = true;
-
 		}
+		UnityEngine.Debug.Log (mission_won);
         return mission_won;
 	}
 
