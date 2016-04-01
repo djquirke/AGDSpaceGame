@@ -96,7 +96,7 @@ public class Player_Movement : MonoBehaviour {
                 LeftStick_xAxis = -1;
             }
 
-            if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.LeftArrow))
+            if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 rotate = true;
                 if (!rotate)
@@ -109,7 +109,7 @@ public class Player_Movement : MonoBehaviour {
                     m_TargetRotation += (m_rotationAxis * 90);
                 }
             }
-            else if ((m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.RightArrow))
+            else if ((m_gpPrevState.Buttons.RightShoulder == ButtonState.Released && m_gpState.Buttons.RightShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 rotate = true;
                 if (!rotate)
