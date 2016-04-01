@@ -14,6 +14,9 @@ public class Options : MonoBehaviour {
     public Text ResolutionText = null;
     public Text GraphicsText = null;
 
+    public Slider AudioVolume = null;
+    public Text AudioModeText = null;
+
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +56,9 @@ public class Options : MonoBehaviour {
 
         GraphicsText.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
         BrightnessSlider.value = RenderSettings.ambientLight.r;
+
+        AudioModeText.text = AudioSettings.speakerMode.ToString();
+        AudioVolume.value = AudioListener.volume;
 	}
 
     public void ResolutionUp()
@@ -63,10 +69,10 @@ public class Options : MonoBehaviour {
         }
         ++Resolutionidx;
 
-        Screen.SetResolution(AvaliableResolutions[Resolutionidx].width,AvaliableResolutions[Resolutionidx].height,Screen.fullScreen);
-        
-        
-        ResolutionText.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
+        Screen.SetResolution(AvaliableResolutions[Resolutionidx].width,AvaliableResolutions[Resolutionidx].width,Screen.fullScreen);
+
+
+        ResolutionText.text = AvaliableResolutions[Resolutionidx].width + "x" + AvaliableResolutions[Resolutionidx].height;
     }
     public void ResolutionDown()
     {
@@ -78,14 +84,14 @@ public class Options : MonoBehaviour {
 
         Screen.SetResolution(AvaliableResolutions[Resolutionidx].width, AvaliableResolutions[Resolutionidx].height, Screen.fullScreen);
 
-        
 
-        ResolutionText.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
+
+        ResolutionText.text = AvaliableResolutions[Resolutionidx].width + "x" + AvaliableResolutions[Resolutionidx].height;
     }
 
     public void SetWindowMode(bool Windowed)
     {
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Windowed);
+        Screen.fullScreen = !Windowed;
     }
     public void setBrightness()
     {
@@ -106,5 +112,32 @@ public class Options : MonoBehaviour {
         QualitySettings.DecreaseLevel();
         GraphicsText.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
         
+    }
+
+    public void SetVolume()
+    {
+        AudioListener.volume = AudioVolume.value;
+    }
+    public void MuteAudio(bool mute)
+    {
+        AudioListener.volume = (mute) ? 0 : AudioVolume.value;
+        
+    }
+
+    public void AudioModeUp()
+    {
+        if (AudioSettings.speakerMode == AudioSpeakerMode.Prologic)
+            return;
+        AudioSettings.speakerMode++;
+        AudioModeText.text = AudioSettings.speakerMode.ToString();
+
+    }
+    public void AudioModeDown()
+    {
+        if (AudioSettings.speakerMode == 0)
+            return;
+
+        AudioSettings.speakerMode--;
+        AudioModeText.text = AudioSettings.speakerMode.ToString();
     }
 }
