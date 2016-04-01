@@ -21,7 +21,6 @@ public enum Difficulty
 
 public class Mission {
 	private string level_map;
-	private Stopwatch time_elapsed;
 	private bool mission_lost = false;
 	private bool mission_won = false;
 	private bool mission_active = false;
@@ -29,6 +28,7 @@ public class Mission {
 	private int array_idx, minigames, minigames_complete = 0, minigames_failed = 0;
 	private MissionType mission_type;
 	private Difficulty difficulty;
+    private float TimePassed = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -40,9 +40,9 @@ public class Mission {
 		{
 			if (!AllObjectivesComplete() && TimeRemaining() <= 0)
 			{
-				time_elapsed.Stop();
 				EndMission();
 			}
+            TimePassed += Time.deltaTime;
 		}
 	}
 
@@ -77,7 +77,6 @@ public class Mission {
         Application.LoadLevel(level_map);
 		mission_active = true;
 		UnityEngine.Debug.Log (mission_won);
-		time_elapsed = new Stopwatch ();
 		//time_elapsed.Start ();
 	}
 
@@ -86,7 +85,7 @@ public class Mission {
 		UnityEngine.Debug.Log("minigames to complete:" + minigame_count);
 		GameObject.FindGameObjectWithTag ("HUD Camera").GetComponent<HUDstats> ().SetNumEvents (minigame_count);
 		minigames = minigame_count;
-		time_elapsed.Start ();
+        TimePassed = 0;
 	}
 
 	//CHECK THIS FOR ERRORS
@@ -144,7 +143,7 @@ public class Mission {
 		mission_lost = false;
 		mission_won = false;
 		minigames_complete = 0;
-		time_elapsed.Reset();
+        TimePassed = 0;
 	}
     public string getLevelName()
     {
@@ -153,7 +152,7 @@ public class Mission {
 
 	public float TimeRemaining()
 	{
-		return (float)(MissionManager.MISSION_LENGTH_SECONDS - time_elapsed.ElapsedMilliseconds / 1000);
+        return (float)(MissionManager.MISSION_LENGTH_SECONDS - TimePassed);
 	}
 
 	public MissionType missionType()
@@ -169,6 +168,11 @@ public class Mission {
     public void PauseGame(bool pause = true)
     {
         isPaused = pause;
+    }
+
+    public void QuitMission()
+    {
+        TimePassed = MissionManager.MISSION_LENGTH_SECONDS;
     }
 
 	//public void MinigameCount(int count) {minigames = count;}

@@ -14,6 +14,10 @@ public class MissionManager : MonoBehaviour {
     public List<string> Engineer_Levels;
     public List<string> Oxygen_Levels;
 
+    public GameObject Pause_Menu = null;
+    private static GameObject Pause_Menu_Instance = null;
+    private bool isPaused = false;
+
 	private List<Mission> avail_missions;
 	private Mission active_mission;
 	private Stopwatch time_since_last_new_mission;
@@ -174,9 +178,19 @@ public class MissionManager : MonoBehaviour {
 		return avail_missions;
 	}
 
-    public void PauseGame(bool pause = true)
+     public void PauseGame()
+    {
+        PauseGame(!isPaused);
+    }
+
+    public void PauseGame(bool pause)
     {
         // display pause menu
+        CreatePauseMenu();
+
+        isPaused = pause;
+
+        Pause_Menu_Instance.SetActive(pause);
 
         var Events = FindObjectsOfType<Event>();
 
@@ -188,5 +202,34 @@ public class MissionManager : MonoBehaviour {
         FindObjectOfType<Player_Movement>().PauseGame(pause);
         active_mission.PauseGame(pause);
 
+    }
+    public void QuitMission()
+    {
+        active_mission.QuitMission();
+        PauseGame(false);
+    }
+
+    private void CreatePauseMenu()
+    {
+        if(Pause_Menu_Instance == null)
+        {
+            Pause_Menu_Instance = (GameObject)Instantiate(Pause_Menu);
+
+            var ListOfButtons = FindObjectsOfType<UnityEngine.UI.Button>();
+
+            foreach (var item in ListOfButtons)
+            {
+                if (item.gameObject.name == "Resume")
+                {
+                    item.onClick.AddListener(PauseGame);
+                }
+                else if (item.gameObject.name == "Quit")
+                {
+                    item.onClick.AddListener(QuitMission);
+                }
+            }
+
+            Pause_Menu_Instance.SetActive(false);
+        }
     }
 }

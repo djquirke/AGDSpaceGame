@@ -74,6 +74,12 @@ public class Player_Movement : MonoBehaviour {
         m_gpState = GamePad.GetState(m_PlayerIndex);
 
 
+        if (Input.GetKeyDown(KeyCode.Escape) || (m_gpPrevState.Buttons.Start == ButtonState.Released && m_gpState.Buttons.Start == ButtonState.Pressed))
+        {
+            GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().PauseGame();
+        }
+
+
 
         if (m_bPlayerCanMove)
         {
