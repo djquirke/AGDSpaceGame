@@ -8,12 +8,12 @@ public class LoadManager : MonoBehaviour {
 
 	void CheckReady()
 	{
-		if(m_manager_ready && g_manager_ready)
+		if(g_manager_ready)
 		{
 			Application.LoadLevel(scene_to_load);
 		}
 	}
 
-	public void mManagerReady() {m_manager_ready = true; CheckReady();}
+	//public void mManagerReady() {m_manager_ready = true; CheckReady();}
 	public void gManagerReady() {g_manager_ready = true; CheckReady();}
 }

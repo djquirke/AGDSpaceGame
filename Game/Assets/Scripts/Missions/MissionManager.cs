@@ -5,7 +5,8 @@ using System.Diagnostics;
 
 public class MissionManager : MonoBehaviour {
 	static int MAX_AVAILABLE_MISSIONS = 5;
-	static int TIME_BETWEEN_MISSION_SPAWNS = 300000;
+	static int TIME_BETWEEN_MISSION_SPAWNS = 3000;
+	static MissionManager instance = null;
 	public static int MISSION_LENGTH_SECONDS = 300;
 	public static string HUB_WORLD_SCENE = "UI";
 
@@ -19,13 +20,21 @@ public class MissionManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		avail_missions = new List<Mission>();
-		active_mission = null;
-		GenerateMission();
-		time_since_last_new_mission = new Stopwatch ();
-		time_since_last_new_mission.Start ();
-		DontDestroyOnLoad(this);
-		GameObject.FindGameObjectWithTag("LoadManager").GetComponent<LoadManager>().mManagerReady();
+		if (instance == null) {
+			instance = this;
+			avail_missions = new List<Mission> ();
+			active_mission = null;
+			GenerateMission ();
+			time_since_last_new_mission = new Stopwatch ();
+			time_since_last_new_mission.Start ();
+			DontDestroyOnLoad (this);
+			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
+		} else {
+			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
+			//return this;
+		}
+
+		//GameObject.FindGameObjectWithTag("LoadManager").GetComponent<LoadManager>().mManagerReady();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +45,7 @@ public class MissionManager : MonoBehaviour {
 				return;
 			}
 			
-			if (avail_missions.Count <= MAX_AVAILABLE_MISSIONS && time_since_last_new_mission.ElapsedMilliseconds > TIME_BETWEEN_MISSION_SPAWNS) {
+			if (avail_missions.Count < MAX_AVAILABLE_MISSIONS && time_since_last_new_mission.ElapsedMilliseconds > TIME_BETWEEN_MISSION_SPAWNS) {
 				time_since_last_new_mission.Reset();
 				time_since_last_new_mission.Start();
 				GenerateMission ();
@@ -58,7 +67,7 @@ public class MissionManager : MonoBehaviour {
         	if (Engineer_Levels.Count > 0)
 			{
 				UnityEngine.Debug.Log((Difficulty)y);
-                new_mission.Initialise(MissionType.ENGINEERING, (Difficulty)y, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)]);
+                new_mission.Initialise(MissionType.ENGINEERING, (Difficulty)y, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)], avail_missions.Count);
 				avail_missions.Add(new_mission);
 				UnityEngine.Debug.Log("Engineer Created");
             }
@@ -67,39 +76,47 @@ public class MissionManager : MonoBehaviour {
             if (Illness_Levels.Count > 0)
 			{
 				UnityEngine.Debug.Log((Difficulty)y);
-				new_mission.Initialise(MissionType.ILLNESS, (Difficulty)y, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)]);
+				new_mission.Initialise(MissionType.ILLNESS, (Difficulty)y, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)], avail_missions.Count);
                 avail_missions.Add(new_mission);
 				UnityEngine.Debug.Log("Illness Created");
             }
 			break;
-		case 2: // Oxygen
-            if (Oxygen_Levels.Count > 0)
-            {
-				new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)]);
-				avail_missions.Add(new_mission);
-				UnityEngine.Debug.Log("Oxygen Created");
-            }
-			break;
+//		case 2: // Oxygen
+//            if (Oxygen_Levels.Count > 0)
+//            {
+//				new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)], avail_missions.Count);
+//				avail_missions.Add(new_mission);
+//				UnityEngine.Debug.Log("Oxygen Created");
+//            }
+//			break;
 		default:
 			break;
 		}
 
-		
+		try {
+			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().AddMission (new_mission);
+		} catch (System.Exception ex) {
+			UnityEngine.Debug.Log("Hub Manager not available");
+		}
+
 	}
 
-	public void StartMission()
+	public void StartMission(int idx)
 	{
 		//find out which mission is selected from menu
 		if (active_mission == null)
 			active_mission = new Mission ();
 
-        active_mission = avail_missions[0]; //TODO: change to index of selected mission
+        active_mission = avail_missions[idx]; //TODO: change to index of selected mission
 		active_mission.StartMission();
 	}
 
 	public void EndMission(int idx)
 	{
 		avail_missions.RemoveAt(idx);
+		for (int i = 0; i < avail_missions.Count; i++) {
+			avail_missions[i].setIdx(i);
+		}
 		active_mission = null;
 	}
 
@@ -147,5 +164,10 @@ public class MissionManager : MonoBehaviour {
 		if(active_mission != null)
 			return active_mission.Difficulty ();
 		return Difficulty.Difficulty_Count;
+	}
+
+	public List<Mission> AvailableMissions()
+	{
+		return avail_missions;
 	}
 }

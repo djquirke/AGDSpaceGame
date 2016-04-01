@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 public enum MissionType
 {
-	OXYGEN,
+	//OXYGEN,
 	ENGINEERING,
 	ILLNESS,
     NUM_OF_MISSIONS
@@ -61,8 +61,9 @@ public class Mission {
 	}
 
 	// TODO: change minigame count to difficulty
-	public void Initialise(MissionType type, Difficulty difficulty, string scene)
+	public void Initialise(MissionType type, Difficulty difficulty, string scene, int idx)
 	{
+		array_idx = idx;
 		mission_type = type;
 		this.difficulty = difficulty;
         level_map = scene;
@@ -156,6 +157,9 @@ public class Mission {
 	}
 
 	public Difficulty Difficulty() {return difficulty;}
+
+	public void setIdx(int idx) {array_idx = idx;}
+	public int getIdx() {return array_idx;}
 
 	//public void MinigameCount(int count) {minigames = count;}
 }

@@ -22,7 +22,7 @@ public class HUDstats : MonoBehaviour {
 	{
 		if(event_close)
 		{
-			GUI.TextArea(new Rect(width / 2 - 50, 3 * height / 4, 100, 100), "Press A");
+			GUI.TextArea(new Rect(width / 2 - 50, 3 * height / 4, 100, 100), "Press E");
 		}
 
 		DisplayTimeRemaining ();
