@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class DynamicFloor : MonoBehaviour {
     private GameObject[] iList;
     private GameObject[] fNodes;
-    private GameObject[] doors;
+	private GameObject[] doors;
+	private List<GameObject> walls;
     private Renderer rend;
 	private float distance_threshold = 0.5f;
     public int type = 0;
@@ -17,6 +18,16 @@ public class DynamicFloor : MonoBehaviour {
 		
 		fNodes = GameObject.FindGameObjectsWithTag("DynamicFloor");
 		doors = GameObject.FindGameObjectsWithTag("Door");
+		Transform[] tforms = gameObject.GetComponentsInChildren<Transform>();
+		walls = new List<GameObject>();
+		foreach(Transform tform in tforms)
+		{
+			if (tform.CompareTag("Wall"))
+			{
+				walls.Add(tform.gameObject);
+			}
+		}
+		Debug.Log (walls.Count);
 		
 		iList = new GameObject[fNodes.Length + doors.Length];
 		for (int i = 0; i < fNodes.Length; i += 1)
@@ -28,12 +39,19 @@ public class DynamicFloor : MonoBehaviour {
 			iList[fNodes.Length + j] = doors[j];
 		}
 		fNodes = iList;
-		foreach (Transform child in transform)
+		Transform[] tformss = gameObject.GetComponentsInChildren<Transform>();
+		foreach (Transform child in tformss)
 		{
-			if (hasAdjacent(child.gameObject, fNodes) || hadAdjacentDoor(child.gameObject, fNodes))
+			//Debug.Log(child);
+			//if(child.gameObject.GetComponentInChildren<Transform>().CompareTag("Wall")) Debug.Log("yay");
+			if(child.CompareTag("Door"))
 			{
-				type += 1;
+				if (hasAdjacent(child.gameObject, fNodes) || hadAdjacentDoor(child.gameObject, fNodes))
+				{
+					type += 1;
+				}
 			}
+
 		}
 		applyMaterial();
 		adjustOrientation();
@@ -50,10 +68,22 @@ public class DynamicFloor : MonoBehaviour {
         GameObject south = transform.Find("South").gameObject;
         GameObject west = transform.Find("West").gameObject;
 
+		//List<Transform> wall_tforms = new List<Transform>();
+		//Transform[] temp = north.GetComponentsInChildren<Transform>();
+		GameObject north_wall = north.transform.FindChild("Wall").gameObject;
+		north_wall.transform.parent = null;
+		GameObject east_wall = east.transform.FindChild("Wall").gameObject;
+		east_wall.transform.parent = null;
+		GameObject south_wall = south.transform.FindChild("Wall").gameObject;
+		south_wall.transform.parent = null;
+		GameObject west_wall = west.transform.FindChild("Wall").gameObject;
+		west_wall.transform.parent = null;
+
 		switch (type) {
 		case 1:
 			while(!hasAdjacent(north, fNodes))
 			{
+
 				transform.Rotate(0, 0, 90);
 			}
 			break;
@@ -82,6 +112,10 @@ public class DynamicFloor : MonoBehaviour {
 		default:
 			break;
 		}
+		north_wall.transform.parent = north.transform;
+		east_wall.transform.parent = east.transform;
+		south_wall.transform.parent = south.transform;
+		west_wall.transform.parent = west.transform;
     }
 
     public void applyMaterial()
@@ -122,8 +156,25 @@ public class DynamicFloor : MonoBehaviour {
                 {
 					if (Vector3.Distance(cNode.transform.position, child.transform.position) < distance_threshold)
                     {
-                          foundNode = true;
-
+                    	foundNode = true;
+						Transform[] temp = cNode.GetComponentsInChildren<Transform>();
+						foreach(Transform tem in temp)
+						{
+							if(tem.CompareTag("Wall"))
+							{
+								Destroy(tem.gameObject);
+							}
+						}
+						//Debug.Log (temp.CompareTag("Wall"));
+						//Destroy(temp.gameObject);
+//						foreach(GameObject wall in walls)
+//						{
+//							Debug.Log(Vector3.Distance(wall.transform.position, cNode.transform.position));
+//							if(Vector3.Distance(wall.transform.position, child.transform.position) < distance_threshold)
+//							{
+//								Destroy(wall);
+//							}
+//						}
                     }
                 }
             }  

@@ -52,7 +52,7 @@ public class RoomManager : MonoBehaviour
             GameObject[] allDoors = GameObject.FindGameObjectsWithTag("Door");
             for (int j = 0; j < allDoors.Length; j++)
             {
-                if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 0.5f)
+                if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 2f)
                 {
 					neighbours.Add(allDoors[j].transform.root.gameObject);
 					try
