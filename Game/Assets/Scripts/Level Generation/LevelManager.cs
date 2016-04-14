@@ -21,21 +21,32 @@ public class LevelManager : MonoBehaviour {
 		// 4. Delete doors/walls appropriately
 		// 5. Remove overlapping walls
 		// 6. Dynamic floor
-
+		UnityEngine.Debug.Log("splitting rooms");
 		SplitRooms ();
 		rooms = GameObject.FindGameObjectsWithTag("Room");
+		UnityEngine.Debug.Log("random rotating rooms");
 		RandomRoomRotation ();
+		UnityEngine.Debug.Log("making ship accessible");
 		MakeShipAccessible ();
+		UnityEngine.Debug.Log("removing walls and doors");
 		RemoveWallDoors ();
+		UnityEngine.Debug.Log("rm overlapping walls");
 		RemoveOverlappingWalls ();
+		UnityEngine.Debug.Log("calc floor");
 		CalculateFloor ();
+		UnityEngine.Debug.Log("check disable engineering");
 		CheckDisableEngineering();
+		UnityEngine.Debug.Log("generate npcs");
 		GenerateNPCs ();
+		UnityEngine.Debug.Log("spawning player");
 		SpawnPlayer();
+		UnityEngine.Debug.Log("randomising events");
 		RandomiseEvents ();
 
 		int minigames = CountMinigames();
+		UnityEngine.Debug.Log("level loaded");
 		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
+		UnityEngine.Debug.Log("done");
 	}
 	
 	// Update is called once per frame

@@ -38,7 +38,7 @@ public class Mission {
 	public void Update () {
 		if(mission_active && !isPaused)
 		{
-			if (!AllObjectivesComplete() && TimeRemaining() <= 0)
+			if (TimeRemaining() <= 0)
 			{
 				EndMission();
 			}
