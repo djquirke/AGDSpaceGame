@@ -30,9 +30,7 @@ public class HUBManager : MonoBehaviour {
 				              + mission.mission.getLevelName()))
 				{
 					Debug.Log(mission.mission.getIdx());
-					//Application.LoadLevel("UI");
 					GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().StartMission(mission.mission.getIdx());
-					
 				}
 				
 			}
