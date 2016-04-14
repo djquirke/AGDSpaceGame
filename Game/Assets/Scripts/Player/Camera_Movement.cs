@@ -77,14 +77,28 @@ public class Camera_Movement : MonoBehaviour {
 
             float RightStick_yAxis;
 
-
+            RightStick_yAxis = 0;
             RightStick_yAxis = m_gpState.ThumbSticks.Right.Y;
 
-            if (Mathf.Abs(RightStick_yAxis) < Mathf.Abs(Input.GetAxis("Mouse Y")))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                RightStick_yAxis = Input.GetAxis("Mouse Y");
+                RightStick_yAxis += 1;
             }
 
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                RightStick_yAxis -= 1;
+            }
+
+            if (RightStick_yAxis > 0)
+            {
+               RightStick_yAxis = Mathf.Min(1, RightStick_yAxis);
+            }
+
+            if (RightStick_yAxis < 0)
+            {
+               RightStick_yAxis = Mathf.Max(-1, RightStick_yAxis);
+            }
 
             //transform.Rotate(m_rotationXAxis, RightStick_yAxis * LookSpeed_mulitplier);
             m_Angle += RightStick_yAxis * LookSpeed_mulitplier;
