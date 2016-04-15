@@ -2175,6 +2175,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1941547456}
   - 114: {fileID: 1941547455}
+  - 114: {fileID: 1941547457}
   m_Layer: 0
   m_Name: UIhelper
   m_TagString: Untagged
@@ -2205,6 +2206,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1941547457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1941547454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d93f6273c1632b40b484b42d29c63a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Missions_Complete: {fileID: 460187046}
+  Missions_Failed: {fileID: 1517928722}
+  Medic_Missions: {fileID: 836258100}
+  Engineer_Mission: {fileID: 1965010882}
+  Easy_Complete: {fileID: 295351084}
+  Medium_Complete: {fileID: 798503057}
+  Hard_Complete: {fileID: 990416513}
+  Insane_Complete: {fileID: 2004632483}
+  HiScore: {fileID: 1418445958}
 --- !u!1 &1965010880
 GameObject:
   m_ObjectHideFlags: 0
