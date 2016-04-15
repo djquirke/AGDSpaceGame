@@ -1,61 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class HUDstats : MonoBehaviour {
 
 	public bool event_close = false;
-	public float width, height;
 	private int event_count, events_done;
+
+    public Text ObjectiveText= null;
+    public Text DialogText = null;
+    public GameObject DialogBar = null;
+    public Text TimeText = null;
+
+    private MissionManager mm = null;
 
 	// Use this for initialization
 	void Start () {
-		width = camera.pixelWidth;
-		height = camera.pixelHeight;
+		
+        mm = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	void Update () 
+    {
+	    if(ObjectiveText)
+        {
+            ObjectiveText.text = "Events Complete: " + events_done + "/" + event_count;
+        }
+        if (DialogText && DialogBar)
+        {
+            if(event_close)
+            {
+                DialogBar.SetActive(true);
+                DialogText.text = "Press E";
+            }
+            else
+            {
+                DialogBar.SetActive(false);
+            }
+        }
+        if (TimeText && mm)
+        {
+            if(mm)
+            {
+                int time_remaining = Mathf.FloorToInt(mm.TimeRemaining());
 
-	void OnGUI()
-	{
-		if(event_close)
-		{
-			GUI.TextArea(new Rect(width / 2 - 50, 3 * height / 4, 100, 100), "Press E");
-		}
+                if (time_remaining == -1)
+                    return;
 
-		DisplayTimeRemaining ();
-		DisplayEventInfo ();
-	}
+                //int time_remaining = MissionManager.MISSION_LENGTH_SECONDS - time_elapsed;
+                int mins = Mathf.FloorToInt(time_remaining / 60);
+                int secs = time_remaining - mins * 60;
 
-	private void DisplayTimeRemaining()
-	{
-		try
-		{
-			int time_remaining = Mathf.FloorToInt(GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().TimeRemaining ());
-
-			if (time_remaining == -1)
-				return;
-			
-			//int time_remaining = MissionManager.MISSION_LENGTH_SECONDS - time_elapsed;
-			int mins = Mathf.FloorToInt (time_remaining / 60);
-			int secs = time_remaining - mins * 60;
-
-			if(secs < 10)
-				GUI.TextArea (new Rect (width / 2 - 50, 50, 100, 20), mins + ":0" + secs);
-			else
-				GUI.TextArea (new Rect (width / 2 - 50, 50, 100, 20), mins + ":" + secs);
-
-		}
-		catch {
-			return;
-		}
-	}
-
-	private void DisplayEventInfo ()
-	{
-		GUI.TextArea (new Rect (100, height - 75, 200, 20), "Events Complete: " + events_done + "/" + event_count);
+                if (secs < 10)
+                   TimeText.text =  mins + ":0" + secs;
+                else
+                    TimeText.text =  mins + ":" + secs;
+            }
+        }
 	}
 
 	public void SetNumEvents (int minigame_count)
