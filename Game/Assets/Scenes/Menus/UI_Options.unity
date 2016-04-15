@@ -2112,7 +2112,8 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.875
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 266cef205d766e44ca1814dd6a8f87f6, type: 2}
   m_RootGameObject: {fileID: 822753128}
   m_IsPrefabParent: 0
@@ -2127,7 +2128,6 @@ GameObject:
   - 224: {fileID: 822753129}
   - 223: {fileID: 822753133}
   - 114: {fileID: 822753132}
-  - 114: {fileID: 822753131}
   - 95: {fileID: 822753130}
   m_Layer: 5
   m_Name: MenuBackground-Prefab
@@ -2174,23 +2174,6 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &822753131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11492268, guid: 266cef205d766e44ca1814dd6a8f87f6,
-    type: 2}
-  m_PrefabInternal: {fileID: 757821977}
-  m_GameObject: {fileID: 822753128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &822753132
 MonoBehaviour:
   m_ObjectHideFlags: 0

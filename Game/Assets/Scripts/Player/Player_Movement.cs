@@ -198,10 +198,8 @@ public class Player_Movement : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
-        {
-           // m_gpPrevState = m_gpState;
-            GamePadState current_state  = GamePad.GetState(m_PlayerIndex);
-            if ((m_gpPrevState.Buttons.A == ButtonState.Released && current_state.Buttons.A == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.E))
+        {            
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.E))
             {
                 EnablePlayerMovement(false);
 				GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;

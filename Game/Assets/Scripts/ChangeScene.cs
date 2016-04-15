@@ -23,4 +23,10 @@ public class ChangeScene : MonoBehaviour {
     {
         Application.LoadLevel(level);
     }
+
+    public void test()
+    {
+        Debug.Log("Button Click");
+
+    }
 }
