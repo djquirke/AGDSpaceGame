@@ -21,8 +21,8 @@ public enum Difficulty
 
 public class Mission {
 	private string level_map;
-	private bool mission_lost = false;
-	private bool mission_won = false;
+	public bool mission_lost = false;
+	public bool mission_won = false;
 	private bool mission_active = false;
     private bool isPaused = false;
 	private int array_idx, minigames, minigames_complete = 0, minigames_failed = 0;
@@ -77,6 +77,21 @@ public class Mission {
         Application.LoadLevel(level_map);
 		mission_active = true;
 		UnityEngine.Debug.Log (mission_won);
+
+        switch(mission_type)
+        {
+            case MissionType.ENGINEERING:
+            {
+                ++MissionManager.Engineer_Missions;
+                break;
+            }
+            case MissionType.ILLNESS:
+            {
+                ++MissionManager.Medic_Missions;
+                break;
+            }
+        }
+
 		//time_elapsed.Start ();
 	}
 
@@ -93,9 +108,37 @@ public class Mission {
 	{
 		if(TimeRemaining() > 0)
 		{
+            if (MissionManager.HiScore < TimeRemaining() * ((int)difficulty + 1))
+                MissionManager.HiScore = (int)TimeRemaining() * ((int)difficulty + 1);
+
+            switch(difficulty)
+            {
+                case global::Difficulty.Easy:
+                {
+                    ++MissionManager.Easy_Mission;
+                    break;
+                }
+                case global::Difficulty.Medium:
+                {
+                    ++MissionManager.Medium_Mission;
+                    break;
+                }
+                case global::Difficulty.Hard:
+                {
+                    ++MissionManager.Hard_Mission;
+                    break;
+                }
+                case global::Difficulty.Insane:
+                {
+                    ++MissionManager.Insane_Mission;
+                    break;
+                }
+            }
+
 			//VICTORY SONG
 			//VICTORY ANIMATION
 			mission_won = true;
+            ++MissionManager.Missions_Won;
 			Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
 			//modify global stats
 		}
@@ -104,6 +147,7 @@ public class Mission {
 			//DEFEAT SONG
 			//DEFEAT ANIMATION
 			mission_lost = true;
+            ++MissionManager.Missions_Failed;
 			Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
 			//modify global stats
 		}

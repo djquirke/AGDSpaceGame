@@ -22,6 +22,19 @@ public class MissionManager : MonoBehaviour {
 	private Mission active_mission;
 	private Stopwatch time_since_last_new_mission;
 
+    //stat data
+    public static int Missions_Won = 0;
+    public static int Missions_Failed = 0;
+    public static int Medic_Missions = 0;
+    public static int Engineer_Missions = 0;
+    public static int Easy_Mission = 0;
+    public static int Medium_Mission = 0;
+    public static int Hard_Mission = 0;
+    public static int Insane_Mission = 0;
+    public static int HiScore = 0;
+
+    //end stat data
+
 	// Use this for initialization
 	void Start () {
 		if (instance != null && instance != this) {
