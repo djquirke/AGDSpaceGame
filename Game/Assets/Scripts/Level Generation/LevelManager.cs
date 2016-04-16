@@ -286,6 +286,11 @@ public class LevelManager : MonoBehaviour {
 	private List<int> ChooseRandomNumbers(int num, int events)
 	{
 		List<int> temp = new List<int> ();
+        if(events < num)
+        {
+            UnityEngine.Debug.LogError("Number of events wanted " + num + " number of events found " + events);
+            return temp;
+        }
 
 		int counter = 0;
 		while (counter < num)
