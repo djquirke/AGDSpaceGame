@@ -109,7 +109,7 @@ public class LevelManager : MonoBehaviour {
 			{
 				foreach(GameObject wall in walls)
 				{
-					Destroy(wall);
+					DestroyImmediate(wall);
 				}
 			}
 		}
