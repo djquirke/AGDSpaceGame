@@ -6,6 +6,8 @@ public class OutLineActivation : MonoBehaviour {
 
     public Shader OutLineShader = null;
 
+    public Color OutLineColour = Color.red; 
+
     private GameObject Parent = null;
     private Shader ParentsShader = null;
     private bool Triggered = false;
@@ -20,6 +22,8 @@ public class OutLineActivation : MonoBehaviour {
         {
             Debug.LogError(name +" has no Parent Object");
         }
+
+        
 	}
 
     // Update is called once per frame
@@ -42,7 +46,7 @@ public class OutLineActivation : MonoBehaviour {
         {
             ParentsShader = Parent.renderer.material.shader;
             Parent.renderer.material.shader = OutLineShader;
-
+            Parent.renderer.material.SetColor("_OutlineColor", OutLineColour);
             Triggered = true;
         }
 
