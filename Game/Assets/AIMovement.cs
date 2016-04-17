@@ -66,6 +66,7 @@ public class AIMovement : MonoBehaviour {
 		goal_nodes = new List<GameObject>();
 		successor_nodes = new List<Node>();
 		path = new List<Node>();
+		if(nodes.Length == 0) return;
 
 		//find all goal nodes
 		foreach(GameObject node in nodes)
