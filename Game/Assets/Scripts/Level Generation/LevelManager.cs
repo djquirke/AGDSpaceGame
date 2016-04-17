@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour {
 
         ActiveLoadingScreen = Instantiate(GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().LoadingScreen);
 
-        StartCoroutine(GenarateLevel());
+        StartCoroutine("GenarateLevel");
 	}
 	
 	// Update is called once per frame
@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 
-    private IEnumerator GenarateLevel()
+    private void GenarateLevel()
     {
         // 1. Split rooms
         // 2. Randomly rotate rooms before making ship accessible
