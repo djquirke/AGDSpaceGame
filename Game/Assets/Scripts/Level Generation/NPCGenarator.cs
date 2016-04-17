@@ -18,9 +18,11 @@ public class NPCGenarator : MonoBehaviour {
 		r_size = gameObject.GetComponent<RoomManager>().size;
 
 		NumberOfNPCs = Random.Range (0, 2 * ((int)r_size + 1));
+//		NumberOfNPCs = Random.Range(0, 2);
 		//Debug.Log (r_size + " " + NumberOfNPCs);
 		if(NumberOfNPCs == 0) return;
-
+//		if(r_type != RoomType.HALLWAY) return;
+//		weights = new int[]{10, 5};
 		if (mission_type != MissionType.ILLNESS || r_type == RoomType.FLIGHT_DECK) {
 			weights = new int[]{1};
 		}
@@ -54,7 +56,7 @@ public class NPCGenarator : MonoBehaviour {
         }
         else
         {
-            GameObject rooms = (GameObject)Instantiate(NPCsets[weightsList[rand]], transform.position + new Vector3(0f,3f,0), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+			GameObject rooms = (GameObject)Instantiate(NPCsets[weightsList[rand]], transform.position + new Vector3(0f,1f,0), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
     }
 

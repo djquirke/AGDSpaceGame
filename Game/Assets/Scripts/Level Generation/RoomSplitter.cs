@@ -10,6 +10,11 @@ public class RoomSplitter : MonoBehaviour
 
     List<int> weightsList = new List<int>();
 
+	void Start()
+	{
+		Split ();
+	}
+
     public void Split()
     {
 		if(!split)
