@@ -22,6 +22,8 @@ public class MissionManager : MonoBehaviour {
 	private Mission active_mission;
 	private Stopwatch time_since_last_new_mission;
 
+    public GameObject LoadingScreen = null;
+
     //stat data
     public static int Missions_Won = 0;
     public static int Missions_Failed = 0;

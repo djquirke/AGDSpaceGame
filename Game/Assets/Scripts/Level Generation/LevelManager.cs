@@ -9,50 +9,71 @@ public class LevelManager : MonoBehaviour {
 	private MissionType mt;
 	private Difficulty difficulty;
 
+    private Object ActiveLoadingScreen = null;
+
+    private bool Loading = false;
+
 	// Use this for initialization
 	void Start () {
 		
 		mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
 		difficulty = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionDifficulty();
 
-		// 1. Split rooms
-		// 2. Randomly rotate rooms before making ship accessible
-		// 3. Rotate rooms until fully accessible ship
-		// 4. Delete doors/walls appropriately
-		// 5. Remove overlapping walls
-		// 6. Dynamic floor
-		UnityEngine.Debug.Log("splitting rooms");
-		SplitRooms ();
-		rooms = GameObject.FindGameObjectsWithTag("Room");
-		UnityEngine.Debug.Log("random rotating rooms");
-		RandomRoomRotation ();
-		UnityEngine.Debug.Log("making ship accessible");
-		MakeShipAccessible ();
-		UnityEngine.Debug.Log("removing walls and doors");
-		RemoveWallDoors ();
-		UnityEngine.Debug.Log("rm overlapping walls");
-		RemoveOverlappingWalls ();
-		UnityEngine.Debug.Log("calc floor");
-		CalculateFloor ();
-		UnityEngine.Debug.Log("check disable engineering");
-		CheckDisableEngineering();
-		UnityEngine.Debug.Log("generate npcs");
-		GenerateNPCs ();
-		UnityEngine.Debug.Log("spawning player");
-		SpawnPlayer();
-		UnityEngine.Debug.Log("randomising events");
-		RandomiseEvents ();
+        Loading = true;
 
-		int minigames = CountMinigames();
-		UnityEngine.Debug.Log("level loaded");
-		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
-		UnityEngine.Debug.Log("done");
+        ActiveLoadingScreen = Instantiate(GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().LoadingScreen);
+
+        StartCoroutine(GenarateLevel());
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(ActiveLoadingScreen && !Loading)
+        {
+            Destroy(ActiveLoadingScreen);
+            ActiveLoadingScreen = null;
+        }
 	}
 
+
+    private IEnumerator GenarateLevel()
+    {
+        // 1. Split rooms
+        // 2. Randomly rotate rooms before making ship accessible
+        // 3. Rotate rooms until fully accessible ship
+        // 4. Delete doors/walls appropriately
+        // 5. Remove overlapping walls
+        // 6. Dynamic floor
+
+        UnityEngine.Debug.Log("splitting rooms");
+        SplitRooms();
+        rooms = GameObject.FindGameObjectsWithTag("Room");
+        UnityEngine.Debug.Log("random rotating rooms");
+        RandomRoomRotation();
+        UnityEngine.Debug.Log("making ship accessible");
+        MakeShipAccessible();
+        UnityEngine.Debug.Log("removing walls and doors");
+        RemoveWallDoors();
+        UnityEngine.Debug.Log("rm overlapping walls");
+        RemoveOverlappingWalls();
+        UnityEngine.Debug.Log("calc floor");
+        CalculateFloor();
+        UnityEngine.Debug.Log("check disable engineering");
+        CheckDisableEngineering();
+        UnityEngine.Debug.Log("generate npcs");
+        GenerateNPCs();
+        UnityEngine.Debug.Log("spawning player");
+        SpawnPlayer();
+        UnityEngine.Debug.Log("randomising events");
+        RandomiseEvents();
+
+        int minigames = CountMinigames();
+        UnityEngine.Debug.Log("level loaded");
+        GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().LevelLoaded(minigames);
+        UnityEngine.Debug.Log("done");
+        Loading = false;
+    }
 	private bool CheckShipAccessible()
 	{
 		bool ret = false;
