@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using XInputDotNetPure;
 
 public class Player_Movement : MonoBehaviour {
@@ -30,6 +31,10 @@ public class Player_Movement : MonoBehaviour {
     private Vector3 m_MeshOffsetRotation = Vector3.zero;
     public float Roation_time = 0.5f, Char_Rotation_Time = 0.1f;
 
+    public int OxygenSamples = 10;
+    private float CurOxygenLevel = 1;
+    private List<float> OxyageAv = new List<float>();
+
     private bool m_bWasActive; 
 
 
@@ -52,6 +57,19 @@ public class Player_Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(CurOxygenLevel == GetOxygenValue())
+        {
+            
+        }
+
+        OxyageAv.Add(CurOxygenLevel);
+        if(OxyageAv.Count > OxygenSamples)
+        {
+            OxyageAv.RemoveAt(0);
+        }
+
+        Debug.Log(GetOxygenValue());
 
         //check the controller is there if it isn't already
         if (!m_bPlayerIndexSet || !m_gpPrevState.IsConnected)
@@ -207,6 +225,14 @@ public class Player_Movement : MonoBehaviour {
             }
         }
 
+        if(other.tag.Equals("Oxygen"))
+        {
+            float Distance = Vector3.Magnitude(other.transform.position - transform.position);
+
+            CurOxygenLevel = Distance / (other.GetComponent<SphereCollider>().radius + GetComponent<SphereCollider>().radius);
+
+        }
+
 
     }
 
@@ -253,5 +279,17 @@ public class Player_Movement : MonoBehaviour {
             EnablePlayerMovement(m_bWasActive);
 
         }
+    }
+
+    public float GetOxygenValue()
+    {
+        float total = 0;
+        foreach (var item in OxyageAv)
+        {
+            total += item;
+        }
+
+        total /= OxyageAv.Count;
+        return total;
     }
 }
