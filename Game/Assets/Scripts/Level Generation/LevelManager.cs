@@ -61,6 +61,7 @@ public class LevelManager : MonoBehaviour {
         CalculateFloor();
         UnityEngine.Debug.Log("check disable engineering");
         CheckDisableEngineering();
+        CheckDisableOxygen();
         UnityEngine.Debug.Log("generate npcs");
         GenerateNPCs();
         UnityEngine.Debug.Log("spawning player");
@@ -248,6 +249,29 @@ public class LevelManager : MonoBehaviour {
 			foreach(GameObject room in rooms)
 			{
 				if(room.GetComponent<RoomManager>().type == RoomType.ENGINEER)
+				{
+					Transform[] tforms = room.GetComponentsInChildren<Transform>();
+					foreach(Transform tform in tforms)
+					{
+						if(tform.tag.Equals("Event"))
+						{
+							tform.tag = "Untagged";
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+private void CheckDisableOxygen()
+	{
+		if(mt == MissionType.OXYGEN) return;
+		else
+		{
+			foreach(GameObject room in rooms)
+			{
+				if(room.GetComponent<RoomManager>().type == RoomType.MEDIC)
 				{
 					Transform[] tforms = room.GetComponentsInChildren<Transform>();
 					foreach(Transform tform in tforms)

@@ -24,10 +24,10 @@ public class SpawnCharacter : MonoBehaviour {
 			temp = (GameObject)Instantiate(engineer);
 			temp.transform.position = this.transform.position;
 			break;
-//		case MissionType.OXYGEN:
-//			temp = (GameObject)Instantiate(engineer);
-//			temp.transform.position = this.transform.position;
-//			break;
+        case MissionType.OXYGEN:
+            temp = (GameObject)Instantiate(engineer);
+            temp.transform.position = this.transform.position;
+            break;
 		case MissionType.ILLNESS:
 			temp = (GameObject)Instantiate(medic);
 			temp.transform.position = this.transform.position;

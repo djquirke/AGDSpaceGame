@@ -103,14 +103,14 @@ public class MissionManager : MonoBehaviour {
 				UnityEngine.Debug.Log("Illness Created");
             }
 			break;
-//		case 2: // Oxygen
-//            if (Oxygen_Levels.Count > 0)
-//            {
-//				new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)], avail_missions.Count);
-//				avail_missions.Add(new_mission);
-//				UnityEngine.Debug.Log("Oxygen Created");
-//            }
-//			break;
+        case 2: // Oxygen
+            if (Oxygen_Levels.Count > 0)
+            {
+                new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)], avail_missions.Count);
+                avail_missions.Add(new_mission);
+                UnityEngine.Debug.Log("Oxygen Created");
+            }
+            break;
 		default:
 			break;
 		}

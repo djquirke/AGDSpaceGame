@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 public enum MissionType
 {
-	//OXYGEN,
+	OXYGEN,
 	ENGINEERING,
 	ILLNESS,
     NUM_OF_MISSIONS

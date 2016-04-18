@@ -58,9 +58,9 @@ public class Player_Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(CurOxygenLevel == GetOxygenValue())
+        if(CurOxygenLevel == GetOxygenValue() || CurOxygenLevel >1)
         {
-            
+            CurOxygenLevel = 1;
         }
 
         OxyageAv.Add(CurOxygenLevel);
@@ -229,7 +229,10 @@ public class Player_Movement : MonoBehaviour {
         {
             float Distance = Vector3.Magnitude(other.transform.position - transform.position);
 
-            CurOxygenLevel = Distance / (other.GetComponent<SphereCollider>().radius + GetComponent<SphereCollider>().radius);
+            Distance = Distance / (other.GetComponent<SphereCollider>().radius + GetComponent<SphereCollider>().radius);
+
+            if (Distance <= 1)
+                CurOxygenLevel = Distance;
 
         }
 
