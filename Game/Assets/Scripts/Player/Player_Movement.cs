@@ -69,7 +69,7 @@ public class Player_Movement : MonoBehaviour {
             OxyageAv.RemoveAt(0);
         }
 
-        Debug.Log(GetOxygenValue());
+        GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().HUDOxygen = GetOxygenValue();
 
         //check the controller is there if it isn't already
         if (!m_bPlayerIndexSet || !m_gpPrevState.IsConnected)
