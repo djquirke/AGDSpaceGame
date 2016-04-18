@@ -15,9 +15,9 @@ public class HUDstats : MonoBehaviour {
     public GameObject DialogBar = null;
     public Text TimeText = null;
 
+    public GameObject OxygenBarMain = null;
     public RectTransform OxygenBarSize = null;
-
-    public GameObject OxygenBar = null;
+    public GameObject OxygenBarFill = null;
 
     private MissionManager mm = null;
 
@@ -25,6 +25,11 @@ public class HUDstats : MonoBehaviour {
 	void Start () {
 		
         mm = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>();
+
+        if(mm.ActiveMissionType() != MissionType.OXYGEN)
+        {
+            OxygenBarMain.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -66,9 +71,9 @@ public class HUDstats : MonoBehaviour {
             }
         }
 
-        if(OxygenBarSize && OxygenBar)
+        if (OxygenBarSize && OxygenBarFill)
         {
-            OxygenBar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, OxygenBarSize.rect.height * HUDOxygen);
+            OxygenBarFill.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, OxygenBarSize.rect.height * HUDOxygen);
 
         }
 
