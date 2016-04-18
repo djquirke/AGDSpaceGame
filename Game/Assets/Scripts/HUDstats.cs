@@ -18,6 +18,7 @@ public class HUDstats : MonoBehaviour {
     public GameObject OxygenBarMain = null;
     public RectTransform OxygenBarSize = null;
     public GameObject OxygenBarFill = null;
+    public Text OxygenText = null;
 
     private MissionManager mm = null;
 
@@ -71,9 +72,11 @@ public class HUDstats : MonoBehaviour {
             }
         }
 
-        if (OxygenBarSize && OxygenBarFill)
+        if (OxygenBarSize && OxygenBarFill && OxygenText)
         {
             OxygenBarFill.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, OxygenBarSize.rect.height * HUDOxygen);
+
+            OxygenText.text = Mathf.Floor(HUDOxygen * 100) + "%";
 
         }
 
