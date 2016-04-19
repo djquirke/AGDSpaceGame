@@ -51,7 +51,7 @@ public class AIMovement : MonoBehaviour {
 
 	private GameObject[] nodes;
 	private List<GameObject> goal_nodes;
-	private Node start_node;
+	private Node start_node = null;
 	private Node destination;
 	private List<Node> path;
 
@@ -103,6 +103,13 @@ public class AIMovement : MonoBehaviour {
 			}
 		}
 
+		Collider[] cols = Physics.OverlapSphere (start_node.GetObject ().transform.position, 2.5f);
+		foreach (Collider col in cols)
+		{
+			Debug.Log ("found within radius:" + col.tag);
+		}
+
+
 		RunAStar(start_node, destination);
 
 //		foreach (GameObject node in nodes)
@@ -121,7 +128,13 @@ public class AIMovement : MonoBehaviour {
 //		}
 		//Debug.Log(successor_nodes.Count);
 	}
-	
+	void OnDrawGizmos() {
+		if (start_node != null)
+		{
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawWireSphere(start_node.GetObject ().transform.position, 2.5f);
+		}
+	}
 	// Update is called once per frame
 	void Update () {
 		if(path.Count > 0)
