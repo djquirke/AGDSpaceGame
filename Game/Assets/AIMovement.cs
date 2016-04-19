@@ -73,6 +73,8 @@ public class AIMovement : MonoBehaviour {
 		nodes = GameObject.FindGameObjectsWithTag("Node");
 		if(nodes.Length == 0) return;
 
+		//start_node = new Node (node_pos);
+
 		//find all goal nodes
 		foreach(GameObject node in nodes)
 		{
@@ -82,11 +84,11 @@ public class AIMovement : MonoBehaviour {
 			if(Vector3.Distance(transform.position, node.transform.position) < 0.5f)
 			{
 				start_node = new Node(node); 
-				Debug.Log("Start node found! pos:" + node.transform.position);
+				//Debug.Log("Start node found! pos:" + node.transform.position);
 			}
 		}
 
-		Debug.Log("goal nodes found:" + goal_nodes.Count);
+		//Debug.Log("goal nodes found:" + goal_nodes.Count);
 
 		bool running = true;
 		while (running)
@@ -211,6 +213,10 @@ public class AIMovement : MonoBehaviour {
 		GameObject successor = FindNode(temp);
 		if (successor != null)
 		{
+//			Node n = new Node(successor);
+//			n.g = g;
+//			return n;
+//			return successor;
 			successor = CheckThroughWall(successor, node);
 			if(successor != null)
 			{
@@ -232,7 +238,7 @@ public class AIMovement : MonoBehaviour {
 			if(Vector3.Distance(pos, node.transform.position) < 0.5f)
 			{
 				//Debug.Log("node found at pos:" + node.transform.position);
-
+				//pos.Equals(node.transform.position))//
 				return node;
 			}
 		}
@@ -249,7 +255,7 @@ public class AIMovement : MonoBehaviour {
 			if(hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Block"))
 			{
 				//Debug.Log("direction: " + (node2.transform.position - node1.transform.position));
-				Debug.Log (hit.transform.tag + " " + hit.transform.position);
+				//Debug.Log (hit.transform.tag + " " + hit.transform.position);
 				//Debug.Log("wall found between:" + node1.transform.position + node2.transform.position);
 				return null;
 			}

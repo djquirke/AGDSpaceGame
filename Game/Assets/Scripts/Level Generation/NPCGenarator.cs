@@ -70,7 +70,8 @@ public class NPCGenarator : MonoBehaviour {
 				running = nodes[r].getIsStartNode();
 				if(!running)
 				{
-					Instantiate(NPCsets[weightsList[rand]], nodes[r].gameObject.GetComponent<Transform>().position + new Vector3(0f,1f,0), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+					Instantiate(NPCsets[weightsList[rand]], nodes[r].gameObject.GetComponent<Transform>().position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+					//obj.GetComponent<AIMovement>().Initialise(nodes[r].gameObject);
 					nodes[r].setIsStartNode(true);
 				}
 			}
