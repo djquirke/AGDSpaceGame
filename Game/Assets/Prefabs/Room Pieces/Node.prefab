@@ -13,7 +13,7 @@ GameObject:
   - 135: {fileID: 13513920}
   m_Layer: 8
   m_Name: Sphere
-  m_TagString: Node
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_goal_node: 1
   is_chosen_node: 0
-  is_start_node: 0
   pos: {x: 0, y: 0, z: 0}
 --- !u!135 &13513920
 SphereCollider:
@@ -108,7 +107,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101510}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .500000119

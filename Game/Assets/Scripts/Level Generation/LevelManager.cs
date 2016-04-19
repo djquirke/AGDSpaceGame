@@ -338,7 +338,7 @@ public class LevelManager : MonoBehaviour {
 
 				if(!destroyed)
 				{
-					//node.GetComponentInChildren<SphereCollider>().enabled = false;
+					node.GetComponentInChildren<SphereCollider>().enabled = false;
 				}
 				//UnityEngine.Debug.Log(col.tag);
 			}
