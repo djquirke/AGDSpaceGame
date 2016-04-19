@@ -51,7 +51,7 @@ public class AIMovement : MonoBehaviour {
 
 	private GameObject[] nodes;
 	private List<GameObject> goal_nodes;
-	private Node start_node;
+	private Node start_node = null;
 	private Node destination;
 	private List<Node> path;
 
@@ -61,12 +61,19 @@ public class AIMovement : MonoBehaviour {
 	//private bool draw_line = true;
 	private List<Node> successor_nodes;
 	// Use this for initialization
-	void Start () {
-		nodes = GameObject.FindGameObjectsWithTag("Node");
+
+	void Start()
+	{
 		goal_nodes = new List<GameObject>();
 		successor_nodes = new List<Node>();
 		path = new List<Node>();
+	}
+
+	public void Initialise () {
+		nodes = GameObject.FindGameObjectsWithTag("Node");
 		if(nodes.Length == 0) return;
+
+		//start_node = new Node (node_pos);
 
 		//find all goal nodes
 		foreach(GameObject node in nodes)
@@ -74,14 +81,14 @@ public class AIMovement : MonoBehaviour {
 			NodeController nc = node.GetComponent<NodeController>();
 			if(nc == null) continue;
 			if(nc.is_goal_node) goal_nodes.Add(node);
-			if(Vector3.Distance(transform.position, node.transform.position) < 0.1f)
+			if(Vector3.Distance(transform.position, node.transform.position) < 0.5f)
 			{
 				start_node = new Node(node); 
-				Debug.Log("Start node found! pos:" + node.transform.position);
+				//Debug.Log("Start node found! pos:" + node.transform.position);
 			}
 		}
 
-		Debug.Log("goal nodes found:" + goal_nodes.Count);
+		//Debug.Log("goal nodes found:" + goal_nodes.Count);
 
 		bool running = true;
 		while (running)
@@ -95,6 +102,13 @@ public class AIMovement : MonoBehaviour {
 				destination = new Node(goal_nodes[x]);
 			}
 		}
+
+		Collider[] cols = Physics.OverlapSphere (start_node.GetObject ().transform.position, 2.5f);
+		foreach (Collider col in cols)
+		{
+			Debug.Log ("found within radius:" + col.tag);
+		}
+
 
 		RunAStar(start_node, destination);
 
@@ -114,7 +128,13 @@ public class AIMovement : MonoBehaviour {
 //		}
 		//Debug.Log(successor_nodes.Count);
 	}
-	
+	void OnDrawGizmos() {
+		if (start_node != null)
+		{
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawWireSphere(start_node.GetObject ().transform.position, 2.5f);
+		}
+	}
 	// Update is called once per frame
 	void Update () {
 		if(path.Count > 0)
@@ -206,6 +226,10 @@ public class AIMovement : MonoBehaviour {
 		GameObject successor = FindNode(temp);
 		if (successor != null)
 		{
+//			Node n = new Node(successor);
+//			n.g = g;
+//			return n;
+//			return successor;
 			successor = CheckThroughWall(successor, node);
 			if(successor != null)
 			{
@@ -224,10 +248,10 @@ public class AIMovement : MonoBehaviour {
 		//Debug.Log(pos);
 		foreach(GameObject node in nodes)
 		{
-			if(Vector3.Distance(pos, node.transform.position) < 0.1f)
+			if(Vector3.Distance(pos, node.transform.position) < 0.5f)
 			{
 				//Debug.Log("node found at pos:" + node.transform.position);
-
+				//pos.Equals(node.transform.position))//
 				return node;
 			}
 		}
@@ -244,6 +268,7 @@ public class AIMovement : MonoBehaviour {
 			if(hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Block"))
 			{
 				//Debug.Log("direction: " + (node2.transform.position - node1.transform.position));
+				//Debug.Log (hit.transform.tag + " " + hit.transform.position);
 				//Debug.Log("wall found between:" + node1.transform.position + node2.transform.position);
 				return null;
 			}
@@ -317,6 +342,22 @@ public class AIMovement : MonoBehaviour {
 		path.Add(node);
 		if(node.GetParent() == null) return;
 		TraverseTree(node.GetParent());
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().Open();
+		}
+	}
+	
+	void OnTriggerExit(Collider other)
+	{
+		if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().Close();
+		}
 	}
 }
 

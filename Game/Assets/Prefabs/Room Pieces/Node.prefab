@@ -10,9 +10,10 @@ GameObject:
   - 4: {fileID: 401510}
   - 33: {fileID: 3301510}
   - 23: {fileID: 2301510}
+  - 135: {fileID: 13513920}
   m_Layer: 8
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +99,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_goal_node: 1
   is_chosen_node: 0
+  is_start_node: 0
+  pos: {x: 0, y: 0, z: 0}
+--- !u!135 &13513920
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101510}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .500000119
+  m_Center: {x: 5.96046448e-08, y: 0, z: -8.94069672e-08}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

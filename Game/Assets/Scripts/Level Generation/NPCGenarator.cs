@@ -56,7 +56,28 @@ public class NPCGenarator : MonoBehaviour {
         }
         else
         {
-			GameObject rooms = (GameObject)Instantiate(NPCsets[weightsList[rand]], transform.position + new Vector3(0f,1f,0), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+			//choose a random node to spawn at
+			NodeController[] nodes = gameObject.GetComponentsInChildren<NodeController>();
+			if(nodes.Length == 0)
+			{
+				Debug.Log("no nodes avail");
+				return;
+			}
+			bool running = true;
+			while(running)
+			{
+				int r = Random.Range(0, nodes.Length);
+				running = nodes[r].getIsStartNode();
+				if(!running)
+				{
+					Instantiate(NPCsets[weightsList[rand]], nodes[r].gameObject.GetComponent<Transform>().position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+					//obj.GetComponent<AIMovement>().Initialise(nodes[r].gameObject);
+					nodes[r].setIsStartNode(true);
+				}
+			}
+
+
+
         }
     }
 
