@@ -12,8 +12,8 @@ public class LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
-		difficulty = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionDifficulty();
+		//mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
+		//difficulty = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionDifficulty();
 
 		// 1. Split rooms
 		// 2. Randomly rotate rooms before making ship accessible
@@ -31,21 +31,25 @@ public class LevelManager : MonoBehaviour {
 		UnityEngine.Debug.Log("removing walls and doors");
 		RemoveWallDoors ();
 		UnityEngine.Debug.Log("rm overlapping walls");
-		RemoveOverlappingWalls ();
+		//RemoveOverlappingWalls ();
 		UnityEngine.Debug.Log("calc floor");
 		CalculateFloor ();
 		UnityEngine.Debug.Log("check disable engineering");
-		CheckDisableEngineering();
-		UnityEngine.Debug.Log("generate npcs");
-		GenerateNPCs ();
-		UnityEngine.Debug.Log("spawning player");
-		SpawnPlayer();
-		UnityEngine.Debug.Log("randomising events");
-		RandomiseEvents ();
+		//CheckDisableEngineering();
 
-		int minigames = CountMinigames();
+		StartCoroutine(DisableInvalidNodes());
+
+		UnityEngine.Debug.Log("generate npcs");
+		StartCoroutine(GenerateNPCs ());
+		UnityEngine.Debug.Log("spawning player");
+		//SpawnPlayer();
+		UnityEngine.Debug.Log("randomising events");
+		//RandomiseEvents ();
+
+		StartCoroutine( GenerateAIPaths());
+		//int minigames = CountMinigames();
 		UnityEngine.Debug.Log("level loaded");
-		GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
+		//GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
 		UnityEngine.Debug.Log("done");
 	}
 	
@@ -196,10 +200,11 @@ public class LevelManager : MonoBehaviour {
 //		}
 	}
 
-	private void GenerateNPCs ()
+	private IEnumerator GenerateNPCs ()
 	{
+		yield return new WaitForSeconds(0.5f);
 		if (mt == MissionType.NUM_OF_MISSIONS)
-			return;
+			yield break;
 
 		foreach (GameObject room in rooms)
 		{
@@ -302,5 +307,42 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		return temp;
+	}
+
+	private IEnumerator GenerateAIPaths()
+	{
+		yield return new WaitForSeconds(3);
+		GameObject[] agents = GameObject.FindGameObjectsWithTag("AI");
+		UnityEngine.Debug.Log("num of agents:" + agents.Length);
+		foreach(GameObject agent in agents)
+		{
+			agent.GetComponent<AIMovement>().Initialise();
+		}
+	}
+
+	private IEnumerator DisableInvalidNodes()
+	{
+		yield return new WaitForEndOfFrame();
+		GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
+		foreach(GameObject node in nodes)
+		{
+			Collider[] collisions = Physics.OverlapSphere(node.transform.position, 0.05f);
+			bool destroyed = false;
+			foreach(Collider col in collisions)
+			{
+				if(col.CompareTag("Wall") || col.CompareTag("Block"))
+				{
+					Destroy(node);
+					destroyed = true;
+				}
+
+				if(!destroyed)
+				{
+					node.GetComponentInChildren<SphereCollider>().enabled = false;
+				}
+				//UnityEngine.Debug.Log(col.tag);
+			}
+			//UnityEngine.Debug.Log("num of collisions:" + collisions.Length + "pos:" + node.transform.position);
+		}
 	}
 }

@@ -61,11 +61,16 @@ public class AIMovement : MonoBehaviour {
 	//private bool draw_line = true;
 	private List<Node> successor_nodes;
 	// Use this for initialization
-	void Start () {
-		nodes = GameObject.FindGameObjectsWithTag("Node");
+
+	void Start()
+	{
 		goal_nodes = new List<GameObject>();
 		successor_nodes = new List<Node>();
 		path = new List<Node>();
+	}
+
+	public void Initialise () {
+		nodes = GameObject.FindGameObjectsWithTag("Node");
 		if(nodes.Length == 0) return;
 
 		//find all goal nodes
@@ -74,7 +79,7 @@ public class AIMovement : MonoBehaviour {
 			NodeController nc = node.GetComponent<NodeController>();
 			if(nc == null) continue;
 			if(nc.is_goal_node) goal_nodes.Add(node);
-			if(Vector3.Distance(transform.position, node.transform.position) < 0.1f)
+			if(Vector3.Distance(transform.position, node.transform.position) < 0.5f)
 			{
 				start_node = new Node(node); 
 				Debug.Log("Start node found! pos:" + node.transform.position);
@@ -224,7 +229,7 @@ public class AIMovement : MonoBehaviour {
 		//Debug.Log(pos);
 		foreach(GameObject node in nodes)
 		{
-			if(Vector3.Distance(pos, node.transform.position) < 0.1f)
+			if(Vector3.Distance(pos, node.transform.position) < 0.5f)
 			{
 				//Debug.Log("node found at pos:" + node.transform.position);
 
@@ -244,6 +249,7 @@ public class AIMovement : MonoBehaviour {
 			if(hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Block"))
 			{
 				//Debug.Log("direction: " + (node2.transform.position - node1.transform.position));
+				Debug.Log (hit.transform.tag + " " + hit.transform.position);
 				//Debug.Log("wall found between:" + node1.transform.position + node2.transform.position);
 				return null;
 			}
@@ -317,6 +323,22 @@ public class AIMovement : MonoBehaviour {
 		path.Add(node);
 		if(node.GetParent() == null) return;
 		TraverseTree(node.GetParent());
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().Open();
+		}
+	}
+	
+	void OnTriggerExit(Collider other)
+	{
+		if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().Close();
+		}
 	}
 }
 
