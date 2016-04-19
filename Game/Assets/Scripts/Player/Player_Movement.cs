@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using XInputDotNetPure;
 
 public class Player_Movement : MonoBehaviour {
@@ -30,6 +31,10 @@ public class Player_Movement : MonoBehaviour {
     private Vector3 m_MeshOffsetRotation = Vector3.zero;
     public float Roation_time = 0.5f, Char_Rotation_Time = 0.1f;
 
+    public int OxygenSamples = 50;
+    private float CurOxygenLevel = 1;
+    private List<float> OxyageAv = new List<float>();
+
     private bool m_bWasActive; 
 
 
@@ -47,11 +52,22 @@ public class Player_Movement : MonoBehaviour {
         m_StartRotation = m_TargetRotation;
 
         m_MeshOffsetRotation = mesh.transform.localRotation.eulerAngles;
+
+        OxyageAv.Add(1.0f);
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (GetOxygenValue() < 1.0f)
+            OxyageAv.Add(GetOxygenValue() + 0.01f);
+
+        if(OxyageAv.Count > OxygenSamples)
+        {
+            OxyageAv.RemoveAt(0);
+        }
+
+        GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().HUDOxygen = GetOxygenValue();
 
         //check the controller is there if it isn't already
         if (!m_bPlayerIndexSet || !m_gpPrevState.IsConnected)
@@ -198,13 +214,47 @@ public class Player_Movement : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         if (other.tag.Equals("Event") && other.GetComponent<Event>() && m_bPlayerCanMove)
-        {            
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.E))
+        {
+            Vector3 EventDirection = Vector3.Normalize(other.gameObject.transform.position - transform.position);
+
+            RaycastHit hit;
+
+            Debug.DrawRay(transform.position, EventDirection,Color.red);
+
+            Physics.Raycast(transform.position, Vector3.Normalize(EventDirection), out hit);
+
+            Debug.Log(hit.transform.gameObject.tag);
+            if (hit.transform.gameObject.tag.Equals("Event"))
             {
-                EnablePlayerMovement(false);
-				GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
-                other.GetComponent<Event>().Activate();
+                GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = true;
+                if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.E))
+                {
+                    EnablePlayerMovement(false);
+                    GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
+                    other.GetComponent<Event>().Activate();
+                }
             }
+            else
+            {
+                GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
+            }
+        }
+
+        if(other.tag.Equals("Oxygen"))
+        {
+            float Distance = Vector3.Magnitude(other.transform.position - transform.position);
+            
+
+            Distance = Distance / (other.GetComponent<SphereCollider>().radius + GetComponent<SphereCollider>().radius);
+
+            if (Distance <= 1)
+                OxyageAv.Add(Distance);
+
+            if (OxyageAv.Count > OxygenSamples)
+            {
+                OxyageAv.RemoveAt(0);
+            }
+
         }
 
 
@@ -212,11 +262,7 @@ public class Player_Movement : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag.Equals("Event"))
-		{
-			GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = true;
-		}
-		else if(other.tag.Equals("Door"))
+		if(other.tag.Equals("Door"))
 		{
 			other.GetComponent<DoorManager>().Open();
 		}
@@ -254,4 +300,18 @@ public class Player_Movement : MonoBehaviour {
 
         }
     }
+
+    public float GetOxygenValue()
+    {
+        float total = 0;
+        foreach (var item in OxyageAv)
+        {
+            total += item;
+        }
+
+        total /= OxyageAv.Count;
+        return total;
+    }
+
+
 }

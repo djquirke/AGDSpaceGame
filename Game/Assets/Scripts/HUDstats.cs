@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 public class HUDstats : MonoBehaviour {
 
+    [HideInInspector]
 	public bool event_close = false;
+    [HideInInspector]
+    public float HUDOxygen = 1;
 	private int event_count, events_done;
 
     public Text ObjectiveText= null;
@@ -12,12 +15,22 @@ public class HUDstats : MonoBehaviour {
     public GameObject DialogBar = null;
     public Text TimeText = null;
 
+    public GameObject OxygenBarMain = null;
+    public RectTransform OxygenBarSize = null;
+    public GameObject OxygenBarFill = null;
+    public Text OxygenText = null;
+
     private MissionManager mm = null;
 
 	// Use this for initialization
 	void Start () {
 		
         mm = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>();
+
+        if(mm.ActiveMissionType() != MissionType.OXYGEN)
+        {
+            OxygenBarMain.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -58,6 +71,15 @@ public class HUDstats : MonoBehaviour {
                     TimeText.text =  mins + ":" + secs;
             }
         }
+
+        if (OxygenBarSize && OxygenBarFill && OxygenText)
+        {
+            OxygenBarFill.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, OxygenBarSize.rect.height * HUDOxygen);
+
+            OxygenText.text = Mathf.Floor(HUDOxygen * 100) + "%";
+
+        }
+
 	}
 
 	public void SetNumEvents (int minigame_count)

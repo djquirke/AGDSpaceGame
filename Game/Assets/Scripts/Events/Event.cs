@@ -28,6 +28,7 @@ public class Event : MonoBehaviour {
 
 	public virtual void EventNotNeeded()
 	{
+        tag = "Untagged";
 	}
 
 	// Called when a minigame is complete to update the mission manager
