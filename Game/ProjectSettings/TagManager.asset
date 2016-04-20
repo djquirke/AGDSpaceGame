@@ -3,39 +3,33 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Door Spawn
-  - Wall
-  - HUD Camera
-  - LevelManager
-  - MissionManager
-  - Event
-  - EventDone
-  - TileStartEnd
-  - LoadManager
-  - TileBlank
-  - PipeCamera
   - PlayerSpawn
-  - Door
-  - PipeStage
-  - TileEnd
-  - TileStart
-  - DMB
-  - TileNS
-  - TileNESW
-  - TileNES
-  - TileNE
-  - Room
   - RoomTemplate
-  - HubManager
-  - DynamicFloor
-  - Node
-  - DynamicFloorNodes
+  - Door Spawn
+  - Door
+  - TileNS
+  - PipeStage
+  - TileNESW
+  - Room
+  - Wall
   - Block
-<<<<<<< HEAD
-  - AI
-=======
+  - PipeCamera
+  - TileStartEnd
+  - Node
+  - Event
+  - TileStart
   - Oxygen
->>>>>>> 51b979d70441d4b015d81802ed112daddbd1b26f
+  - DynamicFloor
+  - DynamicFloorNodes
+  - TileNES
+  - AI
+  - TileNE
+  - HUD Camera
+  - TileEnd
+  - DMB
+  - EventDone
+  - TileBlank
+  - LoadManager
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -45,7 +39,7 @@ TagManager:
   Builtin Layer 5: UI
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: transparent
+  User Layer 8: 
   User Layer 9: 
   User Layer 10: 
   User Layer 11: 

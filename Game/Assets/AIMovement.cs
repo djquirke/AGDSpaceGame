@@ -56,6 +56,8 @@ public class AIMovement : MonoBehaviour {
 	private List<Node> path;
 
 	private float search_radius = 2.5f;
+	private float goal_node_radius = 10f;
+	private float sphere_collider_radius = 0.25f;
 
 	//private RaycastHit hit;
 	//private bool draw_line = true;
@@ -75,65 +77,60 @@ public class AIMovement : MonoBehaviour {
 
 		//start_node = new Node (node_pos);
 
-		//find all goal nodes
-		foreach(GameObject node in nodes)
+		//get node at ai pos
+		Collider[] cols = Physics.OverlapSphere(transform.position, sphere_collider_radius);
+		foreach(Collider col in cols)
 		{
-			NodeController nc = node.GetComponent<NodeController>();
-			if(nc == null) continue;
-			if(nc.is_goal_node) goal_nodes.Add(node);
-			if(Vector3.Distance(transform.position, node.transform.position) < 0.5f)
+			if(col.CompareTag("Node") && Vector3.Distance(col.transform.position, transform.position) < 0.1f)
 			{
-				start_node = new Node(node); 
-				//Debug.Log("Start node found! pos:" + node.transform.position);
+				start_node = new Node(col.gameObject);
 			}
 		}
 
-		//Debug.Log("goal nodes found:" + goal_nodes.Count);
-
-		bool running = true;
-		while (running)
+		Collider[] potenial_goal_nodes = Physics.OverlapSphere(transform.position, goal_node_radius);
+		foreach(Collider col in potenial_goal_nodes)
 		{
-			int x = UnityEngine.Random.Range(0, goal_nodes.Count);
-			NodeController nc = goal_nodes[x].GetComponent<NodeController>();
-			running = nc.getIsChosenNode();
-			if(!running)
+			if(col.CompareTag("Node"))
 			{
-				nc.setIsChosenNode(true);
-				destination = new Node(goal_nodes[x]);
+				NodeController nc = col.GetComponentInParent<NodeController>();
+				if(nc == null) continue;
+				if(nc.is_goal_node) goal_nodes.Add(col.transform.parent.gameObject);//.GetComponentInParent<Transform>().gameObject);
 			}
 		}
 
-		Collider[] cols = Physics.OverlapSphere (start_node.GetObject ().transform.position, 2.5f);
-		foreach (Collider col in cols)
+		if(goal_nodes.Count > 0)
 		{
-			Debug.Log ("found within radius:" + col.tag);
+			bool running = true;
+			while (running)
+			{
+				int x = UnityEngine.Random.Range(0, goal_nodes.Count - 1);
+				Debug.Log("rand:" + x + "size:" + goal_nodes.Count);
+				NodeController nc = goal_nodes[x].GetComponent<NodeController>();
+				running = nc.getIsChosenNode();
+				if(!running)
+				{
+					nc.setIsChosenNode(true);
+					destination = new Node(goal_nodes[x]);
+				}
+			}
+
+			RunAStar(start_node, destination);
 		}
-
-
-		RunAStar(start_node, destination);
-
-//		foreach (GameObject node in nodes)
-//		{
-//			Node n = new Node(node);
-//			//Debug.Log ("Starting node pos:" + node.transform.position);
-//			successor_nodes.Add (n);
-//			List<GameObject> successors = GenerateSuccessors(node);
-//
-//			foreach(GameObject successor in successors)
-//			{
-//				Node n2 = new Node(successor);
-//				n2.SetParent(n);
-//				successor_nodes.Add(n2);
-//			}
-//		}
-		//Debug.Log(successor_nodes.Count);
 	}
 	void OnDrawGizmos() {
-		if (start_node != null)
+		if (destination != null)
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(start_node.GetObject ().transform.position, 2.5f);
+			Gizmos.DrawWireSphere(destination.GetObject ().transform.position, sphere_collider_radius);
 		}
+		if(start_node != null)
+		{
+			Gizmos.color = Color.blue;
+			Gizmos.DrawWireSphere(start_node.GetObject().transform.position, sphere_collider_radius);
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireSphere(start_node.GetObject().transform.position, goal_node_radius);
+		}
+
 	}
 	// Update is called once per frame
 	void Update () {
@@ -245,16 +242,30 @@ public class AIMovement : MonoBehaviour {
 
 	private GameObject FindNode(Vector3 pos)
 	{
-		//Debug.Log(pos);
-		foreach(GameObject node in nodes)
+
+		//List<GameObject> close_nodes = new List<GameObject>();
+		Collider[] cols = Physics.OverlapSphere (pos, 0.25f);
+		foreach (Collider col in cols)
 		{
-			if(Vector3.Distance(pos, node.transform.position) < 0.5f)
+			//Debug.Log ("found within radius:" + col.tag);
+			if(col.CompareTag("Node"))
 			{
-				//Debug.Log("node found at pos:" + node.transform.position);
-				//pos.Equals(node.transform.position))//
-				return node;
+				return col.gameObject;
+				//close_nodes.Add(col.gameObject);
 			}
+
 		}
+
+		//Debug.Log(pos);
+//		foreach(GameObject node in close_nodes)
+//		{
+//			if(Vector3.Distance(pos, node.transform.position) < 0.5f)
+//			{
+//				//Debug.Log("node found at pos:" + node.transform.position);
+//				//pos.Equals(node.transform.position))//
+//				return node;
+//			}
+//		}
 		return null;
 	}
 

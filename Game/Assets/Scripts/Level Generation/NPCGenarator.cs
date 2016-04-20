@@ -17,7 +17,7 @@ public class NPCGenarator : MonoBehaviour {
 		r_type = gameObject.GetComponent<RoomManager>().type;
 		r_size = gameObject.GetComponent<RoomManager>().size;
 
-		NumberOfNPCs = Random.Range (0, 2 * ((int)r_size + 1));
+		NumberOfNPCs = Random.Range (0, ((int)r_size + 2));
 //		NumberOfNPCs = Random.Range(0, 2);
 		//Debug.Log (r_size + " " + NumberOfNPCs);
 		if(NumberOfNPCs == 0) return;
