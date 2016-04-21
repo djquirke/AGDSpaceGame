@@ -95,6 +95,11 @@ public class Mission {
                 ++MissionManager.Medic_Missions;
                 break;
             }
+            case MissionType.OXYGEN:
+            {
+                ++MissionManager.Oxygen_Missions;
+                break;
+            }
         }
 
 		//time_elapsed.Start ();
@@ -154,6 +159,8 @@ public class Mission {
             ++MissionManager.Missions_Failed;
 			//modify global stats
 		}
+
+        mission_active = false;
 		GameObject.Find("MissionManager").GetComponent<MissionManager>().EndMission(array_idx);
 	}
 

@@ -8,6 +8,7 @@ public class StatisticsGrabber : MonoBehaviour {
     public Text Missions_Failed = null;
     public Text Medic_Missions = null;
     public Text Engineer_Mission = null;
+    public Text Oxygen_Mission = null;
     public Text Easy_Complete = null;
     public Text Medium_Complete = null;
     public Text Hard_Complete = null;
@@ -33,6 +34,10 @@ public class StatisticsGrabber : MonoBehaviour {
         if (Engineer_Mission)
         {
             Engineer_Mission.text = MissionManager.Engineer_Missions.ToString();
+        }
+        if (Oxygen_Mission)
+        {
+            Oxygen_Mission.text = MissionManager.Oxygen_Missions.ToString();
         }
         if (Easy_Complete)
         {

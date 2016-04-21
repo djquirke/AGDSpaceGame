@@ -33,6 +33,7 @@ public class MissionManager : MonoBehaviour {
     public static int Missions_Failed = 0;
     public static int Medic_Missions = 0;
     public static int Engineer_Missions = 0;
+    public static int Oxygen_Missions = 0;
     public static int Easy_Mission = 0;
     public static int Medium_Mission = 0;
     public static int Hard_Mission = 0;
