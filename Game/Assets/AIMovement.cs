@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 
 enum Direction
 {
@@ -54,28 +55,57 @@ public class AIMovement : MonoBehaviour {
 	private Node start_node = null;
 	private Node destination;
 	private List<Node> path;
+	private GameObject current_standing_node;
+	private GameObject current_walking_node;
 
-	private float search_radius = 2.5f;
+	private float search_radius = 2.75f;
 	private float goal_node_radius = 10f;
-	private float sphere_collider_radius = 0.25f;
+	private float sphere_collider_radius = 0.5f;
 
 	//private RaycastHit hit;
 	//private bool draw_line = true;
-	private List<Node> successor_nodes;
+	//private List<Node> successor_nodes;
+	private float lerp_step = 0;
+	private int nodes_traversed = 1;
 	// Use this for initialization
+	private Stopwatch idle_time = new Stopwatch();
+	private bool idle = false;
+	private int time_to_idle = 0;
+	private Stopwatch astar_run_time = new Stopwatch();
+	private static int MAX_ASTAR_TIME = 50;
+	private Vector3 prev_pos = new Vector3();
+	private Stopwatch idle_check = new Stopwatch();
 
 	void Start()
 	{
 		goal_nodes = new List<GameObject>();
-		successor_nodes = new List<Node>();
+		//successor_nodes = new List<Node>();
 		path = new List<Node>();
+		idle_check.Start();
+	}
+
+	private void ResetValues()
+	{
+		goal_nodes = new List<GameObject>();
+		start_node = null;
+		destination = null;
+		path = new List<Node>();
+		lerp_step = 0;
+		nodes_traversed = 1;
+		//successor_nodes.Clear();
 	}
 
 	public void Initialise () {
 		nodes = GameObject.FindGameObjectsWithTag("Node");
 		if(nodes.Length == 0) return;
 
+		ResetValues();
 		//start_node = new Node (node_pos);
+
+		if(current_standing_node)
+		{
+			transform.position = current_standing_node.transform.position;
+		}
 
 		//get node at ai pos
 		Collider[] cols = Physics.OverlapSphere(transform.position, sphere_collider_radius);
@@ -86,6 +116,8 @@ public class AIMovement : MonoBehaviour {
 				start_node = new Node(col.gameObject);
 			}
 		}
+
+		if(start_node == null) UnityEngine.Debug.LogError("start node not found!");
 
 		Collider[] potenial_goal_nodes = Physics.OverlapSphere(transform.position, goal_node_radius);
 		foreach(Collider col in potenial_goal_nodes)
@@ -101,12 +133,14 @@ public class AIMovement : MonoBehaviour {
 		if(goal_nodes.Count > 0)
 		{
 			bool running = true;
-			while (running)
+			int counter = 0;
+			while (running && counter < 50)
 			{
 				int x = UnityEngine.Random.Range(0, goal_nodes.Count - 1);
-				Debug.Log("rand:" + x + "size:" + goal_nodes.Count);
+				UnityEngine.Debug.Log("rand:" + x + "size:" + goal_nodes.Count);
 				NodeController nc = goal_nodes[x].GetComponent<NodeController>();
 				running = nc.getIsChosenNode();
+				counter++;
 				if(!running)
 				{
 					nc.setIsChosenNode(true);
@@ -116,6 +150,7 @@ public class AIMovement : MonoBehaviour {
 
 			RunAStar(start_node, destination);
 		}
+		prev_pos = transform.position;
 	}
 	void OnDrawGizmos() {
 		if (destination != null)
@@ -134,12 +169,69 @@ public class AIMovement : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if(path.Count > 0)
+		if(idle_check.ElapsedMilliseconds > 6000)
 		{
+			if(Vector3.Distance(transform.position, prev_pos) < 0.25f)
+			{
+				//transform.position = current_standing_node.transform.position;
+				Initialise();
+				idle = false;
+				if(idle_time.IsRunning) idle_time.Stop();
+			}
+			idle_check.Reset();
+			idle_check.Start();
+		}
+
+
+		if(path.Count > 0 && !idle)
+		{
+			if(!current_walking_node || !current_standing_node) return;
 			//draw path
 			for(int i = 0; i < path.Count - 1; i++)
 			{
-				Debug.DrawLine(path[i].GetObject().transform.position, path[i + 1].GetObject().transform.position, new Color(255, 0, 0));
+				UnityEngine.Debug.DrawLine(path[i].GetObject().transform.position, path[i + 1].GetObject().transform.position, new Color(255, 0, 0));
+			}
+
+			lerp_step += Time.deltaTime;
+			if(lerp_step <= 1)
+			{
+				//traverse to next node
+				Vector3 result = Vector3.Lerp(current_standing_node.transform.position, current_walking_node.transform.position, lerp_step);
+				transform.position = result;
+			}
+			else
+			{
+				current_standing_node = current_walking_node;
+				transform.position = current_walking_node.transform.position;
+				prev_pos = current_walking_node.transform.position;
+				lerp_step = 0;
+				//check if at goal
+				if(Vector3.Distance(current_walking_node.transform.position, destination.GetObject().transform.position) < 0.1f)
+				{
+					time_to_idle = UnityEngine.Random.Range(0, 5);
+					idle_time = new Stopwatch();
+					idle_time.Start();
+					idle = true;
+				}
+				else
+				{
+					current_walking_node = path[path.Count - nodes_traversed].GetObject();
+					nodes_traversed++;
+				}
+				//set next node to walk to if not at goal
+				//generate new path if at goal
+			}
+
+
+		}
+		else if(idle_time.IsRunning)
+		{
+
+			if(idle_time.ElapsedMilliseconds / 1000 >= time_to_idle)
+			{
+				idle_time.Stop();
+				Initialise();
+				idle = false;
 			}
 		}
 //		foreach(Node node in successor_nodes)
@@ -147,12 +239,12 @@ public class AIMovement : MonoBehaviour {
 //		//if(draw_line)
 //			if(node.GetParent() != null)
 //			{
-//				//Debug.Log(node.GetObject().transform.position);
-//				//Debug.Log(node.GetParent().GetObject().transform.position);
-//				Debug.DrawLine(node.GetObject().transform.position, node.GetParent().GetObject().transform.position, new Color(255, 0, 0));
+//				//UnityEngine.Debug.Log(node.GetObject().transform.position);
+//				//UnityEngine.Debug.Log(node.GetParent().GetObject().transform.position);
+//				UnityEngine.Debug.DrawLine(node.GetObject().transform.position, node.GetParent().GetObject().transform.position, new Color(255, 0, 0));
 //			}
 //		}
-		//Debug.DrawLine(nodes[1].transform.position, nodes[0].transform.position, new Color(255, 0, 0));
+		//UnityEngine.Debug.DrawLine(nodes[1].transform.position, nodes[0].transform.position, new Color(255, 0, 0));
 	}
 
 	private List<Node> GenerateSuccessors(Node node)
@@ -236,7 +328,7 @@ public class AIMovement : MonoBehaviour {
 			}
 
 		}
-		//if(successor != null) Debug.Log("successor found in direction: " + dir.ToString());
+		//if(successor != null) UnityEngine.Debug.Log("successor found in direction: " + dir.ToString());
 		return null;
 	}
 
@@ -244,10 +336,10 @@ public class AIMovement : MonoBehaviour {
 	{
 
 		//List<GameObject> close_nodes = new List<GameObject>();
-		Collider[] cols = Physics.OverlapSphere (pos, 0.25f);
+		Collider[] cols = Physics.OverlapSphere (pos, sphere_collider_radius);
 		foreach (Collider col in cols)
 		{
-			//Debug.Log ("found within radius:" + col.tag);
+			//UnityEngine.Debug.Log ("found within radius:" + col.tag);
 			if(col.CompareTag("Node"))
 			{
 				return col.gameObject;
@@ -256,12 +348,12 @@ public class AIMovement : MonoBehaviour {
 
 		}
 
-		//Debug.Log(pos);
+		//UnityEngine.Debug.Log(pos);
 //		foreach(GameObject node in close_nodes)
 //		{
 //			if(Vector3.Distance(pos, node.transform.position) < 0.5f)
 //			{
-//				//Debug.Log("node found at pos:" + node.transform.position);
+//				//UnityEngine.Debug.Log("node found at pos:" + node.transform.position);
 //				//pos.Equals(node.transform.position))//
 //				return node;
 //			}
@@ -274,13 +366,13 @@ public class AIMovement : MonoBehaviour {
 		RaycastHit hit;
 		if(Physics.Raycast(node1.transform.position, (node2.GetObject().transform.position - node1.transform.position), out hit, search_radius))
 		{
-			//Debug.Log (hit.transform.tag);
+			//UnityEngine.Debug.Log (hit.transform.tag);
 
 			if(hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Block"))
 			{
-				//Debug.Log("direction: " + (node2.transform.position - node1.transform.position));
-				//Debug.Log (hit.transform.tag + " " + hit.transform.position);
-				//Debug.Log("wall found between:" + node1.transform.position + node2.transform.position);
+				//UnityEngine.Debug.Log("direction: " + (node2.transform.position - node1.transform.position));
+				//UnityEngine.Debug.Log (hit.transform.tag + " " + hit.transform.position);
+				//UnityEngine.Debug.Log("wall found between:" + node1.transform.position + node2.transform.position);
 				return null;
 			}
 		}
@@ -303,7 +395,8 @@ public class AIMovement : MonoBehaviour {
 		start_node.f = 0;
 		start_node.g = 0;
 
-		while(open_list.Count > 0)
+		astar_run_time.Start();
+		while(open_list.Count > 0 && astar_run_time.ElapsedMilliseconds < MAX_ASTAR_TIME)
 		{
 			Node node = open_q.GetNext();
 			open_list.Remove(node);
@@ -333,12 +426,30 @@ public class AIMovement : MonoBehaviour {
 			closed_list.Add (node);
 		}
 
+		astar_run_time.Stop();
 		if(goal_found)
 		{
 			//traverse tree
 			path.Clear ();
 			TraverseTree(goal_node);
-			Debug.Log ("path length:" + path.Count);
+			UnityEngine.Debug.Log ("path length:" + path.Count);
+			if(path.Count == 1) return;
+			current_standing_node = path[path.Count - nodes_traversed].GetObject();
+			nodes_traversed++;
+			current_walking_node = path[path.Count - nodes_traversed].GetObject();
+			nodes_traversed++;
+		}
+		else
+		{
+			UnityEngine.Debug.LogError("AStar not found");
+			current_standing_node = this.gameObject;
+			nodes_traversed++;
+			current_walking_node = this.gameObject;
+			nodes_traversed++;
+			time_to_idle = UnityEngine.Random.Range(0, 5);
+			idle_time = new Stopwatch();
+			idle_time.Start();
+			idle = true;
 		}
 	}
 

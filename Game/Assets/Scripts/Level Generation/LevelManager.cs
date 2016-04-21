@@ -2,16 +2,21 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 
 public class LevelManager : MonoBehaviour {
 
 	private GameObject[] rooms;
 	private MissionType mt;
 	private Difficulty difficulty;
+	private int MAX_NPC_COUNT = 25;
 
     private Object ActiveLoadingScreen = null;
 
     private bool Loading = false;
+	private bool nodes_disabled = false;
+	private bool npcs_generated = false;
+	private bool events_randomised = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,50 +24,11 @@ public class LevelManager : MonoBehaviour {
 		mt = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionType ();
 		difficulty = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().ActiveMissionDifficulty();
 
-//<<<<<<< HEAD
-		// 1. Split rooms
-		// 2. Randomly rotate rooms before making ship accessible
-		// 3. Rotate rooms until fully accessible ship
-		// 4. Delete doors/walls appropriately
-		// 5. Remove overlapping walls
-		// 6. Dynamic floor
-//		UnityEngine.Debug.Log("splitting rooms");
-//		SplitRooms ();
-//		rooms = GameObject.FindGameObjectsWithTag("Room");
-//		UnityEngine.Debug.Log("random rotating rooms");
-//		RandomRoomRotation ();
-//		UnityEngine.Debug.Log("making ship accessible");
-//		MakeShipAccessible ();
-//		UnityEngine.Debug.Log("removing walls and doors");
-//		RemoveWallDoors ();
-//		UnityEngine.Debug.Log("rm overlapping walls");
-//		//RemoveOverlappingWalls ();
-//		UnityEngine.Debug.Log("calc floor");
-//		CalculateFloor ();
-//		UnityEngine.Debug.Log("check disable engineering");
-//		//CheckDisableEngineering();
-//
-//		StartCoroutine(DisableInvalidNodes());
-//
-//		UnityEngine.Debug.Log("generate npcs");
-//		StartCoroutine(GenerateNPCs ());
-//		UnityEngine.Debug.Log("spawning player");
-//		//SpawnPlayer();
-//		UnityEngine.Debug.Log("randomising events");
-//		//RandomiseEvents ();
-//
-//		StartCoroutine( GenerateAIPaths());
-//		//int minigames = CountMinigames();
-//		UnityEngine.Debug.Log("level loaded");
-//		//GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().LevelLoaded (minigames);
-//		UnityEngine.Debug.Log("done");
-//=======
         Loading = true;
 
         ActiveLoadingScreen = Instantiate(GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().LoadingScreen);
 
         StartCoroutine("GenerateLevel");
-//>>>>>>> 51b979d70441d4b015d81802ed112daddbd1b26f
 	}
 	
 	// Update is called once per frame
@@ -76,7 +42,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 
-    private IEnumerator GenerateLevel()
+    private void GenerateLevel()
     {
         // 1. Split rooms
         // 2. Randomly rotate rooms before making ship accessible
@@ -84,7 +50,7 @@ public class LevelManager : MonoBehaviour {
         // 4. Delete doors/walls appropriately
         // 5. Remove overlapping walls
         // 6. Dynamic floor
-		yield return new WaitForSeconds(0.5f);
+		//yield return new WaitForEndOfFrame();
         UnityEngine.Debug.Log("splitting rooms");
         SplitRooms();
         rooms = GameObject.FindGameObjectsWithTag("Room");
@@ -107,8 +73,8 @@ public class LevelManager : MonoBehaviour {
 		UnityEngine.Debug.Log("spawning player");
         SpawnPlayer();
         UnityEngine.Debug.Log("randomising events");
-        RandomiseEvents();
-		StartCoroutine( GenerateAIPaths());
+		StartCoroutine(RandomiseEvents());
+		StartCoroutine(GenerateAIPaths());
 
         
     }
@@ -257,7 +223,8 @@ public class LevelManager : MonoBehaviour {
 
 	private IEnumerator GenerateNPCs ()
 	{
-		yield return new WaitForSeconds(2);
+		while(!nodes_disabled)
+			yield return new WaitForSeconds(0.5f);
 		if (mt == MissionType.NUM_OF_MISSIONS)
 			yield break;
 
@@ -265,6 +232,27 @@ public class LevelManager : MonoBehaviour {
 		{
 			room.GetComponent<NPCGenarator>().Initialise(mt);
 		}
+
+		GameObject[] npcs = GameObject.FindGameObjectsWithTag("AI");
+		UnityEngine.Debug.Log("num of npcs:" + npcs.Length);
+		if(npcs.Length > MAX_NPC_COUNT)
+		{
+			List<int> the_chosen_ones = ChooseRandomNumbers(MAX_NPC_COUNT, npcs.Length);
+			UnityEngine.Debug.Log("number of npcs to keep:" + the_chosen_ones.Count);
+			for(int i = 0; i < npcs.Length; i++)
+			{
+				if(the_chosen_ones.Contains(i))
+				{
+					continue;
+				}
+				else
+				{
+					UnityEngine.Debug.Log("destroying npc:" + i);
+					Destroy(npcs[i]);
+				}
+			}
+		}
+		npcs_generated = true;
 	}
 
 	private void SpawnPlayer()
@@ -326,8 +314,11 @@ public class LevelManager : MonoBehaviour {
 
 	}
 
-	private void RandomiseEvents ()
+	private IEnumerator RandomiseEvents ()
 	{
+		while(!npcs_generated)
+			yield return new WaitForSeconds(0.1f);
+
 		int x = CountMinigames();
 		UnityEngine.Debug.Log ("Minigames to choose from:" + x);
 
@@ -363,8 +354,13 @@ public class LevelManager : MonoBehaviour {
 				//events[i].GetComponent<Event>().Initialise();
 				continue;
 			}
+
+			if(mt == MissionType.ILLNESS)
+				Destroy(events[i]);
 			events[i].GetComponent<Event>().EventNotNeeded();
 		}
+
+		events_randomised = true;
 	}
 
 	private List<int> ChooseRandomNumbers(int num, int events)
@@ -390,7 +386,8 @@ public class LevelManager : MonoBehaviour {
 
 	private IEnumerator GenerateAIPaths()
 	{
-		yield return new WaitForSeconds(3);
+		while(!events_randomised)
+			yield return new WaitForSeconds(0.5f);
 		GameObject[] agents = GameObject.FindGameObjectsWithTag("AI");
 		UnityEngine.Debug.Log("num of agents:" + agents.Length);
 		foreach(GameObject agent in agents)
@@ -407,7 +404,7 @@ public class LevelManager : MonoBehaviour {
 	
 	private IEnumerator DisableInvalidNodes()
 	{
-		yield return new WaitForSeconds(1);
+		yield return new WaitForEndOfFrame();
 		GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
 		List<Transform> destroyed_nodes = new List<Transform>();
 		foreach(GameObject node in nodes)
@@ -442,5 +439,6 @@ public class LevelManager : MonoBehaviour {
 				}
 			}
 		}
+		nodes_disabled = true;
 	}
 }
