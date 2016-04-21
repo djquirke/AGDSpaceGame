@@ -30,6 +30,11 @@ public class Mission {
 	private Difficulty difficulty;
     private float TimePassed = 0;
 
+    //stats
+
+
+    //end stats
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -139,7 +144,6 @@ public class Mission {
 			//VICTORY ANIMATION
 			mission_won = true;
             ++MissionManager.Missions_Won;
-			Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
 			//modify global stats
 		}
 		else
@@ -148,7 +152,6 @@ public class Mission {
 			//DEFEAT ANIMATION
 			mission_lost = true;
             ++MissionManager.Missions_Failed;
-			Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
 			//modify global stats
 		}
 		GameObject.Find("MissionManager").GetComponent<MissionManager>().EndMission(array_idx);
@@ -219,5 +222,7 @@ public class Mission {
         TimePassed = MissionManager.MISSION_LENGTH_SECONDS;
     }
 
-	//public void MinigameCount(int count) {minigames = count;}
+    public int miniGamesDone() { return minigames_complete; }
+    public int miniGamesfailed() { return minigames_failed; }
+    public bool MissionWon() { return mission_won; }
 }

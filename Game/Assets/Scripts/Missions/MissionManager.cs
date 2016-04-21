@@ -24,6 +24,10 @@ public class MissionManager : MonoBehaviour {
 
     public GameObject LoadingScreen = null;
 
+
+    public GameObject StatScreen = null;
+    private static GameObject StatScreen_Instance = null;
+
     //stat data
     public static int Missions_Won = 0;
     public static int Missions_Failed = 0;
@@ -56,20 +60,27 @@ public class MissionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (active_mission == null) {
-			if (avail_missions.Count == 0) {
+		if (active_mission == null) 
+        {
+			if (avail_missions.Count == 0) 
+            {
 				GenerateMission ();
 				return;
 			}
 			
-			if (avail_missions.Count < MAX_AVAILABLE_MISSIONS && TimeSinceNewMission() > TIME_BETWEEN_MISSION_SPAWNS) {
+			if (avail_missions.Count < MAX_AVAILABLE_MISSIONS && TimeSinceNewMission() > TIME_BETWEEN_MISSION_SPAWNS) 
+            {
 				time_since_last_new_mission.Reset();
 				time_since_last_new_mission.Start();
 				GenerateMission ();
 			}
-		} else {
+
+		} else 
+        {
 			active_mission.Update();
 		}
+
+       
 	}
 
 	public int TimeSinceNewMission()
@@ -139,8 +150,40 @@ public class MissionManager : MonoBehaviour {
 		for (int i = 0; i < avail_missions.Count; i++) {
 			avail_missions[i].setIdx(i);
 		}
-		active_mission = null;
+
+        if (StatScreen_Instance)
+            Destroy(StatScreen_Instance);
+
+        StatScreen_Instance = (GameObject)Instantiate(StatScreen);
+
+        StartCoroutine(LoadHubAfterTimeOrKey(30));
 	}
+   IEnumerator LoadHubAfterTimeOrKey(float time)
+    {
+       //this pause if just to make sure that the Key from the 
+       //last minigame doesn't trigger the anykeydown
+        yield return new WaitForSeconds(0.1f);
+
+        while (!Input.anyKeyDown && time > 0)
+        {
+            time -= Time.deltaTime;
+            yield return true;
+        }
+        LoadHubWorld();
+    }
+
+    private void LoadHubWorld()
+    {
+        if (active_mission != null)
+        {
+            if (StatScreen_Instance)
+                Destroy(StatScreen_Instance);
+
+            Application.LoadLevel(MissionManager.HUB_WORLD_SCENE);
+            active_mission = null;
+            StatScreen_Instance = null;
+        }
+    }
 
 	public void MinigameComplete()
 	{
@@ -246,5 +289,10 @@ public class MissionManager : MonoBehaviour {
 
             Pause_Menu_Instance.SetActive(false);
         }
+    }
+
+    public Mission GetCurrentMission()
+    {
+        return active_mission;
     }
 }
