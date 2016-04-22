@@ -1,22 +1,30 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AIMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\Level Generation\LevelManager.cs" Line="99" Column="28" />
-      <File FileName="Assets\AIMovement.cs" Line="451" Column="22" />
+      <File FileName="Assets\AIMovement.cs" Line="471" Column="4" />
+      <File FileName="Assets\Scripts\Level Generation\LevelManager.cs" Line="1" Column="1" />
       <File FileName="Assets\NodeController.cs" Line="1" Column="1" />
       <File FileName="Assets\NPCPriorityQueue.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Level Generation\NPCGenarator.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Level Generation\RoomSplitter.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\Oxygen-PS\OxygenLeak.cs" Line="39" Column="26" />
-      <File FileName="Assets\Scripts\Missions\Oxygen-PS\OxygenEvent.cs" Line="12" Column="16" />
-      <File FileName="Assets\Scripts\Events\Event.cs" Line="31" Column="26" />
+      <File FileName="Assets\Scripts\Missions\Oxygen-PS\OxygenLeak.cs" Line="35" Column="14" />
+      <File FileName="Assets\Scripts\Missions\Oxygen-PS\OxygenEvent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Events\Event.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Dan\Desktop\AGDSpaceGame\Game\Assets\AIMovement.cs" line="209" />
+      <Breakpoint file="C:\Users\Dan\Desktop\AGDSpaceGame\Game\Assets\AIMovement.cs" line="421" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="Assets\AIMovement.cs" line="272" offsetX="388" offsetY="4607" expression="destination.obj.transform" liveUpdate="False" />
+    <Watch file="Assets\AIMovement.cs" line="150" offsetX="532" offsetY="2499" expression="destination.obj.transform" liveUpdate="False" />
+    <Watch file="Assets\AIMovement.cs" line="400" offsetX="268" offsetY="6749" expression="start_node.obj.transform" liveUpdate="False" />
+    <Watch file="Assets\AIMovement.cs" line="386" offsetX="548" offsetY="6511" expression="destination.obj.transform" liveUpdate="False" />
+    <Watch file="Assets\AIMovement.cs" line="441" offsetX="732" offsetY="7446" expression="current_standing_node.transform" liveUpdate="False" />
+    <Watch file="Assets\AIMovement.cs" line="443" offsetX="724" offsetY="7480" expression="current_walking_node.transform" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

@@ -72,9 +72,10 @@ public class AIMovement : MonoBehaviour {
 	private bool idle = false;
 	private int time_to_idle = 0;
 	private Stopwatch astar_run_time = new Stopwatch();
-	private static int MAX_ASTAR_TIME = 50;
+	private static int MAX_ASTAR_TIME = 500;
 	private Vector3 prev_pos = new Vector3();
 	private Stopwatch idle_check = new Stopwatch();
+	private bool astar_failed = false;
 
 	void Start()
 	{
@@ -109,15 +110,35 @@ public class AIMovement : MonoBehaviour {
 
 		//get node at ai pos
 		Collider[] cols = Physics.OverlapSphere(transform.position, sphere_collider_radius);
+		Collider closest_node = new Collider();
+
+		//closest_node.transform.position = new Vector3();
+		//closest_node.transform.position = new Vector3(9999, 9999, 9999);//Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
+		float closest_distance = Vector3.Distance(transform.position, new Vector3(9999, 9999, 9999));//closest_node.transform.position);
 		foreach(Collider col in cols)
 		{
 			if(col.CompareTag("Node") && Vector3.Distance(col.transform.position, transform.position) < 0.1f)
 			{
 				start_node = new Node(col.gameObject);
+				break;
 			}
+//			else if(col.CompareTag("Node") && Vector3.Distance(col.transform.position, transform.position) < closest_distance)
+//			{
+//				closest_node = col;
+//				closest_distance = Vector3.Distance(col.transform.position, transform.position);
+//			}
 		}
 
-		if(start_node == null) UnityEngine.Debug.LogError("start node not found!");
+		if(start_node == null)
+		{
+			//get closest node
+			UnityEngine.Debug.LogError("start node not found!");
+//			start_node = new Node(closest_node.gameObject);
+			return;
+		}
+
+		current_standing_node = start_node.GetObject();
+		transform.position = current_standing_node.transform.position;
 
 		Collider[] potenial_goal_nodes = Physics.OverlapSphere(transform.position, goal_node_radius);
 		foreach(Collider col in potenial_goal_nodes)
@@ -212,6 +233,7 @@ public class AIMovement : MonoBehaviour {
 					idle_time = new Stopwatch();
 					idle_time.Start();
 					idle = true;
+					destination.GetObject().GetComponent<NodeController>().setIsChosenNode(false);
 				}
 				else
 				{
@@ -246,6 +268,7 @@ public class AIMovement : MonoBehaviour {
 //		}
 		//UnityEngine.Debug.DrawLine(nodes[1].transform.position, nodes[0].transform.position, new Color(255, 0, 0));
 	}
+
 
 	private List<Node> GenerateSuccessors(Node node)
 	{
@@ -438,18 +461,22 @@ public class AIMovement : MonoBehaviour {
 			nodes_traversed++;
 			current_walking_node = path[path.Count - nodes_traversed].GetObject();
 			nodes_traversed++;
+			astar_failed = false;
 		}
 		else
 		{
 			UnityEngine.Debug.LogError("AStar not found");
-			current_standing_node = this.gameObject;
-			nodes_traversed++;
-			current_walking_node = this.gameObject;
-			nodes_traversed++;
-			time_to_idle = UnityEngine.Random.Range(0, 5);
-			idle_time = new Stopwatch();
-			idle_time.Start();
-			idle = true;
+			//astar_failed = true;
+			//yield return new WaitForEndOfFrame();
+			Initialise();
+//			current_standing_node = this.gameObject;
+//			nodes_traversed++;
+//			current_walking_node = this.gameObject;
+//			nodes_traversed++;
+//			time_to_idle = UnityEngine.Random.Range(0, 5);
+//			idle_time = new Stopwatch();
+//			idle_time.Start();
+//			idle = true;
 		}
 	}
 
