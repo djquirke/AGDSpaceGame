@@ -9,6 +9,7 @@ public class Player_Movement : MonoBehaviour {
 
    // public float TurnSpeed_Mulitplier = 1.0f;
     public float MoveSpeed_mulitplier = 1.0f;
+    public float RunSpeed_mulitplier = 2.0f;
 
 
     private GameObject Front, mesh;
@@ -36,6 +37,8 @@ public class Player_Movement : MonoBehaviour {
     private List<float> OxyageAv = new List<float>();
 
     private bool m_bWasActive; 
+
+    private bool isRunning = false;
 
 
 	// Use this for initialization
@@ -119,6 +122,11 @@ public class Player_Movement : MonoBehaviour {
             {
                 LeftStick_xAxis = -1;
             }
+            isRunning = false;
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                isRunning = true;
+            }
 
             if ((m_gpPrevState.Buttons.LeftShoulder == ButtonState.Released && m_gpState.Buttons.LeftShoulder == ButtonState.Pressed) || Input.GetKeyDown(KeyCode.RightArrow))
             {
@@ -174,7 +182,8 @@ public class Player_Movement : MonoBehaviour {
             TotalDirection.Normalize();
 
             TotalDirection *= Time.deltaTime;
-            transform.position += (TotalDirection) * MoveSpeed_mulitplier;
+
+            transform.position += (TotalDirection) * (isRunning ? RunSpeed_mulitplier : MoveSpeed_mulitplier);
 
             //rotate the player model
             if (TotalDirection.magnitude > 0)
