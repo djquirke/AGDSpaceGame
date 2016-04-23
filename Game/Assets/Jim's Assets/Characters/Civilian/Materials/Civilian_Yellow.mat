@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Civilian_Yellow
+  m_Shader: {fileID: 4800000, guid: fbefc8bfffa30184fadfb934142934cc, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: f4012288a38374247822bd2c9c8c817b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 1309097fb15ed344a853a5e29ba7ce69, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SpecularTex
+        second:
+          m_Texture: {fileID: 2800000, guid: da9bc2f9885993c4da85fac37bfccf34, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _RoughnessTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 3af4715de5645744cb10ce0fdbdf2b9e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .713235259, g: .713235259, b: .713235259, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .382352948, g: .382352948, b: .382352948, a: 1}
