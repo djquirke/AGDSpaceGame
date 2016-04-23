@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Engineering_Capacitor - Broken
+  m_Shader: {fileID: 4800000, guid: 2fc72372e639e7340a0ddd319c86e21e, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: ee232b435103f414a942d6d111753865, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: f1dabe22a828caf4984e28b5d39ff822, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SpecularTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 2db017cd21c7164459c67f559138f902, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _RoughnessTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 5dafd1b1370bc4d478abfbc867744324, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EnergyMask
+        second:
+          m_Texture: {fileID: 2800000, guid: 937dc8af337571e49b0dcf241ae156d7, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EnergyRamp
+        second:
+          m_Texture: {fileID: 2800000, guid: 2115d0a97931d174caf64e46bfaef57d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Speed
+        second: 5
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .639705896, g: .639705896, b: .639705896, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .414576113, g: .621360779, b: .79411763, a: 1}
+      data:
+        first:
+          name: _EnergyColor
+        second: {r: .720588207, g: .134178504, b: 0, a: 1}

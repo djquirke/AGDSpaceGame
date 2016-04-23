@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Engineering_Support
+  m_Shader: {fileID: 4800000, guid: c94d9a8aa142b764a8272a4abfe53eb2, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 79185d37e8679dd41a3415454a32cd94, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 803bf7c87e75ad345957f13037394379, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SpecularTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 7fffbc2be3de9fd49b5ed8dc268eb697, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _RoughnessTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 9b5f38c460b98f34b9403609e0b4b0da, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .772058845, g: .772058845, b: .772058845, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .272058845, g: .272058845, b: .272058845, a: 1}
