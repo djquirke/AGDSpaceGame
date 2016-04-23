@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Wall
-  m_Shader: {fileID: 4800000, guid: fbefc8bfffa30184fadfb934142934cc, type: 3}
+  m_Name: binLowNormalsMap_Dff
+  m_Shader: {fileID: 4800000, guid: e1529017906105e45b85f7edc03aeba4, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,36 +17,47 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 621ca619279db38438f55b1e377be746, type: 3}
+          m_Texture: {fileID: 2800000, guid: 960baf7964caf3646b89404e46d03c95, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 064a70ed88c8fb142bde374d340ca81d, type: 3}
+          m_Texture: {fileID: 2800000, guid: 41f199cae2caa21459fc5de79b5acd6d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _SpecularTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: f3c6b02d31c987d49b0ea5964d3e4c63, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _RoughnessTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 59f532d9cb7db14438f7caa7e5703d42, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+      data:
+        first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 8900000, guid: ae59e1c3b5b1a5342b0333e2bafb1c6b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Amount
+        second: .446428567
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .588235319, g: .588235319, b: .588235319, a: 1}
+        second: {r: .963235319, g: .963235319, b: .963235319, a: 1}
       data:
         first:
           name: _SpecColor

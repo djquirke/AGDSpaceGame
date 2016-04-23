@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: DynamicFloor-Bend
-  m_Shader: {fileID: 4800000, guid: 91991221ec7a5d94d88e26445f74c1b3, type: 3}
+  m_Shader: {fileID: 4800000, guid: e1529017906105e45b85f7edc03aeba4, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -55,11 +55,22 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 8900000, guid: ae59e1c3b5b1a5342b0333e2bafb1c6b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Speed
         second: 5
+      data:
+        first:
+          name: _Amount
+        second: .125
     m_Colors:
       data:
         first:

@@ -27,6 +27,24 @@ public class RoomManager : MonoBehaviour
 	public RoomSize size;
     private List<GameObject> neighbours = new List<GameObject>();
     private List<GameObject> doors;
+	public GameObject wall_spawn;
+
+	void Awake()
+	{
+		if(wall_spawn)
+		{
+			Transform[] tforms = gameObject.GetComponentsInChildren<Transform>();
+			foreach(Transform tform in tforms)
+			{
+				if(tform.CompareTag("Wall") && tform.name.Equals("Wall_Half"))
+				{
+					GameObject temp = (GameObject)Instantiate(wall_spawn, tform.position, tform.rotation);
+					temp.transform.SetParent(tform.parent);
+					Destroy(tform.gameObject);
+				}
+			}
+		}
+	}
 
     // Use this for initialization
     void Start()
