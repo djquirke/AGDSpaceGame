@@ -77,6 +77,8 @@ public class AIMovement : MonoBehaviour {
 	private Stopwatch idle_check = new Stopwatch();
 	private bool astar_failed = false;
 
+    private bool Path_Found = false;
+
 	void Start()
 	{
 		goal_nodes = new List<GameObject>();
@@ -168,7 +170,9 @@ public class AIMovement : MonoBehaviour {
 					destination = new Node(goal_nodes[x]);
 				}
 			}
+            Path_Found = false;
 
+            StartCoroutine(RunAStar(start_node, destination));
 			//RunAStar(start_node, destination);
 		}
 		prev_pos = transform.position;
@@ -204,7 +208,7 @@ public class AIMovement : MonoBehaviour {
 		}
 
 
-		if(path.Count > 0 && !idle)
+		if(Path_Found && path.Count > 0 && !idle)
 		{
 			if(!current_walking_node || !current_standing_node) return;
 			//draw path
@@ -402,9 +406,10 @@ public class AIMovement : MonoBehaviour {
 		return node1;
 	}
 
-	private void RunAStar(Node start_node, Node destination)
+	IEnumerator RunAStar(Node start_node, Node destination)
 	{
-		if(start_node == null || destination == null) return;
+        if (start_node == null || destination == null) 
+            yield break;
 
 		bool goal_found = false;
 		Node goal_node = destination;
@@ -419,8 +424,15 @@ public class AIMovement : MonoBehaviour {
 		start_node.g = 0;
 
 		astar_run_time.Start();
-		while(open_list.Count > 0 && astar_run_time.ElapsedMilliseconds < MAX_ASTAR_TIME)
+		while(open_list.Count > 0)
 		{
+
+            if(astar_run_time.ElapsedMilliseconds < MAX_ASTAR_TIME)
+            {
+		        astar_run_time.Reset();
+
+                yield return true;
+            }
 			Node node = open_q.GetNext();
 			open_list.Remove(node);
 			if(node.Equals(destination))
@@ -456,12 +468,14 @@ public class AIMovement : MonoBehaviour {
 			path.Clear ();
 			TraverseTree(goal_node);
 			UnityEngine.Debug.Log ("path length:" + path.Count);
-			if(path.Count == 1) return;
+            if (path.Count == 1) 
+                yield break;
 			current_standing_node = path[path.Count - nodes_traversed].GetObject();
 			nodes_traversed++;
 			current_walking_node = path[path.Count - nodes_traversed].GetObject();
 			nodes_traversed++;
 			astar_failed = false;
+            Path_Found = true;
 		}
 		else
 		{
