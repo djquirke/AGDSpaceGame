@@ -40,6 +40,8 @@ public class Player_Movement : MonoBehaviour {
 
     private bool isRunning = false;
 
+    private Vector3 m_Velocity = Vector3.zero;
+
 
 	// Use this for initialization
 	void Start () {
@@ -181,9 +183,7 @@ public class Player_Movement : MonoBehaviour {
             Vector3 TotalDirection = Direction * LeftStick_yAxis + DirectionRight * LeftStick_xAxis;
             TotalDirection.Normalize();
 
-            TotalDirection *= Time.deltaTime;
-
-            transform.position += (TotalDirection) * (isRunning ? RunSpeed_mulitplier : MoveSpeed_mulitplier);
+            m_Velocity = (TotalDirection) * (isRunning ? RunSpeed_mulitplier : MoveSpeed_mulitplier);
 
             //rotate the player model
             if (TotalDirection.magnitude > 0)
@@ -210,6 +210,11 @@ public class Player_Movement : MonoBehaviour {
             }
         }
 	}
+
+    void FixedUpdate()
+    {
+        rigidbody.velocity = m_Velocity;
+    }
 
  private bool isCloseTo(Vector3 r1, Vector3 r2)
         {
