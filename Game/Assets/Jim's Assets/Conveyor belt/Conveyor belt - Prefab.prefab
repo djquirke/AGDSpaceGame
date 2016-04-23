@@ -181,6 +181,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 470958}
+  - 65: {fileID: 6514550}
   m_Layer: 0
   m_Name: Conveyor belt - Prefab
   m_TagString: Untagged
@@ -317,8 +318,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170958}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: -.707106829}
-  m_LocalPosition: {x: -152.989075, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470952}
@@ -519,6 +520,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170956}
   m_Mesh: {fileID: 4300000, guid: 7197f82bcf0bacd48b8672e74a897fd9, type: 3}
+--- !u!65 &6514550
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170958}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.98000002, y: 1, z: 1}
+  m_Center: {x: -3.02999997, y: 0, z: .349999994}
 --- !u!95 &9570938
 Animator:
   serializedVersion: 3

@@ -12,7 +12,7 @@ public class RoomSplitter : MonoBehaviour
 
 	void Start()
 	{
-		Split ();
+		//Split ();
 	}
 
     public void Split()

@@ -184,7 +184,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomsets:
   - {fileID: 134834, guid: e485f7438a45f8d4fb5e2b40a559b892, type: 2}
-  weights: 01000000
+  - {fileID: 103750, guid: a232617b360a8f84e8cfa5d86d552a49, type: 2}
+  - {fileID: 195498, guid: dcb50ad7066b59f42b7d14d375e0513d, type: 2}
+  weights: 010000000100000001000000
 --- !u!114 &11431214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,7 +200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomsets:
   - {fileID: 134834, guid: e485f7438a45f8d4fb5e2b40a559b892, type: 2}
-  weights: 01000000
+  - {fileID: 103750, guid: a232617b360a8f84e8cfa5d86d552a49, type: 2}
+  - {fileID: 195498, guid: dcb50ad7066b59f42b7d14d375e0513d, type: 2}
+  weights: 010000000100000001000000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
