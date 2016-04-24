@@ -169,7 +169,7 @@ public class AIMovement : MonoBehaviour {
 				}
 			}
 
-			//RunAStar(start_node, destination);
+			RunAStar(start_node, destination);
 		}
 		prev_pos = transform.position;
 	}
@@ -195,7 +195,7 @@ public class AIMovement : MonoBehaviour {
 			if(Vector3.Distance(transform.position, prev_pos) < 0.25f)
 			{
 				//transform.position = current_standing_node.transform.position;
-				//Initialise();
+				Initialise();
 				idle = false;
 				if(idle_time.IsRunning) idle_time.Stop();
 			}
