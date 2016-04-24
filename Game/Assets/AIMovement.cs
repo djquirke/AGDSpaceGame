@@ -172,11 +172,11 @@ public class AIMovement : MonoBehaviour {
 			}
             Path_Found = false;
 
-<<<<<<< HEAD
-			RunAStar(start_node, destination);
-=======
+//<<<<<<< HEAD
+//			RunAStar(start_node, destination);
+//=======
             StartCoroutine(RunAStar(start_node, destination));
->>>>>>> origin/master
+//>>>>>>> origin/master
 		}
 		prev_pos = transform.position;
 	}
@@ -471,7 +471,7 @@ public class AIMovement : MonoBehaviour {
 			path.Clear ();
 			TraverseTree(goal_node);
 			UnityEngine.Debug.Log ("path length:" + path.Count);
-            if (path.Count == 1) 
+            if (path.Count <= 1) 
                 yield break;
 			current_standing_node = path[path.Count - nodes_traversed].GetObject();
 			nodes_traversed++;
