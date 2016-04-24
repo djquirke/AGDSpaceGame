@@ -173,7 +173,6 @@ public class AIMovement : MonoBehaviour {
             Path_Found = false;
 
             StartCoroutine(RunAStar(start_node, destination));
-			//RunAStar(start_node, destination);
 		}
 		prev_pos = transform.position;
 	}
