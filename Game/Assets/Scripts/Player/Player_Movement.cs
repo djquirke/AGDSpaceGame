@@ -76,6 +76,7 @@ public class Player_Movement : MonoBehaviour {
             OxyageAv.RemoveAt(0);
         }
 
+        m_Velocity = Vector3.zero;
         //GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().HUDOxygen = GetOxygenValue();
 
         //check the controller is there if it isn't already
@@ -245,7 +246,7 @@ public class Player_Movement : MonoBehaviour {
             Physics.Raycast(transform.position, Vector3.Normalize(EventDirection), out hit);
 
             Debug.Log(hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag.Equals("Event"))
+            if (hit.transform.gameObject.GetComponent<Event>() || hit.transform.gameObject.GetComponentInChildren<Event>())
             {
                 GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = true;
                 if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.E))

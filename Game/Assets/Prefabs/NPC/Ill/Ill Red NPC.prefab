@@ -1200,7 +1200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc583502c1954994488687dcf6c62864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh_Roation_time: .100000001
 --- !u!114 &11407576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1316,7 +1315,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: e3cf02d5cea4c1d4bb61ab4b5aa11ed4, type: 2}
+  - {fileID: 2100000, guid: ee0aff7001a607247952ac6a7e9db973, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

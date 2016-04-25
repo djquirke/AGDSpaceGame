@@ -30,7 +30,7 @@ public class OutLineActivation : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(OutLineObject && OutLineObject.tag != "Event")
+        if(OutLineObject && transform.parent.gameObject.tag != "Event")
         {
             if(Triggered)
             {

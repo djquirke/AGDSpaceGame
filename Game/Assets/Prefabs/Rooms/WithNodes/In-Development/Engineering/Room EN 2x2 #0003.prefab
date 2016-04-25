@@ -5356,7 +5356,7 @@ Transform:
   m_GameObject: {fileID: 167530}
   m_LocalRotation: {x: -2.1869937e-06, y: 1, z: -6.46976478e-05, w: 1.82672988e-10}
   m_LocalPosition: {x: 0, y: 0, z: 5.84000015}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: .5}
   m_Children:
   - {fileID: 467532}
   m_Father: {fileID: 477038}
@@ -5369,7 +5369,7 @@ Transform:
   m_GameObject: {fileID: 167532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: .5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 467534}
   - {fileID: 467536}
@@ -5431,7 +5431,7 @@ Transform:
   m_GameObject: {fileID: 167542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: .5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 467540}
   - {fileID: 467538}
@@ -5445,7 +5445,7 @@ Transform:
   m_GameObject: {fileID: 167544}
   m_LocalRotation: {x: -2.1869937e-06, y: 1, z: -6.46976478e-05, w: 1.82672988e-10}
   m_LocalPosition: {x: 3, y: 0, z: 5.84000015}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: .5}
   m_Children:
   - {fileID: 467542}
   m_Father: {fileID: 477038}
@@ -11643,7 +11643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCsets:
   - {fileID: 176894, guid: ff7dae299e9ea47438e61f05b647a92b, type: 2}
-  - {fileID: 143764, guid: eea290f5e5b4f9544995f16f2f95041c, type: 2}
+  - {fileID: 198832, guid: eea290f5e5b4f9544995f16f2f95041c, type: 2}
   weights: 
   NumberOfNPCs: 0
 --- !u!114 &11476888
