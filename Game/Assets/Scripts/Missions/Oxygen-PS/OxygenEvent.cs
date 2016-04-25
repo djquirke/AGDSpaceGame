@@ -31,4 +31,22 @@ public class OxygenEvent : Event {
     {
         Leak.PauseLeak(pause);
     }
+
+	public override void EventNeeded()
+	{
+		Collider[] cols = Physics.OverlapSphere(transform.position, 0.25f);
+		foreach(Collider col in cols)
+		{
+			if(col.CompareTag("FixedEvent") && Vector3.Distance(col.transform.position, transform.position) < 0.05f)
+			{
+				Destroy(col.gameObject);
+			}
+		}
+	}
+	
+	public override void EventNotNeeded()
+	{
+		Destroy(this.gameObject);
+		//tag = "Untagged";
+	}
 }

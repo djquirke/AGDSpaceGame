@@ -11,9 +11,10 @@ GameObject:
   - 33: {fileID: 3371544}
   - 23: {fileID: 2371544}
   - 95: {fileID: 9571544}
+  - 65: {fileID: 6528016}
   m_Layer: 0
   m_Name: EngineeringCapacitor-Fixed
-  m_TagString: Untagged
+  m_TagString: FixedEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,6 +58,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171544}
   m_Mesh: {fileID: 4300000, guid: 2c80f2385141ae344b548cf4653487bc, type: 3}
+--- !u!65 &6528016
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.20000005, y: 1.32319701, z: .281033128}
+  m_Center: {x: 0, y: .411598504, z: .140516505}
 --- !u!95 &9571544
 Animator:
   serializedVersion: 3

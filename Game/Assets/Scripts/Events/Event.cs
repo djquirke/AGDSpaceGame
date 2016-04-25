@@ -26,8 +26,23 @@ public class Event : MonoBehaviour {
 		tag = "Event";
 	}
 
+
+	public virtual void EventNeeded()
+	{
+
+	}
+
 	public virtual void EventNotNeeded()
 	{
+
+//		Collider[] cols = Physics.OverlapSphere(transform.position, 0.25f);
+//		foreach(Collider col in cols)
+//		{
+//			if(col.CompareTag("FixedEvent") && Vector3.Distance(col.transform.position, transform.position) < 0.05f)
+//			{
+//				Destroy(
+//			}
+//		}
         tag = "Untagged";
 	}
 

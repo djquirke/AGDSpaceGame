@@ -23,8 +23,21 @@ public class PipeMinigame : Event {
 		temp.GetComponent<PipeGame.BoardManager3D>().Initialise(difficulty, this);
 	}
 
+	public override void EventNeeded()
+	{
+		Collider[] cols = Physics.OverlapSphere(transform.position, 0.25f);
+		foreach(Collider col in cols)
+		{
+			if(col.CompareTag("FixedEvent") && Vector3.Distance(col.transform.position, transform.position) < 0.1f)
+			{
+				Destroy(col.gameObject);
+			}
+		}
+	}
+
 	public override void EventNotNeeded()
 	{
-		tag = "Untagged";
+		Destroy(this.gameObject);
+		//tag = "Untagged";
 	}
 }
