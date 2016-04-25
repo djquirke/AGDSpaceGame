@@ -450,8 +450,8 @@ public class LevelManager : MonoBehaviour {
 		List<int> temp = new List<int> ();
         if(events < num)
         {
-            UnityEngine.Debug.LogError("Number of events wanted " + num + " number of events found " + events);
-            return temp;
+            UnityEngine.Debug.LogWarning("Number of events wanted " + num + " number of events found " + events);
+            num = events;
         }
 
 		int counter = 0;
