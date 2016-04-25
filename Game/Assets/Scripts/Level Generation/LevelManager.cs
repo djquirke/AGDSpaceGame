@@ -302,6 +302,16 @@ public class LevelManager : MonoBehaviour {
 		ls.current_loading_phase = "Spawning Player...";
 		GameObject.FindGameObjectWithTag("PlayerSpawn").GetComponent<SpawnCharacter>().SpawnPlayer(mt);
 		player_spawned = true;
+		InitialiseFlares();
+	}
+
+	private void InitialiseFlares()
+	{
+		GameObject[] flares = GameObject.FindGameObjectsWithTag("Flare");
+		foreach(GameObject flare in flares)
+		{
+			flare.GetComponent<FlareController>().Initialise();
+		}
 	}
 
 	private int CountMinigames()
@@ -381,18 +391,26 @@ public class LevelManager : MonoBehaviour {
 		switch (difficulty) {
 		case Difficulty.Easy:
 			r = Random.Range(2, 4);
+			if(r > x)
+				r = x;
 			the_chosen_ones = ChooseRandomNumbers(r, x);
 			break;
 		case Difficulty.Medium:
 			r = Random.Range(3, 5);
+			if(r > x)
+				r = x;
 			the_chosen_ones = ChooseRandomNumbers(r, x);
 			break;
 		case Difficulty.Hard:
 			r = Random.Range(3, 5);
+			if(r > x)
+				r = x;
 			the_chosen_ones = ChooseRandomNumbers(r, x);
 			break;
 		case Difficulty.Insane:
 			r = Random.Range(3, 6);
+			if(r > x)
+				r = x;
 			the_chosen_ones = ChooseRandomNumbers(r, x);
 			break;
 		default:
@@ -407,7 +425,11 @@ public class LevelManager : MonoBehaviour {
 			{
 				//events[i].GetComponent<Event>().Initialise();
 				UnityEngine.Debug.Log(events[i].name + " " + events[i].tag);
-				events[i].GetComponent<Event>().EventNeeded();
+				try
+				{
+					events[i].GetComponent<Event>().EventNeeded();
+				}
+				catch{}
 				continue;
 			}
 
@@ -455,7 +477,11 @@ public class LevelManager : MonoBehaviour {
 		UnityEngine.Debug.Log("num of agents:" + agents.Length);
 		foreach(GameObject agent in agents)
 		{
-			agent.GetComponent<AIMovement>().Initialise();
+			try
+			{
+				agent.GetComponent<AIMovement>().Initialise();
+			}
+			catch {}
 		}
 
 		int minigames = CountMinigames();
