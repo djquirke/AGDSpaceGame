@@ -82,8 +82,7 @@ public class AIMovement : MonoBehaviour {
     private Vector3 m_CharictorTotalRotation = Vector3.zero;
 
     private CharacterAnimController anim = null;
-    public float mesh_Roation_time = 0.1f;
-    private Vector3 mesh_Rotatevelocity = Vector3.zero, LastPosItion;
+    private Vector3 LastPosItion;
 
 	void Start()
 	{
@@ -94,7 +93,7 @@ public class AIMovement : MonoBehaviour {
 		idle_check.Start();
 
         LastPosItion = transform.position;
-
+        m_CharictorTotalRotation = transform.rotation.eulerAngles;
 	}
 
 	private void ResetValues()
@@ -233,26 +232,6 @@ public class AIMovement : MonoBehaviour {
 			lerp_step += Time.deltaTime;
 			if(lerp_step <= 1)
 			{
-
-                Vector3 TotalDirection = current_standing_node.transform.position - current_walking_node.transform.position;
-
-                Vector3 FaceDirection = transform.rotation * Vector3.forward;
-
-				//rotate the model
-                float angle = Mathf.Atan2(Vector3.Dot(Vector3.up,
-                                      Vector3.Cross(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(m_CharictorTotalRotation), Vector3.one) * FaceDirection,
-                                                    TotalDirection)),
-                          Vector3.Dot(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(m_CharictorTotalRotation), Vector3.one) * FaceDirection, TotalDirection));
-
-                Vector3 TargetAngle = m_CharictorTotalRotation + new Vector3(0, Mathf.Rad2Deg * angle, 0);
-
-
-                m_CharictorTotalRotation = Vector3.SmoothDamp(m_CharictorTotalRotation,
-                                                           TargetAngle,
-                                                      ref mesh_Rotatevelocity, mesh_Roation_time);
-
-                transform.rotation = Quaternion.Euler(m_CharictorTotalRotation);
-
                 //traverse to next node
 				Vector3 result = Vector3.Lerp(current_standing_node.transform.position, current_walking_node.transform.position, lerp_step);
 				transform.position = result;
@@ -296,11 +275,15 @@ public class AIMovement : MonoBehaviour {
 
         if(anim)
         {
+            if (current_walking_node)
+                transform.LookAt(current_walking_node.transform.position);
+
+
             float Distance = (transform.position - LastPosItion).magnitude;
 
-            Distance *= Time.deltaTime;
+            Distance /= Time.deltaTime;
 
-            anim.current = Distance / anim.max;
+            anim.current = Distance;
 
 
             LastPosItion = transform.position;
