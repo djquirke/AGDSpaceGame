@@ -45,7 +45,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.29559708, y: -.210000157, z: .330588937}
+  m_LocalPosition: {x: -2.20000005, y: 3.04999995, z: -7.03000021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 479728}
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.57440281, y: 1.78000021, z: 2.10941124}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 479726}
@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutLineShader: {fileID: 4800000, guid: 76d6ea620350687409ead2c0944b7ed6, type: 3}
+  OutLineColour: {r: 1, g: 0, b: 0, a: 1}
+  OutLineObject: {fileID: 0}
 --- !u!135 &13579726
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -167,7 +169,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2
-  m_Center: {x: 5.96046448e-08, y: 0, z: -8.94069672e-08}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13579728
 SphereCollider:
   m_ObjectHideFlags: 1

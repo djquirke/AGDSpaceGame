@@ -79,12 +79,22 @@ public class AIMovement : MonoBehaviour {
 
     private bool Path_Found = false;
 
+    private Vector3 m_CharictorTotalRotation = Vector3.zero;
+
+    private CharacterAnimController anim = null;
+    public float mesh_Roation_time = 0.1f;
+    private Vector3 mesh_Rotatevelocity = Vector3.zero, LastPosItion;
+
 	void Start()
 	{
 		goal_nodes = new List<GameObject>();
 		//successor_nodes = new List<Node>();
 		path = new List<Node>();
+        anim = GetComponentInChildren<CharacterAnimController>();
 		idle_check.Start();
+
+        LastPosItion = transform.position;
+
 	}
 
 	private void ResetValues()
@@ -223,7 +233,27 @@ public class AIMovement : MonoBehaviour {
 			lerp_step += Time.deltaTime;
 			if(lerp_step <= 1)
 			{
-				//traverse to next node
+
+                Vector3 TotalDirection = current_standing_node.transform.position - current_walking_node.transform.position;
+
+                Vector3 FaceDirection = transform.rotation * Vector3.forward;
+
+				//rotate the model
+                float angle = Mathf.Atan2(Vector3.Dot(Vector3.up,
+                                      Vector3.Cross(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(m_CharictorTotalRotation), Vector3.one) * FaceDirection,
+                                                    TotalDirection)),
+                          Vector3.Dot(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(m_CharictorTotalRotation), Vector3.one) * FaceDirection, TotalDirection));
+
+                Vector3 TargetAngle = m_CharictorTotalRotation + new Vector3(0, Mathf.Rad2Deg * angle, 0);
+
+
+                m_CharictorTotalRotation = Vector3.SmoothDamp(m_CharictorTotalRotation,
+                                                           TargetAngle,
+                                                      ref mesh_Rotatevelocity, mesh_Roation_time);
+
+                transform.rotation = Quaternion.Euler(m_CharictorTotalRotation);
+
+                //traverse to next node
 				Vector3 result = Vector3.Lerp(current_standing_node.transform.position, current_walking_node.transform.position, lerp_step);
 				transform.position = result;
 			}
@@ -263,6 +293,19 @@ public class AIMovement : MonoBehaviour {
 				idle = false;
 			}
 		}
+
+        if(anim)
+        {
+            float Distance = (transform.position - LastPosItion).magnitude;
+
+            Distance *= Time.deltaTime;
+
+            anim.current = Distance / anim.max;
+
+
+            LastPosItion = transform.position;
+        }
+
 //		foreach(Node node in successor_nodes)
 //		{
 //		//if(draw_line)
