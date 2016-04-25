@@ -134,7 +134,7 @@ GameObject:
   - 114: {fileID: 11494700}
   m_Layer: 5
   m_Name: LoadingScreenPrefab
-  m_TagString: Untagged
+  m_TagString: LoadScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dotSpeed: 1
   NumberOfDots: 3
+  current_loading_phase: Initialising Room Generation...
 --- !u!114 &11494686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,7 +315,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Loading...
+  m_Text: 'Loading...
+
+    Initialising Room Generation...'
 --- !u!114 &11494700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,8 +440,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 100}
+  m_AnchoredPosition: {x: 0, y: -.102519996}
+  m_SizeDelta: {x: 856, y: 197}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22494686
 RectTransform:

@@ -5,6 +5,7 @@ public class LoadingScreen : MonoBehaviour {
 
     public float dotSpeed = 1;
     public int NumberOfDots = 3;
+	public string current_loading_phase = "Initialising Room Generation...";
 
     private Text LoadingText = null;
     private float timePassed = 0;
@@ -34,6 +35,8 @@ public class LoadingScreen : MonoBehaviour {
 
                 timePassed = 0;
             }
+
+			LoadingText.text += "\n" + current_loading_phase;
 
         }
 	}

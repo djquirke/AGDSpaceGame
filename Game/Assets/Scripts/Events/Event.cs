@@ -55,7 +55,13 @@ public class Event : MonoBehaviour {
         {
             Mission.GetComponent<MissionManager>().MinigameComplete();
         }
+		OverrideSuccess();
 		ContinueGame();
+	}
+
+	protected virtual void OverrideSuccess()
+	{
+
 	}
 
 	// Called when a minigame is failed to update the mission manager

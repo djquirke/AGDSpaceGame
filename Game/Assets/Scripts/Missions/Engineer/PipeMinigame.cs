@@ -4,6 +4,7 @@ using System.Collections;
 public class PipeMinigame : Event {
 
 	public GameObject pipe_game;
+	private GameObject fixed_prefab;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +31,9 @@ public class PipeMinigame : Event {
 		{
 			if(col.CompareTag("FixedEvent") && Vector3.Distance(col.transform.position, transform.position) < 0.1f)
 			{
-				Destroy(col.gameObject);
+				col.gameObject.SetActive(false);
+				fixed_prefab = col.gameObject;
+				//Destroy(col.gameObject);
 			}
 		}
 	}
@@ -39,5 +42,11 @@ public class PipeMinigame : Event {
 	{
 		Destroy(this.gameObject);
 		//tag = "Untagged";
+	}
+
+	protected override void OverrideSuccess()
+	{
+		Destroy(this.gameObject);
+		fixed_prefab.SetActive(true);
 	}
 }
