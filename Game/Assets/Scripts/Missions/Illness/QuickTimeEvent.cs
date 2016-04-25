@@ -76,7 +76,7 @@ public class QuickTimeEvent : Event {
 	{
 		tag = "Untagged";
 		//transform.tag = "Untagged";
-		renderer.material = CompleteMat;
+		GetComponentInChildren<Renderer>().material = CompleteMat;
 	}
     
 	// Use this for initialization
@@ -155,7 +155,7 @@ public class QuickTimeEvent : Event {
 		m_ActiveButtonList.AddRange(m_ButtonList);
 
 
-        renderer.material = IncompleteMat;
+        GetComponentInChildren<Renderer>().material = IncompleteMat;
 
 	}
 	
@@ -212,7 +212,7 @@ public class QuickTimeEvent : Event {
                     //win
 					m_isActive = false;
                     Success();
-                    renderer.material = CompleteMat;
+                    GetComponentInChildren<Renderer>().material = CompleteMat;
 
                 }
                 else if(m_KeyList.Count > 0 && m_ActiveKeyList.Count == 0)
@@ -220,7 +220,7 @@ public class QuickTimeEvent : Event {
                     //win
 					m_isActive = false;
                     Success();
-                    renderer.material = CompleteMat;
+                    GetComponentInChildren<Renderer>().material = CompleteMat;
                 }
                 else
                 {

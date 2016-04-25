@@ -5172,8 +5172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCsets:
-  - {fileID: 182408, guid: 7a4fb877e2bd34a409c45d86d9c1bb04, type: 2}
-  - {fileID: 179726, guid: ebdf4f2f39a6a094cab6e3b687f95e3c, type: 2}
+  - {fileID: 176894, guid: ff7dae299e9ea47438e61f05b647a92b, type: 2}
+  - {fileID: 143764, guid: eea290f5e5b4f9544995f16f2f95041c, type: 2}
   weights: 
   NumberOfNPCs: 0
 --- !u!114 &11403856
@@ -5607,6 +5607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutLineShader: {fileID: 4800000, guid: 76d6ea620350687409ead2c0944b7ed6, type: 3}
   OutLineColour: {r: 1, g: 0, b: 0, a: 1}
+  OutLineObject: {fileID: 0}
 --- !u!114 &11482152
 MonoBehaviour:
   m_ObjectHideFlags: 1

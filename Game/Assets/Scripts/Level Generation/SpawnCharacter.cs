@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpawnCharacter : MonoBehaviour {
 
-	public GameObject medic, engineer;
+	public GameObject medic, engineer, oxygen;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +25,7 @@ public class SpawnCharacter : MonoBehaviour {
 			temp.transform.position = this.transform.position;
 			break;
         case MissionType.OXYGEN:
-            temp = (GameObject)Instantiate(engineer);
+            temp = (GameObject)Instantiate(oxygen);
             temp.transform.position = this.transform.position;
             break;
 		case MissionType.ILLNESS:

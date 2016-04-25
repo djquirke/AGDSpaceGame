@@ -79,12 +79,21 @@ public class AIMovement : MonoBehaviour {
 
     private bool Path_Found = false;
 
+    private Vector3 m_CharictorTotalRotation = Vector3.zero;
+
+    private CharacterAnimController anim = null;
+    private Vector3 LastPosItion;
+
 	void Start()
 	{
 		goal_nodes = new List<GameObject>();
 		//successor_nodes = new List<Node>();
 		path = new List<Node>();
+        anim = GetComponentInChildren<CharacterAnimController>();
 		idle_check.Start();
+
+        LastPosItion = transform.position;
+        m_CharictorTotalRotation = transform.rotation.eulerAngles;
 	}
 
 	private void ResetValues()
@@ -223,7 +232,7 @@ public class AIMovement : MonoBehaviour {
 			lerp_step += Time.deltaTime;
 			if(lerp_step <= 1)
 			{
-				//traverse to next node
+                //traverse to next node
 				Vector3 result = Vector3.Lerp(current_standing_node.transform.position, current_walking_node.transform.position, lerp_step);
 				transform.position = result;
 			}
@@ -263,6 +272,23 @@ public class AIMovement : MonoBehaviour {
 				idle = false;
 			}
 		}
+
+        if(anim)
+        {
+            if (current_walking_node)
+                transform.LookAt(current_walking_node.transform.position);
+
+
+            float Distance = (transform.position - LastPosItion).magnitude;
+
+            Distance /= Time.deltaTime;
+
+            anim.current = Distance;
+
+
+            LastPosItion = transform.position;
+        }
+
 //		foreach(Node node in successor_nodes)
 //		{
 //		//if(draw_line)

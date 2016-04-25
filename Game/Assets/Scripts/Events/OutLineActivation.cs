@@ -8,19 +8,20 @@ public class OutLineActivation : MonoBehaviour {
 
     public Color OutLineColour = Color.red; 
 
-    private GameObject Parent = null;
-    private Shader ParentsShader = null;
+    public GameObject OutLineObject = null;
+    private Shader OutLineObjectsShader = null;
     private bool Triggered = false;
 
 
 	// Use this for initialization
 	void Start () {
         transform.localPosition = new Vector3(0, 0, 0);
-        Parent = transform.parent.gameObject;
+        if(!OutLineObject)
+            OutLineObject = transform.parent.gameObject;
 
-        if(!Parent)
+        if(!OutLineObject)
         {
-            Debug.LogError(name +" has no Parent Object");
+            Debug.LogError(name +" has no OutLineObject Object");
         }
 
         
@@ -29,11 +30,11 @@ public class OutLineActivation : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(Parent && Parent.tag != "Event")
+        if(OutLineObject && OutLineObject.tag != "Event")
         {
             if(Triggered)
             {
-                Parent.renderer.material.shader = ParentsShader;
+                OutLineObject.renderer.material.shader = OutLineObjectsShader;
             }
 
             Destroy(gameObject);
@@ -42,11 +43,11 @@ public class OutLineActivation : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && Parent && !Triggered)
+        if (other.tag == "Player" && OutLineObject && !Triggered)
         {
-            ParentsShader = Parent.renderer.material.shader;
-            Parent.renderer.material.shader = OutLineShader;
-            Parent.renderer.material.SetColor("_OutlineColor", OutLineColour);
+            OutLineObjectsShader = OutLineObject.renderer.material.shader;
+            OutLineObject.renderer.material.shader = OutLineShader;
+            OutLineObject.renderer.material.SetColor("_OutlineColor", OutLineColour);
             Triggered = true;
         }
 
@@ -55,9 +56,9 @@ public class OutLineActivation : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && Parent && Triggered)
+        if (other.tag == "Player" && OutLineObject && Triggered)
         {
-            Parent.renderer.material.shader = ParentsShader;
+            OutLineObject.renderer.material.shader = OutLineObjectsShader;
             Triggered = false;
         }
     }
