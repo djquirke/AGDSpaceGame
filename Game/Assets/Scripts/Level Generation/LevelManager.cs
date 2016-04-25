@@ -61,7 +61,7 @@ public class LevelManager : MonoBehaviour {
         UnityEngine.Debug.Log("removing walls and doors");
         RemoveWallDoors();
         UnityEngine.Debug.Log("rm overlapping walls");
-        //RemoveOverlappingWalls();
+        RemoveOverlappingWalls();
         UnityEngine.Debug.Log("calc floor");
         CalculateFloor();
         UnityEngine.Debug.Log("check disable engineering");
@@ -206,19 +206,18 @@ public class LevelManager : MonoBehaviour {
 
 	private void RemoveOverlappingWalls ()
 	{
-//		GameObject[] all_walls = GameObject.FindGameObjectsWithTag("Wall");
-//		for(int i = 0; i < all_walls.Length; i++)
-//		{
-//			for(int j = 0; j < all_walls.Length; j++)
-//			{
-//				if(all_walls[j] == null || all_walls[i] == null)
-//					continue;
-//				if(all_walls[i] != all_walls[j] && Vector3.Distance(all_walls[i].transform.position, all_walls[j].transform.position) < 0.25f)
-//				{
-//					Destroy(all_walls[j]);
-//				}
-//			}
-//		}
+		GameObject[] all_caps = GameObject.FindGameObjectsWithTag("Cap");
+		foreach(GameObject cap in all_caps)
+		{
+			Collider[] cols = Physics.OverlapSphere(cap.transform.position, 0.3f);
+			foreach(Collider col in cols)
+			{
+				if(col.CompareTag("Column"))
+				{
+					Destroy (cap);
+				}
+			}
+		}
 	}
 
 	private IEnumerator GenerateNPCs ()
@@ -282,7 +281,8 @@ public class LevelManager : MonoBehaviour {
 					{
 						if(tform.tag.Equals("Event"))
 						{
-							tform.tag = "Untagged";
+							tform.GetComponent<Event>().EventNotNeeded();
+							//tform.tag = "Untagged";
 						}
 					}
 				}
@@ -305,7 +305,8 @@ public class LevelManager : MonoBehaviour {
 					{
 						if(tform.tag.Equals("Event"))
 						{
-							tform.tag = "Untagged";
+							tform.GetComponent<Event>().EventNotNeeded();
+							//tform.tag = "Untagged";
 						}
 					}
 				}
@@ -352,6 +353,8 @@ public class LevelManager : MonoBehaviour {
 			if(the_chosen_ones.Contains(i))
 			{
 				//events[i].GetComponent<Event>().Initialise();
+				UnityEngine.Debug.Log(events[i].name + " " + events[i].tag);
+				events[i].GetComponent<Event>().EventNeeded();
 				continue;
 			}
 
