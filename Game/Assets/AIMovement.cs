@@ -242,7 +242,7 @@ public class AIMovement : MonoBehaviour {
 					idle = true;
 					destination.GetObject().GetComponent<NodeController>().setIsChosenNode(false);
 				}
-				else
+				else if(path.Count > 0)
 				{
 					current_walking_node = path[path.Count - nodes_traversed].GetObject();
 					nodes_traversed++;

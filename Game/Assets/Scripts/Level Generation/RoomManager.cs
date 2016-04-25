@@ -59,6 +59,13 @@ public class RoomManager : MonoBehaviour
 
     public void Rotate()
     {
+		GetLocalDoors();
+		foreach (GameObject door in doors)
+		{
+			DoorManager dm = door.GetComponent<DoorManager>();
+			if(dm)
+				dm.SetAccess(false);
+		}
         if(wideRoom) transform.Rotate(new Vector3(0, 180, 0));
         else transform.Rotate(new Vector3(0, 90, 0));
     }
@@ -67,19 +74,46 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < doors.Count; i++)
         {
+//			Collider[] cols = Physics.OverlapSphere(doors[i].transform.position, 0.5f);
+//			foreach(Collider col in cols)
+//			{
+//				Debug.Log("door collided with: " + col.name + " " + col.tag);
+//			}
+
+
+
             GameObject[] allDoors = GameObject.FindGameObjectsWithTag("Door");
+			bool access= false;
             for (int j = 0; j < allDoors.Length; j++)
             {
-                if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 2f)
+                if (doors[i] != allDoors[j] && Vector3.Distance(doors[i].transform.position, allDoors[j].transform.position) < 0.5f)
                 {
-					neighbours.Add(allDoors[j].transform.root.gameObject);
-					try
+					if(allDoors[j].transform.root.GetComponent<RoomManager>().safe)
 					{
-						allDoors[j].GetComponent<DoorManager>().SetAccess(true);
+						//neighbours.Add(allDoors[j].transform.root.gameObject);
+						DoorManager dm = allDoors[j].GetComponent<DoorManager>();
+						if(dm)
+							dm.SetAccess(true);
+						safe = true;
+						DoorManager this_dm = doors[i].GetComponent<DoorManager>();
+						if(this_dm)
+							this_dm.SetAccess(true);
+						access = true;
 					}
-					catch {}
+//					try
+//					{
+//						allDoors[j].GetComponent<DoorManager>().SetAccess(true);
+//						doors[i].GetComponent<DoorManager>().SetAccess(true);
+//					}
+//					catch {}
 				}
             }
+			if(!access)
+			{
+				DoorManager this_dm = doors[i].GetComponent<DoorManager>();
+				if(this_dm)
+					this_dm.SetAccess(false);
+			}
         }
     }
 
@@ -87,11 +121,15 @@ public class RoomManager : MonoBehaviour
     {
 		GetLocalDoors();
         GetNeighbours();
-        for (int i = 0; i < neighbours.Count; i++)
-        {
-            if (neighbours[i].GetComponent<RoomManager>().safe)
-                safe = true;
-        }
+//        for (int i = 0; i < neighbours.Count; i++)
+//        {
+//            if (neighbours[i].GetComponent<RoomManager>().safe)
+//			{
+//
+//
+//                safe = true;
+//			}
+//        }
     }
 
 	private void GetLocalDoors()

@@ -13,7 +13,7 @@ public class SpawnPrefab : MonoBehaviour {
 			Debug.Log(transform.localScale.x);
 			obj.transform.localScale = new Vector3(transform.localScale.x,transform.localScale.y,transform.localScale.z);
 			obj.transform.SetParent(transform.parent);
-			Destroy(transform.gameObject);
+			DestroyImmediate(transform.gameObject);
 		}
 	}
 }

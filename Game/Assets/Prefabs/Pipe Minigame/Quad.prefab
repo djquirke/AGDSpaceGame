@@ -13,7 +13,7 @@ GameObject:
   - 95: {fileID: 9556004}
   - 114: {fileID: 11435302}
   - 65: {fileID: 6530644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Quad
   m_TagString: TileNESW
   m_Icon: {fileID: 0}
@@ -104,8 +104,6 @@ MonoBehaviour:
   isStart: 0
   isEnd: 0
   isRotatable: 0
-  normal: {fileID: 2100000, guid: 964d2e7fdb610b14d86d23704dc55d98, type: 2}
-  flowing: {fileID: 2100000, guid: 96afb9e315981d34b85b2ffe22774a0f, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

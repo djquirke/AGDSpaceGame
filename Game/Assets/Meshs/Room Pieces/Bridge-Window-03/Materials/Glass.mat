@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Glass
-  m_Shader: {fileID: 4800000, guid: 8343a9005e1e3c44983d886323a527ed, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2f4feb20d567928468718e53e07d24c9, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -24,7 +24,7 @@ Material:
         first:
           name: _Cube
         second:
-          m_Texture: {fileID: 8900000, guid: 58ba1813abab7484ba185ae1fb29e510, type: 3}
+          m_Texture: {fileID: 8900000, guid: 30309f077c49e534caee681b5ae01d93, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -35,7 +35,7 @@ Material:
       data:
         first:
           name: _Amount
-        second: .875
+        second: .714285731
     m_Colors:
       data:
         first:

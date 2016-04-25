@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: d_captainschair
-  m_Shader: {fileID: 4800000, guid: fbefc8bfffa30184fadfb934142934cc, type: 3}
+  m_Shader: {fileID: 4800000, guid: e1529017906105e45b85f7edc03aeba4, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -41,12 +41,23 @@ Material:
           m_Texture: {fileID: 2800000, guid: 109385363daab5d478c0c99766c5463e, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+      data:
+        first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 8900000, guid: ae59e1c3b5b1a5342b0333e2bafb1c6b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Amount
+        second: 1
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .838235259, g: .838235259, b: .838235259, a: 1}
       data:
         first:
           name: _SpecColor

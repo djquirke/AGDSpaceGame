@@ -1,50 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &170188
+--- !u!1 &154150
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 470188}
-  - 33: {fileID: 3370188}
-  - 23: {fileID: 2370188}
-  - 95: {fileID: 9570188}
-  - 114: {fileID: 11470188}
-  - 65: {fileID: 6530644}
-  m_Layer: 8
-  m_Name: Block
+  - 4: {fileID: 454150}
+  - 33: {fileID: 3354150}
+  - 23: {fileID: 2354150}
+  - 95: {fileID: 9554150}
+  - 65: {fileID: 6597728}
+  m_Layer: 0
+  m_Name: Bridge_captains_chair-PRefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &470188
+--- !u!4 &454150
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170188}
-  m_LocalRotation: {x: -1, y: 0, z: 0, w: 1.17622903e-05}
-  m_LocalPosition: {x: -1857.24109, y: -223.915573, z: 4.92068253e-09}
+  m_GameObject: {fileID: 154150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2370188
+--- !u!23 &2354150
 Renderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170188}
+  m_GameObject: {fileID: 154150}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 088e44fd680748b43851f0b8599e5b41, type: 2}
+  - {fileID: 2100000, guid: dc80cd6aacbcd3647b65a069adf26bd3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -52,58 +51,40 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3370188
+--- !u!33 &3354150
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170188}
-  m_Mesh: {fileID: 4300000, guid: 4b5c004993c8d2249a19dd313726dfac, type: 3}
---- !u!65 &6530644
+  m_GameObject: {fileID: 154150}
+  m_Mesh: {fileID: 4300000, guid: a09f7e2c4e2aab74b880c8ea010aaa77, type: 3}
+--- !u!65 &6597728
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170188}
+  m_GameObject: {fileID: 154150}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &9570188
+  m_Size: {x: 1.38238668, y: 1.41902423, z: 1.84930444}
+  m_Center: {x: -.0854358971, y: .000492364168, z: .924572229}
+--- !u!95 &9554150
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170188}
+  m_GameObject: {fileID: 154150}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4b5c004993c8d2249a19dd313726dfac, type: 3}
+  m_Avatar: {fileID: 9000000, guid: a09f7e2c4e2aab74b880c8ea010aaa77, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11470188
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b9e4c40ba415244a48063abbc7e714, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  north: 0
-  south: 0
-  east: 0
-  west: 0
-  isStart: 0
-  isEnd: 0
-  isRotatable: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -113,6 +94,6 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 170188}
+  m_RootGameObject: {fileID: 154150}
   m_IsPrefabParent: 1
   m_IsExploded: 1
