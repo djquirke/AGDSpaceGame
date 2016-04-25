@@ -42,6 +42,8 @@ public class Player_Movement : MonoBehaviour {
 
     private Vector3 m_Velocity = Vector3.zero;
 
+    private CharacterAnimController Anim = null;
+
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +61,8 @@ public class Player_Movement : MonoBehaviour {
         m_MeshOffsetRotation = mesh.transform.localRotation.eulerAngles;
 
         OxyageAv.Add(1.0f);
+
+        Anim = GetComponentInChildren<CharacterAnimController>();
 	
 	}
 	
@@ -184,6 +188,9 @@ public class Player_Movement : MonoBehaviour {
             TotalDirection.Normalize();
 
             m_Velocity = (TotalDirection) * (isRunning ? RunSpeed_mulitplier : MoveSpeed_mulitplier);
+
+            if(Anim)
+                Anim.current = m_Velocity.magnitude / (RunSpeed_mulitplier) * Anim.max;
 
             //rotate the player model
             if (TotalDirection.magnitude > 0)
