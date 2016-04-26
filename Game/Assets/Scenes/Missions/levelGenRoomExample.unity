@@ -8098,11 +8098,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomsets:
-  - {fileID: 136940, guid: 397081da880920d429b89f1347b2ce97, type: 2}
-  - {fileID: 122580, guid: e11181299f2d8504e9d8af89121feb54, type: 2}
-  - {fileID: 177038, guid: 3d1ec76d39e01c247b644a1ea8ca0395, type: 2}
-  - {fileID: 182988, guid: 73ce0bc6204b66742a979601fef1a210, type: 2}
-  weights: 05000000050000000500000019000000
+  - {fileID: 162352, guid: c43c19e26e5a5a640b7a5134dcc56360, type: 2}
+  weights: 05000000
 --- !u!23 &669803086
 Renderer:
   m_ObjectHideFlags: 0
@@ -13461,11 +13458,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: weights.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: roomsets.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: m_LocalPosition.x
@@ -13506,7 +13503,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: roomsets.Array.data[0]
       value: 
-      objectReference: {fileID: 122906, guid: 6f262177bc87cd447a1113cc301df83a, type: 2}
+      objectReference: {fileID: 162352, guid: c43c19e26e5a5a640b7a5134dcc56360, type: 2}
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: roomsets.Array.data[1]
       value: 
@@ -13726,11 +13723,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: weights.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: roomsets.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: m_LocalPosition.x
@@ -13771,7 +13768,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: roomsets.Array.data[0]
       value: 
-      objectReference: {fileID: 136940, guid: 397081da880920d429b89f1347b2ce97, type: 2}
+      objectReference: {fileID: 162352, guid: c43c19e26e5a5a640b7a5134dcc56360, type: 2}
     - target: {fileID: 11400000, guid: 370072acfbd81d849aafda0502d7ad37, type: 2}
       propertyPath: roomsets.Array.data[1]
       value: 
@@ -26372,10 +26369,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomsets:
-  - {fileID: 122906, guid: 6f262177bc87cd447a1113cc301df83a, type: 2}
-  - {fileID: 107796, guid: 3aadd9e4c773f2847a96db17d0d6f09a, type: 2}
-  - {fileID: 190190, guid: a2c0039c54f8b5942840ecce9dcc18b4, type: 2}
-  weights: 05000000050000000f000000
+  - {fileID: 162352, guid: c43c19e26e5a5a640b7a5134dcc56360, type: 2}
+  weights: 05000000
 --- !u!23 &1992814854
 Renderer:
   m_ObjectHideFlags: 0

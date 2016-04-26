@@ -360,7 +360,7 @@ public class LevelManager : MonoBehaviour {
 		{
 			foreach(GameObject room in rooms)
 			{
-				if(room.GetComponent<RoomManager>().type == RoomType.MEDIC)
+				if(room.GetComponent<RoomManager>().type == RoomType.OXYGEN)
 				{
 					Transform[] tforms = room.GetComponentsInChildren<Transform>();
 					foreach(Transform tform in tforms)

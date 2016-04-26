@@ -17,28 +17,28 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 4d329b6b107ab594c9a158fdd6634f46, type: 3}
+          m_Texture: {fileID: 2800000, guid: 4ad80b56535278341a53412d6effaad5, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 7c39a3f7cde77134facafa1dc98428be, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _SpecularTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 5587ce72d55886b4da634830d8147ffd, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _RoughnessTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: b1201bb9c72a17e4fa98109fe0cff12f, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -52,13 +52,13 @@ Material:
       data:
         first:
           name: _Amount
-        second: .267857134
+        second: .571428537
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .602941155, g: .137435108, b: .137435108, a: 1}
+        second: {r: .588235319, g: .588235319, b: .588235319, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: 0, g: .172413826, b: 1, a: 1}
+        second: {r: 0, g: .296551704, b: 1, a: 1}

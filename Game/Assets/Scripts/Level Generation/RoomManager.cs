@@ -8,6 +8,7 @@ public enum RoomType
 	ENGINEER,
 	FLIGHT_DECK,
 	SLEEPING,
+	OXYGEN,
 	HALLWAY
 }
 

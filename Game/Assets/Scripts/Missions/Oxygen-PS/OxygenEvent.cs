@@ -5,7 +5,8 @@ public class OxygenEvent : Event {
 
     public float Start_Raduis_Min = 0, Start_Raduis_Max = 0, Leak_Rate_min = 0, Leak_Rate_max = 0;
 
-    private bool Started = false;
+	private bool Started = false;
+	private GameObject fixed_prefab;
 
     private OxygenLeak Leak = null;
 	// Use this for initialization
@@ -37,16 +38,31 @@ public class OxygenEvent : Event {
 		Collider[] cols = Physics.OverlapSphere(transform.position, 0.25f);
 		foreach(Collider col in cols)
 		{
-			if(col.CompareTag("FixedEvent") && Vector3.Distance(col.transform.position, transform.position) < 0.05f)
+			if(col.CompareTag("FixedEvent") && Vector3.Distance(col.transform.position, transform.position) < 0.1f)
 			{
-				Destroy(col.gameObject);
+				col.gameObject.SetActive(false);
+				fixed_prefab = col.gameObject;
+				return;
+				//Destroy(col.gameObject);
 			}
 		}
 	}
 	
 	public override void EventNotNeeded()
 	{
-		Destroy(this.gameObject);
+		Collider[] cols = Physics.OverlapSphere(transform.position, 0.25f);
+		foreach(Collider col in cols)
+		{
+			if(col.name.Contains("Oxygen Unit Broken - Prefab") && Vector3.Distance(col.transform.position, transform.position) < 0.1f)
+			{
+				Destroy(col.gameObject);
+				return;
+				//col.gameObject.SetActive(false);
+				//fixed_prefab = col.gameObject;
+				//Destroy(col.gameObject);
+			}
+		}
+		//Destroy(this.gameObject);
 		//tag = "Untagged";
 	}
 }

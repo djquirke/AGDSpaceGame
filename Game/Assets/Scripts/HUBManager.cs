@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class HUBManager : MonoBehaviour {
 
-	public List<HUBMission> avail_missions;
+	public List<GameObject> avail_missions;
+	public GameObject popup_image;
 
 	void Start()
 	{
@@ -24,16 +25,16 @@ public class HUBManager : MonoBehaviour {
 	{
 		if (avail_missions != null) {
 			//display available missions
-			foreach (HUBMission mission in avail_missions) {
-				if(GUI.Button(new Rect(mission.pos.x, mission.pos.y, 100, 100), mission.mission.missionType().ToString() + "\n"
-				              + mission.mission.Difficulty().ToString() + "\n"
-				              + mission.mission.getLevelName()))
-				{
-					Debug.Log(mission.mission.getIdx());
-					GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().StartMission(mission.mission.getIdx());
-				}
-				
-			}
+//			foreach (HUBMission mission in avail_missions) {
+//				if(GUI.Button(new Rect(mission.pos.x, mission.pos.y, 100, 100), mission.mission.missionType().ToString() + "\n"
+//				              + mission.mission.Difficulty().ToString() + "\n"
+//				              + mission.mission.getLevelName()))
+//				{
+//					Debug.Log(mission.mission.getIdx());
+//					GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().StartMission(mission.mission.getIdx());
+//				}
+//				
+//			}
 			DisplayTimeUntilNewMission ();
 		}
 	}
@@ -56,7 +57,7 @@ public class HUBManager : MonoBehaviour {
 
 	public void Initialise(List<Mission> avail_missions)
 	{
-		this.avail_missions = new List<HUBMission> ();
+		this.avail_missions = new List<GameObject> ();
 		foreach (Mission mission in avail_missions) {
 			AddMission(mission);
 		}
@@ -65,9 +66,22 @@ public class HUBManager : MonoBehaviour {
 
 	public void AddMission(Mission mission)
 	{
-		HUBMission temp = new HUBMission ();
+		foreach(GameObject m in avail_missions)
+		{
+			Debug.Log("passed in idx:" + mission.getIdx() + " saved idx:" + m.GetComponent<LevelPopupScript>().mission.getIdx());
+			if(mission.getIdx() == m.GetComponent<LevelPopupScript>().mission.getIdx())
+			{
+				return;
+			}
+		}
+
 		Vector3 temp_pos = GenerateRandomPos ();
-		temp.Initialise (mission, temp_pos);
+		GameObject temp = (GameObject)Instantiate(popup_image, temp_pos, new Quaternion());
+		Transform canvas_tform = GameObject.FindGameObjectWithTag("HUBCanvas").transform;
+		temp.transform.SetParent(canvas_tform);
+		temp.transform.localPosition = temp.transform.position;
+		LevelPopupScript lps = temp.GetComponent<LevelPopupScript>();
+		lps.Initialise(mission);
 		avail_missions.Add (temp);
 		Debug.Log (avail_missions.Count);
 	}
@@ -78,11 +92,11 @@ public class HUBManager : MonoBehaviour {
 		bool running = true;
 		bool same_pos_found = false;
 		while (running) {
-			temp.x = Random.Range(0, Screen.width - 100);
-			temp.y = Random.Range(0, Screen.height - 100);
+			temp.x = Random.Range(30 - Screen.width, Screen.width - 286);
+			temp.y = Random.Range(30, Screen.height - 350);
 			temp.z = Random.Range(0, 40);
-			foreach (HUBMission mission in avail_missions) {
-				if(mission.pos.Equals(temp))
+			foreach (GameObject mission in avail_missions) {
+				if(mission.transform.position.Equals(temp))
 				{
 					same_pos_found = true;
 					break;

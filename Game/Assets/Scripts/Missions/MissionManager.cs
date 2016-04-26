@@ -56,7 +56,7 @@ public class MissionManager : MonoBehaviour {
 		time_since_last_new_mission = new Stopwatch ();
 		time_since_last_new_mission.Start ();
 		DontDestroyOnLoad (this);
-		GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
+		//GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().Initialise (avail_missions);
 	}
 	
 	// Update is called once per frame
