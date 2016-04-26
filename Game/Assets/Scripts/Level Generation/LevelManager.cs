@@ -434,7 +434,9 @@ public class LevelManager : MonoBehaviour {
 			}
 
 			if(mt == MissionType.ILLNESS)
-				Destroy(events[i]);
+			{
+				Destroy(events[i].transform.root);
+			}
 			try
 			{
 				events[i].GetComponent<Event>().EventNotNeeded();

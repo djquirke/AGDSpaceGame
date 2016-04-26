@@ -26,6 +26,8 @@ public class OxygenEvent : Event {
 
     public override void Activate()
     {
+		fixed_prefab.SetActive(true);
+		EventNotNeeded();
         Success();
     }
     public override void PauseGame(bool pause = true)

@@ -214,7 +214,7 @@ public class QuickTimeEvent : Event {
                     //win
 					m_isActive = false;
                     Success();
-                    SetMaterial(CompleteMat);
+					RestoreCharacter();
                    // GetComponentInChildren<Renderer>().material = CompleteMat;
 
                 }
@@ -223,7 +223,7 @@ public class QuickTimeEvent : Event {
                     //win
 					m_isActive = false;
                     Success();
-                    SetMaterial(CompleteMat);
+					RestoreCharacter();
                     //GetComponentInChildren<Renderer>().material = CompleteMat;
                 }
                 else
@@ -243,6 +243,13 @@ public class QuickTimeEvent : Event {
 
 		}
 	
+	}
+
+	
+	private void RestoreCharacter()
+	{
+		SetMaterial(CompleteMat);
+		Destroy(transform.parent.gameObject.GetComponentInChildren<ParticleSystem>().gameObject);
 	}
 
 	public bool GetisActive()

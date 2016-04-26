@@ -17,7 +17,11 @@ public class HUDstats : MonoBehaviour {
 
     public GameObject OxygenBarMain = null;
     public RectTransform OxygenBarSize = null;
-    public GameObject OxygenBarFill = null;
+	public GameObject OxygenBarFill = null;
+	public GameObject OxygenGraphic = null;
+	public GameObject EngineerGraphic = null;
+	public GameObject IllnessGraphic = null;
+	private GameObject drawSprite = null;
     public Text OxygenText = null;
 
     private MissionManager mm = null;
@@ -31,6 +35,29 @@ public class HUDstats : MonoBehaviour {
         {
             OxygenBarMain.SetActive(false);
         }
+
+		if(mm.ActiveMissionType() == MissionType.ENGINEERING) drawSprite = EngineerGraphic;
+		else if(mm.ActiveMissionType() == MissionType.OXYGEN) drawSprite = OxygenGraphic;
+		else if(mm.ActiveMissionType() == MissionType.ILLNESS) drawSprite = IllnessGraphic;
+
+		SpawnDrawSprite();
+	}
+
+	private void SpawnDrawSprite()
+	{
+		GameObject placeholder = GameObject.Find("MissionTypeBG");
+		RectTransform[] temp = placeholder.GetComponentsInChildren<RectTransform>();
+		RectTransform child = temp[1];
+//		foreach(RectTransform rt in temp)
+//		{
+//
+//			//Debug.Log("HUD STUFF:" + rt.name);
+//		}
+		Destroy(child.gameObject);
+		GameObject icon = (GameObject)Instantiate(drawSprite);
+		icon.transform.SetParent(placeholder.transform);
+		icon.transform.localPosition = child.localPosition;
+		icon.transform.localScale = child.localScale;
 	}
 	
 	// Update is called once per frame
