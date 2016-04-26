@@ -435,7 +435,7 @@ public class LevelManager : MonoBehaviour {
 
 			if(mt == MissionType.ILLNESS)
 			{
-				Destroy(events[i].transform.root);
+				Destroy(events[i].transform.root.gameObject);
 			}
 			try
 			{

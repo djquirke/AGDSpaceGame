@@ -55,6 +55,7 @@ public class QuickTimeEvent : Event {
 
     public Material IncompleteMat;
     public Material CompleteMat;
+	public GameObject finished_effect;
 
 	private bool m_isActive = false;
 
@@ -214,7 +215,7 @@ public class QuickTimeEvent : Event {
                     //win
 					m_isActive = false;
                     Success();
-					RestoreCharacter();
+					StartCoroutine(RestoreCharacter());
                    // GetComponentInChildren<Renderer>().material = CompleteMat;
 
                 }
@@ -222,8 +223,8 @@ public class QuickTimeEvent : Event {
                 {
                     //win
 					m_isActive = false;
-                    Success();
-					RestoreCharacter();
+					Success();
+					StartCoroutine(RestoreCharacter());
                     //GetComponentInChildren<Renderer>().material = CompleteMat;
                 }
                 else
@@ -246,10 +247,16 @@ public class QuickTimeEvent : Event {
 	}
 
 	
-	private void RestoreCharacter()
+	private IEnumerator RestoreCharacter()
 	{
 		SetMaterial(CompleteMat);
+		//transform.parent.gameObject.GetComponentInChildren<ParticleSystem>().Stop();
 		Destroy(transform.parent.gameObject.GetComponentInChildren<ParticleSystem>().gameObject);
+		yield return new WaitForEndOfFrame();
+
+		GameObject obj = (GameObject)Instantiate(finished_effect, this.transform.position, this.transform.rotation);
+		obj.transform.Rotate(new Vector3(270, 0, 0));
+		obj.transform.SetParent(transform.root);
 	}
 
 	public bool GetisActive()
