@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 478994}
   - 135: {fileID: 13578994}
   - 114: {fileID: 11478994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OutLineTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,6 +41,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutLineShader: {fileID: 4800000, guid: 76d6ea620350687409ead2c0944b7ed6, type: 3}
+  OutLineColour: {r: 1, g: 0, b: 0, a: 1}
+  OutLineObject: {fileID: 0}
 --- !u!135 &13578994
 SphereCollider:
   m_ObjectHideFlags: 1

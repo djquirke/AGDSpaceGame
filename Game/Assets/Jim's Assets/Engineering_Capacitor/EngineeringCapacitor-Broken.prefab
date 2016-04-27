@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 419622}
   - 198: {fileID: 19819622}
   - 199: {fileID: 19919622}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparkes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 419624}
   - 198: {fileID: 19819624}
   - 199: {fileID: 19919624}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparkes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 419626}
   - 198: {fileID: 19819626}
   - 199: {fileID: 19919626}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparkes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - 4: {fileID: 419628}
   - 198: {fileID: 19819628}
   - 199: {fileID: 19919628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparkes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - 65: {fileID: 6519622}
   - 114: {fileID: 11482146}
   - 65: {fileID: 6599034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EngineeringCapacitor-Broken
   m_TagString: Event
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 499034}
   - 114: {fileID: 11420218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OutLineTrigger-Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - 4: {fileID: 499036}
   - 135: {fileID: 13599034}
   - 114: {fileID: 11499034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OutLineTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutLineShader: {fileID: 4800000, guid: 76d6ea620350687409ead2c0944b7ed6, type: 3}
   OutLineColour: {r: 1, g: 0, b: 0, a: 1}
+  OutLineObject: {fileID: 0}
 --- !u!135 &13599034
 SphereCollider:
   m_ObjectHideFlags: 1

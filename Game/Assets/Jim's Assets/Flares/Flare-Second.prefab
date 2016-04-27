@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d323c17d73a22846b654d90fe648417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceCap: 15
+  distanceCap: 45
   isRandom: 0
 --- !u!123 &12307662
 LensFlare:
@@ -55,7 +55,7 @@ LensFlare:
   m_FadeSpeed: 2
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 6
+    m_Bits: 512
   m_Directional: 0
 --- !u!1001 &100100000
 Prefab:

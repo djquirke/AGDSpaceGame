@@ -41,6 +41,8 @@ TagManager:
   - HUBCanvas
   - HUBGlass
   - 
+  - Decal
+  - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
   Builtin Layer 2: Ignore Raycast
@@ -50,7 +52,7 @@ TagManager:
   Builtin Layer 6: 
   Builtin Layer 7: 
   User Layer 8: PipeGame
-  User Layer 9: 
+  User Layer 9: Flares
   User Layer 10: 
   User Layer 11: 
   User Layer 12: 
@@ -77,4 +79,8 @@ TagManager:
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: Sprites
+    userID: 1
+    uniqueID: 1646357929
     locked: 0
