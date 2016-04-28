@@ -8,8 +8,8 @@ public class Player_Movement : MonoBehaviour {
     
 
    // public float TurnSpeed_Mulitplier = 1.0f;
-    public float MoveSpeed_mulitplier = 1.0f;
-    public float RunSpeed_mulitplier = 2.0f;
+    public float MoveSpeed_mulitplier = 2.0f;
+    public float RunSpeed_mulitplier = 2.72f;
 
 
     private GameObject Front, mesh;
@@ -253,10 +253,12 @@ public class Player_Movement : MonoBehaviour {
                 {
                     EnablePlayerMovement(false);
                     GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
-                    other.GetComponent<Event>().Activate();
-                }
-            }
-            else
+					other.GetComponent<Event>().Activate();
+					if(Anim)
+						Anim.current = 0;//m_Velocity.magnitude / (RunSpeed_mulitplier) * Anim.max;
+				}
+			}
+			else
             {
                 GameObject.FindGameObjectWithTag("HUD Camera").GetComponent<HUDstats>().event_close = false;
             }
@@ -279,6 +281,10 @@ public class Player_Movement : MonoBehaviour {
 
         }
 
+		if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().StayOpen();
+		}
 
     }
 
@@ -298,7 +304,7 @@ public class Player_Movement : MonoBehaviour {
 		}
 		else if(other.tag.Equals("Door"))
 		{
-			other.GetComponent<DoorManager>().Close();
+			StartCoroutine(other.GetComponent<DoorManager>().Close());
 		}
 	}
 

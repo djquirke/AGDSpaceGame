@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3362640}
   - 23: {fileID: 2362640}
   - 95: {fileID: 9562640}
+  - 65: {fileID: 6507356}
   m_Layer: 0
   m_Name: Conveyor Storage - Prefab
   m_TagString: Untagged
@@ -57,6 +58,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162640}
   m_Mesh: {fileID: 4300000, guid: a7075f382396f7e46b864793b17709f5, type: 3}
+--- !u!65 &6507356
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162640}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .356847018, y: .843473315, z: 1.12648368}
+  m_Center: {x: .178423509, y: .00938017666, z: .563241601}
 --- !u!95 &9562640
 Animator:
   serializedVersion: 3

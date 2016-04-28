@@ -1329,12 +1329,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd253830b3edd0d418789b9e8f32be49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EasyReactionTime: 4
-  MedReactionTime: 2
-  HardReactionTime: 1
-  EasyNumberofEvents: 2
-  MedNumberofEvents: 4
-  HardNumberofEvents: 6
+  EasyReactionTime: 1.5
+  MedReactionTime: 1
+  HardReactionTime: .699999988
+  InsaneReactionTime: .699999988
+  EasyNumberofEvents: 10
+  MedNumberofEvents: 12
+  HardNumberofEvents: 10
+  InsaneNumberofEvents: 15
   m_UI_Pos: {x: .5, y: .5}
   m_UI_Size: {x: 128, y: 128}
   m_xBoxTex:
@@ -1357,7 +1359,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: b165a783d1324b246b7cabaf55893cee, type: 3}
   IncompleteMat: {fileID: 2100000, guid: 264f429c6ea5ce740b0f6b0be7dd38e6, type: 2}
   CompleteMat: {fileID: 2100000, guid: 1f08251aa3c848a4dbe07e98c43e9c71, type: 2}
-  finished_effect: {fileID: 0}
+  finished_effect: {fileID: 111090, guid: 63a543809ea8aab46bb3631523c3052e, type: 2}
 --- !u!114 &11410806
 MonoBehaviour:
   m_ObjectHideFlags: 1

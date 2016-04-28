@@ -5,15 +5,15 @@ using System.Diagnostics;
 using System.Threading;
 
 public class LevelManager : MonoBehaviour {
-
+	
 	private GameObject[] rooms;
 	private MissionType mt;
 	private Difficulty difficulty;
 	private int MAX_NPC_COUNT = 25;
-
-    private Object ActiveLoadingScreen = null;
-
-    private bool Loading = false;
+	
+	private Object ActiveLoadingScreen = null;
+	
+	private bool Loading = false;
 	private bool nodes_disabled = false;
 	private bool npcs_generated = false;
 	private bool events_randomised = false;
@@ -27,42 +27,42 @@ public class LevelManager : MonoBehaviour {
 	private bool oxygen_disabled = false;
 	private bool player_spawned = false;
 	private float wait_time = 0.3f;
-
+	
 	private LoadingScreen ls;
-
+	
 	// Use this for initialization
 	void Start () {
 		MissionManager mm = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>();
 		mt = mm.ActiveMissionType ();
 		difficulty = mm.ActiveMissionDifficulty();
-
-        Loading = true;
-
-        ActiveLoadingScreen = Instantiate(mm.LoadingScreen);
+		
+		Loading = true;
+		
+		ActiveLoadingScreen = Instantiate(mm.LoadingScreen);
 		//ls = mm.LoadingScreen.GetComponent<LoadingScreen>();
 		//UnityEngine.Debug.Log(ls);
-        StartCoroutine("GenerateLevel");
+		StartCoroutine("GenerateLevel");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-        if(ActiveLoadingScreen && !Loading)
-        {
-            Destroy(ActiveLoadingScreen);
-            ActiveLoadingScreen = null;
-        }
+		
+		if(ActiveLoadingScreen && !Loading)
+		{
+			Destroy(ActiveLoadingScreen);
+			ActiveLoadingScreen = null;
+		}
 	}
-
-
-    private IEnumerator GenerateLevel()
-    {
-        // 1. Split rooms
-        // 2. Randomly rotate rooms before making ship accessible
-        // 3. Rotate rooms until fully accessible ship
-        // 4. Delete doors/walls appropriately
-        // 5. Remove overlapping walls
-        // 6. Dynamic floor
+	
+	
+	private IEnumerator GenerateLevel()
+	{
+		// 1. Split rooms
+		// 2. Randomly rotate rooms before making ship accessible
+		// 3. Rotate rooms until fully accessible ship
+		// 4. Delete doors/walls appropriately
+		// 5. Remove overlapping walls
+		// 6. Dynamic floor
 		////yield return new WaitForEndOfFrame();
 		ls = GameObject.FindGameObjectWithTag("LoadScreen").GetComponentInChildren<LoadingScreen>();
 		yield return new WaitForSeconds(wait_time);
@@ -70,23 +70,23 @@ public class LevelManager : MonoBehaviour {
 		yield return new WaitForSeconds(wait_time);
 		//LoadingScreen ls = mm.LoadingScreen.GetComponent<LoadingScreen>();
 		UnityEngine.Debug.Log(ls);
-        StartCoroutine(SplitRooms());
+		StartCoroutine(SplitRooms());
 		rooms = GameObject.FindGameObjectsWithTag("Room");
 		StartCoroutine(RandomRoomRotation());
 		StartCoroutine(MakeShipAccessible());
 		StartCoroutine(RemoveWallDoors());
 		StartCoroutine(RemoveOverlappingColumns());
 		StartCoroutine(CalculateFloor());
-        StartCoroutine(CheckDisableEngineering());
+		StartCoroutine(CheckDisableEngineering());
 		StartCoroutine(CheckDisableOxygen());
 		StartCoroutine(DisableInvalidNodes());
 		StartCoroutine(GenerateNPCs ());
 		StartCoroutine(SpawnPlayer());
 		StartCoroutine(RandomiseEvents());
 		StartCoroutine(GenerateAIPaths());
-
-        
-    }
+		
+		
+	}
 	private bool CheckShipAccessible()
 	{
 		bool ret = false;
@@ -101,7 +101,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		return ret;
 	}
-
+	
 	private IEnumerator CalculateFloor()
 	{
 		while(!ol_columns_removed)
@@ -115,7 +115,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		floor_calculated = true;
 	}
-
+	
 	private IEnumerator RemoveWallDoors()
 	{
 		while(!ship_accessible)
@@ -159,13 +159,13 @@ public class LevelManager : MonoBehaviour {
 		}
 		wall_doors_removed = true;
 	}
-
+	
 	private IEnumerator MakeShipAccessible ()
 	{
-//		foreach(GameObject room in rooms)
-//		{
-//			room.GetComponent<RoomManager>().SafeNeighbourCheck();
-//		}
+		//		foreach(GameObject room in rooms)
+		//		{
+		//			room.GetComponent<RoomManager>().SafeNeighbourCheck();
+		//		}
 		while(!rooms_rotated)
 			yield return new WaitForSeconds(wait_time);
 		//yield return new WaitForEndOfFrame();
@@ -194,7 +194,7 @@ public class LevelManager : MonoBehaviour {
 		//yield return new WaitForEndOfFrame();
 		ship_accessible = true;
 	}
-
+	
 	private IEnumerator SplitRooms()
 	{
 		//yield return new WaitForEndOfFrame();
@@ -202,14 +202,14 @@ public class LevelManager : MonoBehaviour {
 		{
 			GameObject[] room_templates = GameObject.FindGameObjectsWithTag("RoomTemplate");
 			GameObject[] dmbs = GameObject.FindGameObjectsWithTag("DMB");
-
+			
 			foreach(GameObject dmb in dmbs)
 			{
 				int r = Random.Range(0, 2);
 				if(r == 0)
 					dmb.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
 			}
-
+			
 			foreach(GameObject template in room_templates)
 			{
 				template.GetComponent<RoomSplitter>().Split();
@@ -218,7 +218,7 @@ public class LevelManager : MonoBehaviour {
 		rooms_split = true;
 		yield break;
 	}
-
+	
 	private IEnumerator RandomRoomRotation()
 	{
 		while(!rooms_split)
@@ -228,7 +228,7 @@ public class LevelManager : MonoBehaviour {
 		foreach(GameObject room in rooms)
 		{
 			if(room.GetComponent<RoomManager>().type == RoomType.FLIGHT_DECK) continue;
-
+			
 			int r = Random.Range(0, 4);
 			for(int i = 0; i < r; i++)
 			{
@@ -237,7 +237,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		rooms_rotated = true;
 	}
-
+	
 	private IEnumerator RemoveOverlappingColumns ()
 	{
 		while(!wall_doors_removed)
@@ -258,7 +258,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		ol_columns_removed = true;
 	}
-
+	
 	private IEnumerator GenerateNPCs ()
 	{
 		while(!nodes_disabled)
@@ -271,7 +271,7 @@ public class LevelManager : MonoBehaviour {
 		{
 			room.GetComponent<NPCGenarator>().Initialise(mt);
 		}
-
+		
 		GameObject[] npcs = GameObject.FindGameObjectsWithTag("AI");
 		UnityEngine.Debug.Log("num of npcs:" + npcs.Length);
 		if(npcs.Length > MAX_NPC_COUNT)
@@ -293,7 +293,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		npcs_generated = true;
 	}
-
+	
 	private IEnumerator SpawnPlayer()
 	{
 		while(!npcs_generated)
@@ -304,7 +304,7 @@ public class LevelManager : MonoBehaviour {
 		player_spawned = true;
 		InitialiseFlares();
 	}
-
+	
 	private void InitialiseFlares()
 	{
 		GameObject[] flares = GameObject.FindGameObjectsWithTag("Flare");
@@ -313,13 +313,13 @@ public class LevelManager : MonoBehaviour {
 			flare.GetComponent<FlareController>().Initialise();
 		}
 	}
-
+	
 	private int CountMinigames()
 	{
 		GameObject[] events = GameObject.FindGameObjectsWithTag("Event");
 		return events.Length;
 	}
-
+	
 	//TODO: remove all broken engineer panels or fixed ones based on if it is an engineer level
 	private IEnumerator CheckDisableEngineering()
 	{
@@ -349,7 +349,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		engineering_disabled = true;
 	}
-
+	
 	private IEnumerator CheckDisableOxygen()
 	{
 		while(!floor_calculated)
@@ -376,7 +376,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		oxygen_disabled = true;
 	}
-
+	
 	private IEnumerator RandomiseEvents ()
 	{
 		while(!player_spawned)
@@ -385,7 +385,7 @@ public class LevelManager : MonoBehaviour {
 		ls.current_loading_phase = "Randomising Events...";
 		int x = CountMinigames();
 		UnityEngine.Debug.Log ("Minigames to choose from:" + x);
-
+		
 		List<int> the_chosen_ones = new List<int> ();
 		int r;
 		switch (difficulty) {
@@ -416,9 +416,9 @@ public class LevelManager : MonoBehaviour {
 		default:
 			break;
 		}
-
+		
 		GameObject[] events = GameObject.FindGameObjectsWithTag("Event");
-
+		
 		for (int i = 0; i < x; i++)
 		{
 			if(the_chosen_ones.Contains(i))
@@ -432,7 +432,7 @@ public class LevelManager : MonoBehaviour {
 				catch{}
 				continue;
 			}
-
+			
 			if(mt == MissionType.ILLNESS)
 			{
 				Destroy(events[i].transform.root.gameObject);
@@ -443,19 +443,19 @@ public class LevelManager : MonoBehaviour {
 			}
 			catch {}
 		}
-
+		
 		events_randomised = true;
 	}
-
+	
 	private List<int> ChooseRandomNumbers(int num, int events)
 	{
 		List<int> temp = new List<int> ();
-        if(events < num)
-        {
-            UnityEngine.Debug.LogWarning("Number of events wanted " + num + " number of events found " + events);
-            num = events;
-        }
-
+		if(events < num)
+		{
+			UnityEngine.Debug.LogWarning("Number of events wanted " + num + " number of events found " + events);
+			num = events;
+		}
+		
 		int counter = 0;
 		while (counter < num)
 		{
@@ -464,10 +464,10 @@ public class LevelManager : MonoBehaviour {
 			temp.Add(r);
 			counter++;
 		}
-
+		
 		return temp;
 	}
-
+	
 	private IEnumerator GenerateAIPaths()
 	{
 		while(!events_randomised)
@@ -485,7 +485,7 @@ public class LevelManager : MonoBehaviour {
 			}
 			catch {}
 		}
-
+		
 		int minigames = CountMinigames();
 		UnityEngine.Debug.Log("level loaded");
 		GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().LevelLoaded(minigames);

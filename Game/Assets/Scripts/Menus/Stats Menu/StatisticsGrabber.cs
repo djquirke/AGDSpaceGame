@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class StatisticsGrabber : MonoBehaviour {
 
+	public Text Total_Score = null;
     public Text Missions_Complete = null;
     public Text Missions_Failed = null;
     public Text Medic_Missions = null;
@@ -19,6 +20,10 @@ public class StatisticsGrabber : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
+		if(Total_Score)
+		{
+			Total_Score.text = MissionManager.totalScore.ToString();
+		}
         if(Missions_Complete)
         {
             Missions_Complete.text = MissionManager.Missions_Won.ToString();

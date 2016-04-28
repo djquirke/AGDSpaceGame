@@ -34,16 +34,18 @@ public class QuickTimeEvent : Event {
     private List<KeyBoardInput> m_KeyList = new List<KeyBoardInput>();
     private List<ControllerInput> m_ButtonList = new List<ControllerInput>();
 
-    public float EasyReactionTime = 4f;
-    public float MedReactionTime = 2f;
-    public float HardReactionTime = 1f;
-
-    public int EasyNumberofEvents = 2;
-    public int MedNumberofEvents = 4;
-    public int HardNumberofEvents = 6;
-
-
-    private float m_reaction_time = 2f;
+    public float EasyReactionTime = 2f;
+    public float MedReactionTime = 1.5f;
+	public float HardReactionTime = 1f;
+	public float InsaneReactionTime = 0.75f;
+	
+	public int EasyNumberofEvents = 10;
+    public int MedNumberofEvents = 12;
+	public int HardNumberofEvents = 10;
+	public int InsaneNumberofEvents = 15;
+	
+	
+	private float m_reaction_time = 2f;
 
     private int m_Number_of_events = 0;
 
@@ -87,24 +89,30 @@ public class QuickTimeEvent : Event {
         Difficulty d = GameObject.FindGameObjectWithTag("MissionManager").GetComponent<MissionManager>().ActiveMissionDifficulty();
         switch (d)
         {
-            case Difficulty.Easy:
-                {
-                    m_reaction_time = EasyReactionTime;
-                    m_Number_of_events = EasyNumberofEvents;
-                    break;
-                }
-            case Difficulty.Medium:
-                {
-                    m_reaction_time = MedReactionTime;
-                    m_Number_of_events = MedNumberofEvents;
-                    break;
-                }
-            default:
-                {
-                    m_reaction_time = HardReactionTime;
-                    m_Number_of_events = HardNumberofEvents;
-                    break;
-                }
+        case Difficulty.Easy:
+        {
+            m_reaction_time = EasyReactionTime;
+            m_Number_of_events = EasyNumberofEvents;
+            break;
+        }
+        case Difficulty.Medium:
+        {
+            m_reaction_time = MedReactionTime;
+            m_Number_of_events = MedNumberofEvents;
+            break;
+        }
+		case Difficulty.Hard:
+		{
+			m_reaction_time = HardReactionTime;
+			m_Number_of_events = HardNumberofEvents;
+			break;
+		}
+		case Difficulty.Insane:
+		{
+			m_reaction_time = InsaneReactionTime;
+			m_Number_of_events = InsaneNumberofEvents;
+			break;
+		}
 
         }
        

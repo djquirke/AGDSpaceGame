@@ -11,7 +11,7 @@ public class DecalController : MonoBehaviour {
     public bool locked = false;
 	// Use this for initialization
 	void Start () {
-        if (SpriteOverride)
+		if (SpriteImage)
         {
             SpriteRenderer spt = GetComponent<SpriteRenderer>();
             spt.sprite = SpriteImage;
@@ -33,6 +33,7 @@ public class DecalController : MonoBehaviour {
         
         yield return new WaitForSeconds(2);
         GameObject[] DecalNumbers = GameObject.FindGameObjectsWithTag("Decal");
+		Debug.Log ("DECALS FOUND: " + DecalNumbers.Length);
         foreach (GameObject DecalObj in DecalNumbers)
         {
             DecalController targetScript = DecalObj.GetComponent<DecalController>() as DecalController;

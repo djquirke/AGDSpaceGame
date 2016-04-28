@@ -66,7 +66,7 @@ public class AIMovement : MonoBehaviour {
 	//private bool draw_line = true;
 	//private List<Node> successor_nodes;
 	private float lerp_step = 0;
-	private int nodes_traversed = 1;
+	private int nodes_traversed = 0;
 	// Use this for initialization
 	private Stopwatch idle_time = new Stopwatch();
 	private bool idle = false;
@@ -103,7 +103,7 @@ public class AIMovement : MonoBehaviour {
 		destination = null;
 		path = new List<Node>();
 		lerp_step = 0;
-		nodes_traversed = 1;
+		nodes_traversed = 0;
 		//successor_nodes.Clear();
 	}
 
@@ -169,7 +169,7 @@ public class AIMovement : MonoBehaviour {
 			while (running && counter < 50)
 			{
 				int x = UnityEngine.Random.Range(0, goal_nodes.Count - 1);
-				UnityEngine.Debug.Log("rand:" + x + "size:" + goal_nodes.Count);
+				//UnityEngine.Debug.Log("rand:" + x + "size:" + goal_nodes.Count);
 				NodeController nc = goal_nodes[x].GetComponent<NodeController>();
 				running = nc.getIsChosenNode();
 				counter++;
@@ -243,7 +243,7 @@ public class AIMovement : MonoBehaviour {
 				prev_pos = current_walking_node.transform.position;
 				lerp_step = 0;
 				//check if at goal
-				if(Vector3.Distance(current_walking_node.transform.position, destination.GetObject().transform.position) < 0.1f)
+				if(path.Count + 1 == nodes_traversed)//Vector3.Distance(current_walking_node.transform.position, destination.GetObject().transform.position) < 0.1f)
 				{
 					time_to_idle = UnityEngine.Random.Range(0, 5);
 					idle_time = new Stopwatch();
@@ -498,11 +498,18 @@ public class AIMovement : MonoBehaviour {
 			TraverseTree(goal_node);
 			UnityEngine.Debug.Log ("path length:" + path.Count);
             if (path.Count <= 1) 
-                yield break;
-			current_standing_node = path[path.Count - nodes_traversed].GetObject();
+				yield break;
+			nodes_traversed++;
+			try {
+				
+				current_standing_node = path[path.Count - nodes_traversed].GetObject();
+			} catch {
+				int x = 5;
+				int y = 7;
+				int z = x + y;
+			}
 			nodes_traversed++;
 			current_walking_node = path[path.Count - nodes_traversed].GetObject();
-			nodes_traversed++;
 			astar_failed = false;
             Path_Found = true;
 		}
@@ -548,7 +555,15 @@ public class AIMovement : MonoBehaviour {
 	{
 		if(other.tag.Equals("Door"))
 		{
-			other.GetComponent<DoorManager>().Close();
+			StartCoroutine(other.GetComponent<DoorManager>().Close());
+		}
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		if(other.tag.Equals("Door"))
+		{
+			other.GetComponent<DoorManager>().StayOpen();
 		}
 	}
 }

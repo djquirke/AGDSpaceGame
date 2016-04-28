@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3393696}
   - 23: {fileID: 2393696}
   - 95: {fileID: 9593696}
+  - 65: {fileID: 6555132}
   m_Layer: 0
   m_Name: Vending-Machine-V2 Prefab
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193696}
-  m_LocalRotation: {x: 1.94290842e-05, y: -.707117915, z: -.707095742, w: -1.92950101e-05}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -57,6 +58,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193696}
   m_Mesh: {fileID: 4300000, guid: 5884a6f4867596149b4b71064b4bc706, type: 3}
+--- !u!65 &6555132
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .710854948, y: .932971478, z: 1.53366685}
+  m_Center: {x: -.036120981, y: 0, z: .766833425}
 --- !u!95 &9593696
 Animator:
   serializedVersion: 3

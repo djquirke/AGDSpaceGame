@@ -25,7 +25,7 @@ public class AfterGameStats : MonoBehaviour {
         }
         if(ScoreText)
         {
-            ScoreText.text = ((int)CurrentMission.TimeRemaining() * (int)CurrentMission.Difficulty() + 1).ToString();
+			ScoreText.text = CurrentMission.Score().ToString();//((((int)CurrentMission.Difficulty() + 1) * (100 * (int)minigames_complete) - 30 * minigames_failed) * (TimeRemaining() / mission_time)).ToString();
 
         }
         if(TimeText)

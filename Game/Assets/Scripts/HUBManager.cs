@@ -7,6 +7,7 @@ public class HUBManager : MonoBehaviour {
 
 	public List<GameObject> avail_missions;
 	public GameObject popup_image;
+	public Text time_till_spawn = null;
 
 	void Start()
 	{
@@ -44,13 +45,21 @@ public class HUBManager : MonoBehaviour {
 		int t = GameObject.FindGameObjectWithTag ("MissionManager").GetComponent<MissionManager> ().TimeSinceNewMission ();
 		int r_t = (MissionManager.TIME_BETWEEN_MISSION_SPAWNS - t) / 1000;
 
+		if(r_t < 0) r_t = 0;
+
 		int mins = r_t / 60;
 		int seconds = r_t - (mins * 60);
 
 		if (seconds < 10) {
-			GUI.TextArea(new Rect(Screen.width / 2 - 50, 50, 100, 20), mins + ":0" + seconds);
+			if (time_till_spawn) {
+				time_till_spawn.text = mins + ":0" + seconds;
+			}
+			//GUI.TextArea(new Rect(Screen.width / 2 - 50, 50, 100, 20), mins + ":0" + seconds);
 		} else {
-			GUI.TextArea(new Rect(Screen.width / 2 - 50, 50, 100, 20), mins + ":" + seconds);
+			if (time_till_spawn) {
+				time_till_spawn.text = mins + ":" + seconds;
+			}
+			//GUI.TextArea(new Rect(Screen.width / 2 - 50, 50, 100, 20), mins + ":" + seconds);
 		}
 
 	}
@@ -92,9 +101,9 @@ public class HUBManager : MonoBehaviour {
 		bool running = true;
 		bool same_pos_found = false;
 		while (running) {
-			temp.x = Random.Range(30 - Screen.width, Screen.width - 286);
-			temp.y = Random.Range(30, Screen.height - 350);
-			temp.z = Random.Range(0, 40);
+			temp.x = Random.Range(128 - Screen.width / 2, 3 * Screen.width / 4 - 286);
+			temp.y = Random.Range(200 - Screen.height / 2, 3 * Screen.height / 4 - 300);
+			temp.z = 400;
 			foreach (GameObject mission in avail_missions) {
 				if(mission.transform.position.Equals(temp))
 				{

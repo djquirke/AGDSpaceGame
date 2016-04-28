@@ -4,9 +4,9 @@ using System.Diagnostics;
 
 public enum MissionType
 {
-	OXYGEN,
 	ENGINEERING,
 	ILLNESS,
+	OXYGEN,
     NUM_OF_MISSIONS
 }
 
@@ -29,11 +29,15 @@ public class Mission {
 	private MissionType mission_type;
 	private Difficulty difficulty;
     private float TimePassed = 0;
+	private int mission_time = 300;
+	private int score = 0;
 
     //stats
 
 
     //end stats
+
+	public int Score() {return score;}
 
 	// Use this for initialization
 	void Start () {
@@ -85,22 +89,38 @@ public class Mission {
 
         switch(mission_type)
         {
-            case MissionType.ENGINEERING:
-            {
-                ++MissionManager.Engineer_Missions;
-                break;
-            }
-            case MissionType.ILLNESS:
-            {
-                ++MissionManager.Medic_Missions;
-                break;
-            }
-            case MissionType.OXYGEN:
-            {
-                ++MissionManager.Oxygen_Missions;
-                break;
-            }
+        case MissionType.ENGINEERING:
+        {
+            ++MissionManager.Engineer_Missions;
+
+            break;
         }
+        case MissionType.ILLNESS:
+        {
+            ++MissionManager.Medic_Missions;
+            break;
+        }
+        case MissionType.OXYGEN:
+        {
+            ++MissionManager.Oxygen_Missions;
+            break;
+        }
+        }
+
+		switch (difficulty) {
+		case global::Difficulty.Easy:
+			mission_time = MissionManager.EASY_MISSION_LENGTH_SECONDS;
+			break;
+		case global::Difficulty.Medium:
+			mission_time = MissionManager.MEDIUM_MISSION_LENGTH_SECONDS;
+			break;
+		case global::Difficulty.Hard:
+			mission_time = MissionManager.HARD_MISSION_LENGTH_SECONDS;
+			break;
+		case global::Difficulty.Insane:
+			mission_time = MissionManager.INSANE_MISSION_LENGTH_SECONDS;
+			break;
+		}
 
 		//time_elapsed.Start ();
 	}
@@ -118,8 +138,9 @@ public class Mission {
 	{
 		if(TimeRemaining() > 0)
 		{
-            if (MissionManager.HiScore < TimeRemaining() * ((int)difficulty + 1))
-                MissionManager.HiScore = (int)TimeRemaining() * ((int)difficulty + 1);
+			score = (int)((((int)difficulty + 1) * (100 * (int)minigames_complete) - 30 * minigames_failed) * (TimeRemaining() / mission_time));
+            if (MissionManager.HiScore < score)
+                MissionManager.HiScore = score;
 
             switch(difficulty)
             {
@@ -149,6 +170,7 @@ public class Mission {
 			//VICTORY ANIMATION
 			mission_won = true;
             ++MissionManager.Missions_Won;
+			MissionManager.totalScore += score;
 			//modify global stats
 		}
 		else
@@ -206,7 +228,7 @@ public class Mission {
 
 	public float TimeRemaining()
 	{
-        return (float)(MissionManager.MISSION_LENGTH_SECONDS - TimePassed);
+        return (float)(mission_time - TimePassed);
 	}
 
 	public MissionType missionType()
@@ -226,7 +248,7 @@ public class Mission {
 
     public void QuitMission()
     {
-        TimePassed = MissionManager.MISSION_LENGTH_SECONDS;
+		TimePassed = mission_time;//MissionManager.MISSION_LENGTH_SECONDS;
     }
 
     public int miniGamesDone() { return minigames_complete; }

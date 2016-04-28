@@ -6,6 +6,7 @@ public class DoorManager : MonoBehaviour {
 	//private bool open;
 	public bool gives_access = false;
 	private Animator[] doors;
+	private bool open;
 
 	// Use this for initialization
     private bool doorState = false;
@@ -23,17 +24,23 @@ public class DoorManager : MonoBehaviour {
 
 	public void Open()
 	{
-		if (doors == null)
+		if (doors == null || open)
 			return;
 
 		foreach(Animator door in doors)
 		{
 			AnimateDoor(door, "Open");
 		}
+		open = true;
 	}
 
-	public void Close()
+	public void StayOpen() {open = true;}
+
+	public IEnumerator Close()
 	{
+		open = false;
+		yield return new WaitForSeconds(0.25f);
+		if(open) yield break;
 		foreach(Animator door in doors)
 		{
 			AnimateDoor(door, "Close");

@@ -7,7 +7,10 @@ public class MissionManager : MonoBehaviour {
 	static int MAX_AVAILABLE_MISSIONS = 5;
 	public static int TIME_BETWEEN_MISSION_SPAWNS = 240000;
 	static MissionManager instance = null;
-	public static int MISSION_LENGTH_SECONDS = 300;
+	public static int EASY_MISSION_LENGTH_SECONDS = 300;
+	public static int MEDIUM_MISSION_LENGTH_SECONDS = 270;
+	public static int HARD_MISSION_LENGTH_SECONDS = 240;
+	public static int INSANE_MISSION_LENGTH_SECONDS = 210;
 	public static string HUB_WORLD_SCENE = "HUB_World";
 
     public List<string> Illness_Levels;
@@ -39,6 +42,7 @@ public class MissionManager : MonoBehaviour {
     public static int Hard_Mission = 0;
     public static int Insane_Mission = 0;
     public static int HiScore = 0;
+	public static int totalScore = 0;
 
     //end stat data
 
@@ -118,7 +122,7 @@ public class MissionManager : MonoBehaviour {
         case 2: // Oxygen
             if (Oxygen_Levels.Count > 0)
             {
-                new_mission.Initialise(MissionType.OXYGEN, (Difficulty)y, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)], avail_missions.Count);
+                new_mission.Initialise(MissionType.OXYGEN, Difficulty.Medium, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)], avail_missions.Count);
                 avail_missions.Add(new_mission);
                 UnityEngine.Debug.Log("Oxygen Created");
             }

@@ -672,7 +672,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.20000005, y: 3.04999995, z: -7.03000021}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 434422}
@@ -1345,12 +1345,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd253830b3edd0d418789b9e8f32be49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EasyReactionTime: 4
-  MedReactionTime: 2
-  HardReactionTime: 1
-  EasyNumberofEvents: 2
-  MedNumberofEvents: 4
-  HardNumberofEvents: 6
+  EasyReactionTime: 1.5
+  MedReactionTime: 1
+  HardReactionTime: .699999988
+  InsaneReactionTime: .699999988
+  EasyNumberofEvents: 10
+  MedNumberofEvents: 12
+  HardNumberofEvents: 10
+  InsaneNumberofEvents: 15
   m_UI_Pos: {x: .5, y: .5}
   m_UI_Size: {x: 128, y: 128}
   m_xBoxTex:

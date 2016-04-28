@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3384684}
   - 23: {fileID: 2384684}
   - 95: {fileID: 9584684}
+  - 65: {fileID: 6599226}
   m_Layer: 0
   m_Name: Vending-Machine-V1 Prefab
   m_TagString: Untagged
@@ -57,6 +58,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184684}
   m_Mesh: {fileID: 4300000, guid: 5884a6f4867596149b4b71064b4bc706, type: 3}
+--- !u!65 &6599226
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184684}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .710855305, y: .932972074, z: 1.53366745}
+  m_Center: {x: -.0361209996, y: -1.83979751e-07, z: .766833603}
 --- !u!95 &9584684
 Animator:
   serializedVersion: 3
