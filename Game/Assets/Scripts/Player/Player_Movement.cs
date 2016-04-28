@@ -9,7 +9,7 @@ public class Player_Movement : MonoBehaviour {
 
    // public float TurnSpeed_Mulitplier = 1.0f;
     public float MoveSpeed_mulitplier = 2.0f;
-    public float RunSpeed_mulitplier = 2.72f;
+    public float RunSpeed_mulitplier = 5;
 
 
     private GameObject Front, mesh;
