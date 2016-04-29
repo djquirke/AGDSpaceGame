@@ -31,7 +31,7 @@ public class NPCGenarator : MonoBehaviour {
 			if(r_type != RoomType.MEDIC)
 				weights = new int[]{10, 5};
 			else
-				weights = new int[]{10, 15};
+				weights = new int[]{0, 15};
 		}
 
 		while (0 < NumberOfNPCs--)

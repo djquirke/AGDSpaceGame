@@ -34,10 +34,11 @@ public class DecalController : MonoBehaviour {
         yield return new WaitForSeconds(2);
         GameObject[] DecalNumbers = GameObject.FindGameObjectsWithTag("Decal");
 		Debug.Log ("DECALS FOUND: " + DecalNumbers.Length);
+		if(DecalNumbers.Length == 0) yield break;
         foreach (GameObject DecalObj in DecalNumbers)
         {
             DecalController targetScript = DecalObj.GetComponent<DecalController>() as DecalController;
-            if (!targetScript.SpriteOverride)
+            if (targetScript && !targetScript.SpriteOverride)
             {
                 genList.Add(targetScript.gen);
             }
