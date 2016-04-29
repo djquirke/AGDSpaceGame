@@ -105,7 +105,7 @@ public class MissionManager : MonoBehaviour {
         	if (Engineer_Levels.Count > 0)
 			{
 				UnityEngine.Debug.Log((Difficulty)y);
-                new_mission.Initialise(MissionType.ENGINEERING, (Difficulty)y, Engineer_Levels[Random.Range(0, Engineer_Levels.Count - 1)], avail_missions.Count);
+                new_mission.Initialise(MissionType.ENGINEERING, (Difficulty)y, Engineer_Levels[Random.Range(0, Engineer_Levels.Count)], avail_missions.Count);
 				avail_missions.Add(new_mission);
 				UnityEngine.Debug.Log("Engineer Created");
             }
@@ -114,7 +114,7 @@ public class MissionManager : MonoBehaviour {
             if (Illness_Levels.Count > 0)
 			{
 				UnityEngine.Debug.Log((Difficulty)y);
-				new_mission.Initialise(MissionType.ILLNESS, (Difficulty)y, Illness_Levels[Random.Range(0, Illness_Levels.Count - 1)], avail_missions.Count);
+				new_mission.Initialise(MissionType.ILLNESS, (Difficulty)y, Illness_Levels[Random.Range(0, Illness_Levels.Count)], avail_missions.Count);
                 avail_missions.Add(new_mission);
 				UnityEngine.Debug.Log("Illness Created");
             }
@@ -122,7 +122,7 @@ public class MissionManager : MonoBehaviour {
         case 2: // Oxygen
             if (Oxygen_Levels.Count > 0)
             {
-                new_mission.Initialise(MissionType.OXYGEN, Difficulty.Medium, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count - 1)], avail_missions.Count);
+                new_mission.Initialise(MissionType.OXYGEN, Difficulty.Medium, Oxygen_Levels[Random.Range(0, Oxygen_Levels.Count)], avail_missions.Count);
                 avail_missions.Add(new_mission);
                 UnityEngine.Debug.Log("Oxygen Created");
             }

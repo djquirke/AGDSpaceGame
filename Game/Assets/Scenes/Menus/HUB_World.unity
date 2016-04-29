@@ -889,10 +889,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Illness_Levels:
   - SmallMap
+  - MediumMap
   Engineer_Levels:
   - SmallMap
+  - MediumMap
   Oxygen_Levels:
   - SmallMap
+  - MediumMap
   Pause_Menu: {fileID: 160382, guid: 1830c664825af9e4a8695eed99c36d73, type: 2}
   LoadingScreen: {fileID: 194698, guid: bdc7f51b93481c54e97337c237c7b2be, type: 2}
   StatScreen: {fileID: 176748, guid: c44f1dcbbafcaee4ba8d11e397660e16, type: 2}
