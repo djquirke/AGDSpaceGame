@@ -56,6 +56,7 @@ public class MissionManager : MonoBehaviour {
 		instance = this;
 		avail_missions = new List<Mission> ();
 		active_mission = null;
+		//GenerateMissionBodge();
 		GenerateMission ();
 		time_since_last_new_mission = new Stopwatch ();
 		time_since_last_new_mission.Start ();
@@ -92,6 +93,29 @@ public class MissionManager : MonoBehaviour {
 	{
 		return (int)time_since_last_new_mission.ElapsedMilliseconds;
 	}
+//
+//	void GenerateMissionBodge ()
+//	{
+//		Mission new_mission = new Mission();
+//		new_mission.Initialise(MissionType.ENGINEERING, Difficulty.Insane, Engineer_Levels[0], avail_missions.Count);
+//		avail_missions.Add(new_mission);
+//
+//		Mission new_mission2 = new Mission();
+//		new_mission2.Initialise(MissionType.ILLNESS, Difficulty.Hard, Engineer_Levels[1], avail_missions.Count);
+//		avail_missions.Add(new_mission2);
+//
+//		Mission new_mission3 = new Mission();
+//		new_mission3.Initialise(MissionType.OXYGEN, Difficulty.Medium, Engineer_Levels[0], avail_missions.Count);
+//		avail_missions.Add(new_mission3);
+//
+//		try {
+//			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().AddMission (new_mission);
+//			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().AddMission (new_mission2);
+//			GameObject.FindGameObjectWithTag ("HubManager").GetComponent<HUBManager> ().AddMission (new_mission3);
+//		} catch (System.Exception ex) {
+//			UnityEngine.Debug.Log("Hub Manager not available");
+//		}
+//	}
 
 	void GenerateMission()
 	{
